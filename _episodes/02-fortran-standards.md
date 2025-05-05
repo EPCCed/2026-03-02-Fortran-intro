@@ -1,419 +1,306 @@
 ---
-title: "Measuring and improving LAMMPS performance"
-teaching: 20
-exercises: 30
+title: "Variables: numeric; expressions and assignments, kind"
+teaching: 10
+exercises: 10
 questions:
-- "How can we run LAMMPS on ARCHER2?"
-- "How can we improve the performance of LAMMPS?"
+- ""
 objectives:
-- "Gain an overview of submitting and running jobs on the ARCHER2 service."
-- "Gain an overview of methods to improve the performance of LAMMPS."
+- ""
 keypoints:
-- "LAMMPS offers a number of built in methods to improve performance."
-- "It is important to spend some time understanding your system and 
-   considering its performance."
-- "Where possible, always run a quick benchmark of your system before setting 
-   up a large run."
+- ""
 ---
 
-## What is LAMMPS?
+# Variables
 
-LAMMPS (Large-scale Atomic/Molecular Massively Parallel Simulator) is a versatile classical molecular dynamics software package,
-developed by Sandia National Laboratories and by its wide user-base.
+Fortran provides the following intrinsic data types: numeric types `integer`,
+`real` and `complex`; non-numeric types `logical` and `character`.
 
-It can be downloaded directly from the [Sandia website][lammps-download].
+## Numeric variables of intrinsic type
 
-Everything we are covering today (and a lot of other info) can be found in the 
-[LAMMPS User Manual][lammps-docs].
+The following program declares a variable with each of the three intrinsic
+numeric types, and provides an initial value in each case.
+```
+program example1
 
-## Running LAMMPS on ARCHER2
+   implicit none
 
-ARCHER2 uses a module system.
-In general, you can run LAMMPS on ARCHER2 by using the LAMMPS module:
+   integer :: i = 1            ! A default integer kind
+   real    :: a = 2.0          ! A default floating point kind
+   complex :: z = (0.0, 1.0)   ! A complex kind with (real-part, imag-part)
 
-```bash
-ta132ra@ln01:~> module avail lammps
+end program example1
+```
+Initial values are optional. If a declaration does not specify an initial
+value, the variable is said to be _undefined_.
 
------------------------- /work/y07/shared/archer2-lmod/apps/core ------------------------
-   lammps-python/15Dec2023    lammps/15Dec2023    lammps/17Feb2023 (D)
+### Variable names
 
-  Where:
-   D:  Default Module
-[...]
+The valid Fortran character set for names is `a-z`, `A-Z`, `0-9` and the
+underscore `_`. Valid names must begin with a character. The maximum
+length of a name is 63 characters (F2003) with no spaces allowed.
+This includes names for programs, and names for variables.
+
+Other special characters recognised by Fortran are given in
+[F-SPECIAL-CHARACTERS.md](../docs/F-SPECIAL-CHARACTERS.md).
+
+
+### `implicit` statement
+
+The `implicit` statement defines a type for variable names not explicitly
+declared.  So, the default situation can be represented by
+```
+  implicit integer (i-n), real (a-h, o-z)
+```
+that is, variables with names beginning with letters `i-n` are implicitly
+of type `integer`, while anything else is of type `real` (unless
+explicitly declared otherwise).
+
+By modern standards this is tantamount to recklessness. The general solution
+to prevent errors involving undeclared variables (usually arising from
+typos) is to declare that no names have implicit type via
+```
+implicit none
 ```
 
-For this course, we will be using the most recent version of the LAMMPS module (15Dec2023), not the default one.
-Running `module load lammps/15Dec2023` will set up your environment to use the correct LAMMPS version.
+In this case, all variable names must be declared explicitly before they
+are referenced.
 
-The build instructions for this version are described in the next section of the course.
+However, it is still common to see the idiom that variables beginning
+with `i-n` are integers and so on.
 
-Once your environment is set up, you will have access to the `lmp` LAMMPS executable.
-Note that you will only be able to run this on a single core on the ARCHER2 login node, unless you use the slurm scheduler.
 
-### Submitting a job to the compute nodes
+### Exercise (1 minute)
 
-To run LAMMPS on multiple cores/nodes, you will need to submit a job to the ARCHER2 compute nodes.
-The compute nodes do not have access to the landing `home` file-system -- this file system is to store useful/important information.
-On ARCHER2, when submitting jobs to the compute nodes, make sure that you are in your `/work/ta132/ta132/<username>` directory.
+Compile and run the accompanying program `exercise1.f90`. What's
+the problem and how should we avoid it? Check the compiler can trap
+the problem.
 
-For this course, we have prepared a number of exercises.
-You can get a copy of these exercises by running (make sure to run this from `/work`):
+### `kind` of type
 
-```bash
-git clone --depth=1 https://www.github.com/EPCCed/archer2-advanced-use-of-lammps.git
+The declarations above give us variables of some (implementation-defined)
+default type (typically 4-byte integers, 4-byte reals). A mechanism to
+control the exact kind, or representation,  is provided. For example
+(see `example2.f90`),
+```
+  use iso_fortran_env, only : int64, real64
+  implicit none
+
+  integer (kind = int64)   :: i = 100
+  real    (kind = real64)  :: a = 1.0
+  complex (kind = real64)  :: z = (0.0, 1.0)
+```
+Here we use _kind type parameters_ `int64` and `real64` to specify that
+we require 64-bit integers and 64-bit floating point storage, respectively.
+
+A standard conforming Fortran implementation must provide at least one
+`integer` precision with a decimal exponent range of at least 18 (experience
+suggests all provide at least two kinds). Note that Fortran does not have
+any equivalent of C/C++ unsigned integer types.
+
+An implementation must provide at least two `real` precisions, one default
+precision, and one extended precision (sometimes referenced as
+`double precision`).
+
+Formally, the numeric types are introduced
+```
+  numeric-type-spec [kind-selector] ...
+```
+where the `numeric-type-spec` is one of `integer`, `real`, or `complex`.
+The optional _kind selector_ is
+```
+  ([kind = ] scalar-integer-initialisation-expr)
 ```
 
-Once this is downloaded, please `cd exercises/1-performance-exercise/`.
-In this directory you will find three files:
-
-  - `run.slurm` is a Slurm submission script -- this will let you submit jobs to the compute nodes.
-    Initially, it will run a single core job, but we will be editing it to run on more cores.
-  - `in.ethanol` is the LAMMPS input script that we will be using for this exercise.
-    This script is meant to run a small simulation of 125 ethanol molecules in a periodic box.
-  - `data.ethanol` is a LAMMPS data file for a single ethanol molecule.
-    This template will be copied by the `in.lammps` file to generate our simulation box.
-
-> ## Why ethanol?
-> 
-> The `in.ethanol` LAMMPS input that we are using for this exercise is an easily edited benchmark script used within EPCC to test system performance.
-> The intention of this script is to be easy to edit and alter when running on very varied core/node counts.
-> By editing the `X_LENGTH`, `Y_LENGTH`, and `Z_LENGTH` variables, you can increase the box size substantially.
-> As to the choice of molecule, we wanted something small and with partial charges -- ethanol seemed to fit both of those.
-{: .callout}
-
-To submit your first job on ARCHER2, please run:
-
-```bash
-sbatch run.slurm
+The upshot of this is that the syntax of declarations is quite elastic,
+and you may see a number of different styles. A reasonable form of
+concise declaration with an explicit kind type parameter is:
+```
+  integer (int32)  :: i
+  real    (real32) :: a
+  complex (real32) :: z
 ```
 
-You can check the progress of your job by running `squeue -u ${USER}`. Your job state will go from `PD` (pending) to `R` (running) to `CG` (cancelling).
-Once your job is complete, it will have produced a file called `slurm-####.out` -- this file contains the STDOUT and STDERR produced by your job.
+### Example (2 minutes)
 
-The job will also produce a LAMMPS log file `log.out`.
-In this file, you will find all of the thermodynamic outputs that were specified in the LAMMPS `thermo_style`, as well as some very useful performance information!
-After every `run` is complete, LAMMPS outputs a series of information that can be used to better understand the behaviour of your job.
+Take a moment to compare the output of the programs `example1.f90` and
+`example2.f90`, which declare and initialise a variable of each type and
+print out their values to the screen.
 
+### Numeric literal constants
+
+One may (optionally) specify the kind of an integer literal by appending the
+kind type parameter with an underscore `_`, e.g.:
 ```
-Loop time of 197.21 on 1 procs for 10000 steps with 1350 atoms
-
-Performance: 4.381 ns/day, 5.478 hours/ns, 50.707 timesteps/s
-100.0% CPU use with 1 MPI tasks x 1 OpenMP threads
-
-MPI task timing breakdown:
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 68.063     | 68.063     | 68.063     |   0.0 | 34.51
-Bond    | 5.0557     | 5.0557     | 5.0557     |   0.0 |  2.56
-Kspace  | 5.469      | 5.469      | 5.469      |   0.0 |  2.77
-Neigh   | 115.22     | 115.22     | 115.22     |   0.0 | 58.43
-Comm    | 1.4039     | 1.4039     | 1.4039     |   0.0 |  0.71
-Output  | 0.00034833 | 0.00034833 | 0.00034833 |   0.0 |  0.00
-Modify  | 1.8581     | 1.8581     | 1.8581     |   0.0 |  0.94
-Other   |            | 0.139      |            |       |  0.07
-
-Nlocal:        1350.00 ave        1350 max        1350 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Nghost:        10250.0 ave       10250 max       10250 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Neighs:        528562.0 ave      528562 max      528562 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-
-Total # of neighbors = 528562
-Ave neighs/atom = 391.52741
-Ave special neighs/atom = 7.3333333
-Neighbor list builds = 10000
-Dangerous builds not checked
-Total wall time: 0:05:34
+123
++123
+-123
+12345678910_int64
+```
+Floating point literal constants can take a number of forms. Examples are:
+```
+-3.14
+.314
+1.0e0             ! default precision
+1.0d0             ! extended (double) precision
+3.14_real128      ! may be available
+3.14e-1           ! Scientific notation
+3.14d+1           ! Scientific notation extended precision
 ```
 
-The ultimate aim is always to get your simulation to run in a sensible amount of time.
-This often simply means trying to optimise the final value ("Total wall time"), though some people care more about optimising efficiency (wall time multiplied by core count).
-In this lesson, we will be focusing on what we can do to improve these.
-
-## Increasing computational resources
-
-The first approach that most people take to increase the speed of their simulations is to increase the computational resources.
-If your system can accommodate this, doing this can sometimes lead to "easy" improvements.
-However, this usually comes at an increased cost (if running on a system for which compute is charged) and does not always lead to the desired results.
-
-In your first run, LAMMPS was run on a single core.
-For a large enough system, increasing the number of cores used should reduce the total run time.
-In your `run.slurm` file, you can edit the line:
-
-```bash
-#SBATCH --tasks-per-node=1
+Complex literals are constructed with real and imaginary parts, with each
+part real.
+```
+(0.0, 1.0)        ! square root of -1
 ```
 
-to run on more cores.
-An ARCHER2 node has 128 cores, so you could potential run on up to 128 cores.
+### Parameters
 
-
-> ## Quick benchmark
->
-> As a first exercise, fill in the table below.
-> 
->  |Number of cores| Walltime | Performance (ns/day) |
->  |---------------|----------|----------------------|
->  |   1  | | | |
->  |   2  | | | |
->  |   4  | | | |
->  |   8  | | | |
->  |  16  | | | |
->  |  32  | | | |
->  |  64  | | | |
->  | 128  | | | |
->
-> Do you spot anything unusual in these run times?
-> If so, can you explain this strange result?
-> 
-> > ## Solution
-> > 
-> > The simulation takes almost the same amount of time when running on a single core as when running on two cores.
-> > A more detailed look into the `in.ethanol` file will reveal that this is because the simulation box is not uniformly packed.
-> {: .solution}
-{: .challenge}
-
-> ## Note
-> Here are only considering MPI parallelisation -- 
-> LAMMPS offers the option to run using joint MPI+OpenMP (more on that later),
-> but for the exercises in this lesson, we will only be considering MPI.
-{: .callout}
-
-## Domain decomposition
-
-In the previous exercise, you will (hopefully) have noticed that, while the simulation run time decreases overall as the core count is increased, the run time was the same when run on one processor as it was when run on two processors.
-This unexpected behaviour (for a truly strong-scaling system, you would expect the simulation to run twice as fast on two cores as it does on a single core) can be explained by looking at our starting simulation configuration and understanding how LAMMPS handles domain decomposition.
-
-In parallel computing, domain decomposition describes the methods used to split calculations across the cores being used by the simulation.
-How domain decomposition is handled varies from problem to problem.
-In the field of molecular dynamics (and, by extension, within LAMMPS), this decomposition is done through spatial decomposition -- the simulation box is split up into a number of blocks, with each block being assigned to their own core.
-
-By default, LAMMPS will split the simulation box into a number of equally sized blocks and assign one core per block.
-The amount of work that a given core needs to do is directly linked to the number of atoms within its part of the domain.
-If a system is of uniform density (i.e., if each block contains roughly the same number of particles), then each core will do roughly the same amount of work and will take roughly the same amount of time to calculate interactions and move their part of the system forward to the next timestep.
-If, however, your system is not evenly distributed, then you run the risk of having a number of cores doing all of the work while the rest sit idle.
-
-The system we have been simulating looks like this at the start of the simulation:
-
-{% include figure.html url="" max-width="80%" file="/fig/2_performance/start_sim_box.jpg" alt="Starting system configuration" %}
-
-As this is a system of non-uniform density, the default domain decomposition will not produce the desired results.
-
-LAMMPS offers a number of methods to distribute the tasks more evenly across the processors.
-If you expect the distribution of atoms within your simulation to remain constant throughout the simulation, you can use a `balance` command to run a one-off re-balancing of the simulation across the cores at the start of your simulation.
-On the other hand, if you expect the number of atoms per region of your system to fluctuate (e.g. as is common in evaporation), you may wish to consider recalculating the domain decomposition every few timesteps with the dynamic `fix balance` command.
-
-For both the static, one-off `balance` and the dynamic `fix balance` commands, LAMMPS offers two methods of load balancing -- the "grid-like" `shift` method and the "tiled" `rcb` method.
-The diagram below helps to illustrate how these work.
-
-{% include figure.html url="" max-width="80%" file="/fig/2_performance/balance.jpg" alt="LAMMPS balance methods" %}
-
-> ## Using better domain decomposition
-> 
-> In your `in.ethanol` file, uncomment the `fix balance` command and rerun your simulations.
-> What do you notice about the runtimes?
-> We are using the dynamic load balancing command -- 
-> would the static, one-off `balance` command be effective here?
-> 
-> > ## Solution
-> > 
-> > The runtimes decrease significantly when running with dynamic load balancing.
-> > In this case, static load balancing would not work as the ethanol is still expanding to fill the simulation box.
-> > Once the ethanol is evenly distributed within the box, you can remove the dynamic load balancing.
-> {: .solution}
-{: .challenge}
-
-> ## Playing around with dynamic load balancing
-> 
-> In the example, the `fix balance` is set to be recalculated every 1,000 timesteps.
-> How does the runtime vary as you change this value?
-> I would recommend trying 10, 100, and 10,000.
-> 
-> > ## Solution
-> > 
-> > The simulation time can vary drastically depending on how often re-balancing is carried out.
-> > When using dynamic re-balancing, there is an important trade-off
-> > between the time gained from re-balancing and the cost involved with recalculating the load balance among cores.
-> {: .solution}
-{: .challenge}
-
-You can find more information about how LAMMPS handles domain decomposition in 
-the LAMMPS manual [balance](https://docs.lammps.org/balance.html) and 
-[fix balance](https://docs.lammps.org/fix_balance.html) sections.
-
-## Considering neighbour lists
-
-Let's take another look at the profiling information provided by LAMMPS:
-
+Suppose we did not want to hardwire our kind type parameters throughout
+the code. Consider:
 ```
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 68.063     | 68.063     | 68.063     |   0.0 | 34.51
-Bond    | 5.0557     | 5.0557     | 5.0557     |   0.0 |  2.56
-Kspace  | 5.469      | 5.469      | 5.469      |   0.0 |  2.77
-Neigh   | 115.22     | 115.22     | 115.22     |   0.0 | 58.43
-Comm    | 1.4039     | 1.4039     | 1.4039     |   0.0 |  0.71
-Output  | 0.00034833 | 0.00034833 | 0.00034833 |   0.0 |  0.00
-Modify  | 1.8581     | 1.8581     | 1.8581     |   0.0 |  0.94
-Other   |            | 0.139      |            |       |  0.07
+program example3
+
+  implicit none
+
+  integer, parameter :: my_e_k = kind(1.e0)
+  integer, parameter :: my_d_k = kind(1.d0)
+
+  real (my_e_k) :: a
+  real (my_d_k) :: b
+
+  ! ...
+
+end program example3
 ```
-There are 8 possible MPI tasks in this breakdown:
+Here we have introduced an `integer` with the `parameter` _attribute_. This is
+an instruction to the compiler that the associated name should be a constant
+(similar to a `const` declaration in C). Any subsequent attempt to assign a
+value to a parameter will result in a compile time error.
 
- - `Pair` refers to non-bonded force computations.
- - `Bond` includes all bonded interactions, (so angles, dihedrals, and impropers).
- - `Kspace` relates to long-range interactions (Ewald, PPPM or MSM).
- - `Neigh` is the construction of neighbour lists.
- - `Comm` is inter-processor communication (AKA, parallelisation overhead).
- - `Output` is the writing of files (log and dump files).
- - `Modify` is the fixes and computes invoked by fixes.
- - `Other` is everything else.
+The value specified in the parameter declaration must be a constant expression
+(which the compiler may be able to evaluate at compile time). Here we have made
+use of the _intrinsic function_ `kind()`. The `kind()` function returns an
+integer
+which is the kind type parameter of the argument. In this context a constant
+expression is one in which all parts are intrinsic.
 
-Each category shows a breakdown of the least, average, and most amount of wall
-time any processor spent on each category -- large variability in this
-(calculated as `%varavg`) indicates a load imbalance (which can be caused by the
-atom distribution between processors not being optimal). The final column,
-`%total`, is the percentage of the loop time spent in the category.
+Note we have not included anything or `use`'d anything to make this `kind()`
+function available.
+It is an intrinsic function and part of the language itself.
 
-> ## A rule-of-thumb for %total on each category
->   - `Pair`: as much as possible.
->   - `Neigh`: 10% to 30%.
->   - `Kspace`: 10% to 30%.
->   - `Comm`: as little as possible. If it's growing large, it's a clear sign
-> that too many computational resources are being assigned to a simulation.
-{: .callout}
-
-In the example above, we notice that the majority of the time is spent in the `Neigh` section -- e.g. a lot of time is spent calculating neighbour lists.
-Neighbour lists are a common method for speeding up simulations with short-ranged particle-particle interactions.
-Most interactions are based on inter-particle distance and traditionally the distance between every particle and every other particle would need to be calculated every timestep (this is an O(N²) calculation!).
-Neighbour lists are a way to reduce this to an ~O(N) calculation for truncated short-ranged interactions.
-Instead of considering all interactions between every particle in a system, you can generate a list of all particles within the truncation cutoff plus a little bit more.
-Depending on the size of that "little bit more" and the details of your system, you can work out how quickly a particle that is not in this list can move to be within the short-ranged interaction cutoff.
-With this time, you can work out how frequently you need to update this list.
-
-{% include figure.html url="" max-width="80%" file="/fig/2_performance/neigh_list.jpg" alt="Neighbour lists explained" %}
-
-Doing this reduces the number of times that all inter-particle distances need to be calculated:
-every few timestep, the inter-particle distances for all particle pairs are calculated to generate the neighbour list for each particle; and in the interim, only the inter-particle distances for particles within a neighbour list need be calculated (as this is a much smaller proportion of the full system, this greatly reduces the total number of calculations).
-
-If we dig a bit deeper into our `in.ethanol` LAMMPS input file, we will notice the following lines:
-
+Using a parameter provides a degree of abstraction for the real data type.
+Other examples might include:
 ```
-variable        NEIGH_TIME  equal      1    # neigh_modify every x dt
-...
-neigh_modify    delay 0 every ${NEIGH_TIME} check no
+  integer, parameter :: nmax = 32              ! A constant
+  real,    parameter :: pi = 4.0*atan(1.e0)    ! A well-known constant
+  complex, parameter :: zi = (0.0, 1.0)        ! square root of -1
+```
+The intrinsic function `atan()` returns the inverse tangent (as a value in
+radians) of the argument.
+
+### Exercise (2 minutes)
+
+Consider further the accompanying `example3.f90`, where we have introduced
+another intrinsic function `storage_size()` (roughly equiavalent to C
+`sizeof()` although it returns a size in bits rather than bytes).
+Run the program and check the actual values of the kind type parameters
+and associated storage sizes. Speculate on the portability of a program
+declaring, e.g.,:
+```
+  integer (4) :: i32
+  integer (8) :: i64
 ```
 
-These lines together indicate that LAMMPS is being instructed to rebuild the full neighbour list every timestep (so this is not a very good use of neighbour lists).
+### Exercise (2 minutes)
 
-> ## Changing neighbour list update frequency
-> 
-> Change the `NEIGH_TIME` variable to equal 10.
-> How does this affect the simulation runtime?
-> 
-> Now change the `NEIGH_TIME` variable to equal 1000. What happens now?
-{: .challenge}
+Consider the accompanying `exercise2.f90`. Check the compiler error emitted and
+remove the offending line.
 
-Neighbour lists only give physical solutions when the update time is less than the time it would take for a particle outwith the neighbour cutoff to get to within the short-ranged interaction cutoff.
-If this happens, the results generated by the simulation become questionable at best and, in the worst case, LAMMPS will crash.
 
-You can estimate the frequency at which you need to rebuild neighbour lists by running a quick simulation with neighbour list rebuilds every timestep:
+### Arithmetic operations on numeric types
 
+For all intrinsic numeric types, standard arithmetic operations,
+addition (`+`), subtraction (`-`), multplication (`*`) and
+division (`/`) are defined, along with exponents (`**`) and
+negation (`-`).
+
+In order of increasing precedence these are `-`, `+`, `/`, `*`,
+and `**` (otherwise left-to-right). In particular
 ```
-neigh_modify    delay 0 every 1 check yes
+   a = b*c**2    ! is evaluated as b*(c**2)
+   a = b*c*d     ! evaluated left-to-right (b*c)*d
 ```
+Use parentheses to avoid ambiguity if necessary.
 
-and looking at the resultant LAMMPS neighbour list information in the log file generated by that run.
+A large number of intrinsic functions exist for basic mathematical
+operations and are relevant for all numeric types. A simple example
+is `sqrt()`. Some are specific to particular types, e.g., `conjg()`
+for complex conjugate.
 
+Broadly, assignments featuring different data types will cause
+promotion to a "wider" type or cause truncation to a "narrower" type.
+If one wants to be explicit, the equivalent of the cast mechanism in C
+is via intrinsic functions, e.g.,
 ```
-Total # of neighbors = 1313528
-Ave neighs/atom = 200.20241
-Ave special neighs/atom = 7.3333333
-Neighbor list builds = 533
-Dangerous builds = 0
+   integer          :: i = 1
+   complex (real64) :: z = (1.0, 1.0)
+   real    (real64) :: a, b
+
+   a = real(i, real64)          ! a should be 1.d0
+   a = real(z, real64)          ! imaginary part is ignored
+
+   b = real(i)                  ! return default real kind
+
+   z = cmplx(a, b)              ! (sic) Form complex number from two reals
 ```
+The second argument of the `real()` function is optional, and specifies the
+kind type parameter of the desired result. If the optional argument is not
+present, then a real value of the default kind is returned.
 
-The `Neighbor list builds` tells you how often neighbour lists needed to be rebuilt.
-If you know how many timesteps your short simulation ran for, you can estimate the frequency at which you need to calculate neighbour lists by working out how many steps there are per rebuild on average.
-Provided that your update frequency is less than or equal to that, you should see a speed up.
+Note here the _token_ `real` has been used in two different contexts: as
+a statement in the declaration of variables `a` and `b`, and as a function.
+There is not quite the same concept of "reserved words" (cf C/C++);
+lines are split into tokens based on spaces, and tokens are parsed in
+context.
 
-In this section, we only considered changing the frequency of updating neighbour lists.
-Two other factors that contribute to the time taken to calculate neighbour lists are the `pair_style` cutoff distance and the `neighbor` skin distance.
-Decreasing either of these will reduce the number of particles within the neighbour cutoff distance, thereby decreasing the number of interactions being calculated each timestep.
-However, decreasing these will mean that lists need to be rebuilt more frequently -- it's always a fine balance.
+### Complex real and imaginary parts
 
-You can find more information in the LAMMPS manual about 
-[neighbour lists](https://docs.lammps.org/Developer_par_neigh.html) and the 
-[neigh_modify](https://docs.lammps.org/neigh_modify.html) command.
-
-## Some further tips
-
-### Fixing bonds and angles
-
-A lot of interesting systems involve simulating particles bonded into molecules.
-In a lot of classical atomistic systems, some of these bonds fluctuate significantly and at high frequencies, while not causing much interesting physics (think e.g. carbon-hydrogen bonds in a hydrocarbon chain).
-As the timestep is restricted by the fastest-moving part of a simulation, the frequency of fluctuation of these bonds restricts the length of the timestep that can be used in the simulation.
-Using longer timesteps results in longer "real time" effects being simulated for the same amount of compute power, so being restricted to a shorter timestep because of "boring" bonds can be frustrating.
-
-LAMMPS offers two methods of restricting these bonds (and their associated angles):
-the `SHAKE` and `RATTLE` fixes.
-Using these fixes will ensure that the desired bonds and angles are reset to their equilibrium length every timestep.
-An additional constraint is applied to these atoms to ensure that they can still move while keeping the bonds and angles as specified.
-This is especially useful for simulating fast-moving bonds at higher timesteps.
-
-You can find more information about this in the 
-[LAMMPS manual](https://docs.lammps.org/fix_shake.html)
-
-### Hybrid MPI+OpenMP runs
-
-When looking at the LAMMPS profiling information, we briefly mentioned that the proportion of time spent calculating `Kspace` should fall within the 10-30% region.
-`Kspace` can often come to dominate the time profile when running with a large number of MPI ranks.
-This is a result of the way that LAMMPS handles the decomposition of k-space across multiple MPI ranks.
-
-One way to overcome this problem is to run your simulation using hybrid MPI+OpenMP.
-To do this, you must ensure that you have compiled LAMMPS with the `OMP` package.
-On ARCHER2, you can edit the `run.slurm` file that you have been using to include the following:
-
-```bash
-#SBATCH --tasks-per-node=64
-#SBATCH --cpus-per-task=2
-
-[...]
-
-export OMP_NUM_THREADS=2
-export SRUN_CPUS_PER_TASK=$SLURM_CPUS_PER_TASK
-
-srun lmp -sf omp -i in.ethanol -l ${OMP_NUM_THREADS}_log.out 
+The real and imaginary parts of a complex variable may be accessed
 ```
+  complex :: z
 
-Setting the variable `OMP_NUM_THREADS` will let LAMMPS know how many OpenMP threads will be used in the simulation.
-Setting `--tasks-per-node` and `--cpus-per-task` will ensure that Slurm assigns the correct number of MPI ranks and OpenMP threads to the executable.
-Setting the LAMMPS `--sf omp` flag will result in LAMMPS using the `OMP` version of any command in your LAMMPS input script.
+  z%re = 0.0     ! real part
+  z%im = 1.0     ! imaginary part
+```
+where the `%` symbol is referred to as the component selector. The real
+and imaginary parts are also available via the `real()` and `aimag()`
+intrinsic functions, respectively.
 
-Running hybrid jobs efficiently can add a layer of complications, and a number of additional considerations must be taken into account to ensure the desired results.
-Some of these are:
+### Exercise (2 minutes)
 
-  - The product of the values assigned to `--tasks-per-node` and `--cpus-per-task`
-    should be less than or equal to the number of cores on a node (on ARCHER2, that number is 128 cores).
-  - You should try to restrict the number of OpenMP threads per MPI task to fit on a single socket.
-    For ARCHER2, the sockets (processors) are so large that they have been subdivided into a number of NUMA regions.
-    Each ARCHER2 node 2 sockets, each socket has 4 NUMA regions, each of which has 16 cores, for a total of 8 NUMA regions per node.
-    Therefore, for an efficient LAMMPS run, you would not want to use more than 16 OpenMP processes per MPI task.
-  - In a similar vein to the above, you also want to make sure that your OpenMP threads are kept within a single NUMA region.
-    Spanning across multiple NUMA regions will decrease the performance (significantly).
+By using variables of complex type, check that you can use the
+intrinsic function `srqt()` to confirm that the square root of
+-1 is `i`. What happens if you try to try to take the square root
+of a negative value stored as a real variable?
 
-    These are only some of the things to bear in mind when considering using hybrid MPI+OpenMP to speed up k-space calculations. 
+### Exercise (5 minutes)
 
-> ## Using `verlet/split` instead
->
-> Another way to decrease the amount of compute being used by k-space calculations is to use the `run_style verlet/split` command.
-> This lets you split your force calculations across two partitions of cores.
-> Using this would let you define the partitions
-> (and the amount of computational resources assigned to this partition)
-> on which long-ranged k-space interactions are calculated.
-> 
-> You can find out more about this in the 
-> [LAMMPS manual](https://docs.lammps.org/run_style.html)
-{: .callout}
+The accompanying template `exercise3.f90` provides instructions for an
+exercise which involves the approximation to the constant pi computed
+via a Gauss-Legendre algorithm. Some
+background can be found at https://en.wikipedia.org/wiki/Gauss-Legendre_algorithm.
+
+A solution to this problem appears as the template for the exercise in
+[section2.01](../section2.01/exercise1.f90).
+
+### Exercise (5 minutes)
+
+A second exercise in a similar vein looks at an approximation to the
+conductance of a rectangular channel subject to a constant flow.
+Instructions are in `exercise4.f90`.
+
+A solution to this problem appears as the template for the second
+exercise in [section2.01](../section2.01/exercise2.f90).
+
 
 {% include links.md %}
