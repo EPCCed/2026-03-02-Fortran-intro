@@ -1,5 +1,5 @@
 ---
-title: "Array expressions"
+title: "Array expressions and assignments"
 teaching: 10
 exercises: 10
 questions:
@@ -7,14 +7,10 @@ questions:
 objectives:
 - ""
 keypoints:
-- ""
----
-
-# Array expressions and assignments
-
-Fortran allows some flexible operations on arrays or subsets
+- "Fortran allows some flexible operations on arrays or subsets
 of array elements, and provides numerous intrinsic functions
-for such operations.
+for such operations."
+---
 
 ## Array sections
 

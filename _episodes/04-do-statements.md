@@ -7,13 +7,9 @@ questions:
 objectives:
 - ""
 keypoints:
-- ""
+- "Iteration in Fortran is based around the `do` construct (somewhat analogous to
+C `for` construct). There is no equivalent of the C++ iterator class."
 ---
-
-# Loops and flow of control
-
-Iteration in Fortran is based around the `do` construct (somewhat analogous to
-C `for` construct). There is no equivalent of the C++ iterator class.
 
 ## Uncontrolled `do` construct
 

@@ -1,55 +1,171 @@
 ---
-title: "Next steps"
-teaching: 15
-exercises: 0
+title: "More on characters and strings"
+teaching: 10
+exercises: 10
 questions:
-- "Where can I get further information about LAMMPS?"
-- "Where can I find out more about ARCHER2?"
+- ""
 objectives:
-- "Be aware of the available LAMMPS documentation."
-- "Be aware of what other training is available through the ARCHER2 program."
+- ""
 keypoints:
-- "The LAMMPS manual is very easy to understand and provides a number of 
-  useful resources for learning about LAMMPS."
-- "You will retain access to ARCHER2 for a while -- please make use of it to 
-  test LAMMPS more."
-- "You can get access to ARCHER2 resources via a number of different routes."
+- "String-handling can be a headache if there is no mechanism to keep
+track of the length of the string."
 ---
 
-## LAMMPS resources
+## Useful `character` operations
 
-The [LAMMPS manual][lammps-docs] is, in my opinion, a very well written manual with a lot of information about the various functionalities of LAMMPS.
-It is my go-to when I want to learn how to run a LAMMPS command, or when I want to understand how LAMMPS implements a specific functionality.
+### Relational operators
 
-In this manual, there is a handy [How-to](https://docs.lammps.org/Howto.html) section.
-You can find a number of tutorials in there for understanding and running various simulations.
+The meaning of relational operators `==` and so on in the context of
+characters is largely what one would expect from the standard ASCII
+sequence. E.g.,
+```
+   "A" <  "b"      ! true
+   "A" == "a"      ! false
+   "A" /= "]"      ! true
+```
+Note the ordinal position of a single character in the ASCII sequence
+can be found via an intrinsic function, e.g.:
+```
+   integer             :: i
+   character (len = 1) :: c
+   i = iachar("A")           ! i = 65
+   c = achar(i)              ! c = "A"; requires 1 <= i <= 127
+```
 
-The [LAMMPS example scripts](https://docs.lammps.org/Examples.html) that come with the source code are an excellent source of inspiration and a great starting point for testing ideas.
-When I want to understand how to use a function, I will check whether there is an exercise that uses said function and use that as a template to get my system to work.
+If character variables are compared, then each letter is compared
+left-to-right until a difference is found (or not). If the variables
+have different lengths, then the shorter is padded with blanks.
 
-Finally, there is the [LAMMPS mailing list](https://matsci.org/c/lammps/40).
-You can post questions to this list to have them answered by other members of the LAMMPS community and by the LAMMPS developers.
-A lot of repeat questions get asked there, so before you post your question, have a look through the records to check that someone has not already asked it.
 
-## ARCHER2 resources
+### Some other intrinsic functions
 
-If you attended the live course, you will retain access to your `ta132` account (with a small amount of budget) for a couple of months following the course.
-This is to allow you to make sure that you understood all of the course materials,
-and have an opportunity to run any of the exercise simulations that you did not have time to complete in the training lesson.
-This is also to let you test out your own simulations on ARCHER2.
+The length of a character variable is provided by the `len()` intrinsic
+function.
 
-If you have any questions about using ARCHER2, the first port of call is the [ARCHER2 manual][archer2-docs].
-This manual covers a number of aspects of using ARCHER2,
-from the more simple "How to I get a program to run" to the more complex "How can I debug my software efficiently on a supercomputer".
+The length with trailing blanks removed is `len_trim()`. To actually
+remove the trailing blanks, use `trim()`. This is often seen when
+concatenating fixed-length character strings:
+```
+  print *, "File name: ", trim(file_stub)//"."//trim(extension)
+```
 
-If you cannot find the answer to your question, please contact the ARCHER2 support team by email at support@archer2.ac.uk.
+It's also useful if you want to perform an operation on each individual
+character, e.g.,
+```
+  do n = 1, len_trim(string)
+    if (string(n:n) == 'a') counta = counta + 1
+  end do
+```
+Note that the colon is mandatory in a sub-string reference, so a
+single character must be referenced, e.g.,
+```
+   print *, "Character at position i: ", string(i:i)
+```
 
-## ARCHER2 Training
+Various other intrinsic functions exist for lexical comparisons,
+justification, sub-string searches, and so on.
 
-There is lots of training material available through the ARCHER2 service covering many different topics and to suit many different levels of experience. 
+## Deferred length strings
 
-Details of courses, the upcoming schedule and information on how to register can be found in the [ARCHER2 training pages][archer2-training].
+The easiest way to provide a string which can be manipulated on a
+flexible basis is the deferred length character:
+```
+  character (len = :), allocatable :: string
 
-You can also find course material (and sometimes recordings) for previous ARCHER2 courses in the [ARCHER2 course repository][archer2-training-materials].
+  string = "ABCD"         ! Allocate and assign string
+  string = "ABCDEFG"      ! Reallocate and assign again
+
+  string(:) = ''          ! Keep same allocation, but set all blanks
+```
+This may be initialised and updated in a general way, and the run time
+will keep track of book-keeping. This also (usually) reduces occurrences of
+trailing blanks.
+
+If an allocation is required for which only the length is known (e.g.,
+there is no literal string involved), the following form of allocation
+is required:
+```
+  integer :: mylen
+  character (len = :), allocatable :: string
+
+  ! ... establish value of mylen ...
+
+  allocate(character(len = mylen) :: string)
+```
+
+Allocatable strings will automatically be deallocated when they go out
+of scope and are no longer required. One can also be explicit:
+```
+  deallocate(string)
+```
+if wanted.
+
+## Arrays of strings
+
+We have seen that we can define a fixed length parameter, e.g.,:
+```
+  character (len = *), parameter :: day = "Sunday"
+```
+Suppose we wanted an array of strings for "Sunday", "Monday", "Tuesday",
+and so on. One might be tempted to try something of the form:
+```
+  character (len = *), dimension(7), parameter :: days = [ ... ]
+```
+
+### Exercise (2 minutes)
+
+Check the result of the compilation of `example3.f90`.
+
+The are a number of solutions to this issue. One could try to pad the
+lengths of each array element to be the same length. A better way is
+to use a constructor with a type specification:
+```
+[character (len = 9) :: "Sunday", "Monday", "Tuesday", "Wednesday", ...]
+```
+Here the type specification is used to avoid ambiguity in how the
+list is to be interpreted.
+
+Check you can make this adjustment to `example3.f90`.
+
+
+## Strings as dummy arguments, or results
+
+If a character variable has intent `in` in the context of a procedure,
+it typically may be declared:
+```
+  subroutine some_character_operation(carg1, ...)
+
+     character (len = *), intent(in) :: arg1
+     ...
+```
+This is also appropriate for character variables of intent `inout`
+where the length does not change.
+
+For all other cases, use of deferred length allocable characters is
+recommended. E.g.,
+```
+  function build_filename(stub, extension) result(filename)
+
+    character (len = *), intent(in)  :: stub
+    character (len = *), intent(in)  :: extension
+    character (len = :), allocatable :: filenane
+    ...
+```
+A matching declaration in the caller is required.
+
+## Exercise (10 minutes)
+
+Write a subroutine which takes an existing string, and adjusts it to
+make sure it is all lower case. That is, any character between "A"
+and "Z" is replaced by the corresponding character between "a" and "z".
+
+Write an additional function to return a new string which is all
+lower case, leaving the original unchanged.
+
+You can use the accompanying templates `exercise_module1.f90` and
+`exercise_program1.f90`.
+
+A solution to the exercise can be found in the [solutions](./solutions)
+directory.
 
 {% include links.md %}

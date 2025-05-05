@@ -7,13 +7,9 @@ questions:
 objectives:
 - ""
 keypoints:
-- ""
+- "Unlike C, which often uses pointers to handle array data, Fortran has arrays
+which are an intrinsic feature of the language."
 ---
-
-# Arrays
-
-Unlike C, which often uses pointers to handle array data, Fortran has arrays
-which are an intrinsic feature of the language.
 
 ## A one-dimensional array
 

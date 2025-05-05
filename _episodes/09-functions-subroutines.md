@@ -1,55 +1,184 @@
 ---
-title: "Next steps"
-teaching: 15
-exercises: 0
+title: "Functions and subroutines"
+teaching: 10
+exercises: 10
 questions:
-- "Where can I get further information about LAMMPS?"
-- "Where can I find out more about ARCHER2?"
+- ""
 objectives:
-- "Be aware of the available LAMMPS documentation."
-- "Be aware of what other training is available through the ARCHER2 program."
+- ""
 keypoints:
-- "The LAMMPS manual is very easy to understand and provides a number of 
-  useful resources for learning about LAMMPS."
-- "You will retain access to ARCHER2 for a while -- please make use of it to 
-  test LAMMPS more."
-- "You can get access to ARCHER2 resources via a number of different routes."
+- "Functions and subroutines, referred to collectively as `_procedures_`, may be
+defined as module sub-programs, where the compiler will automatically
+generate the contract block (aka. forward declaration, prototype) as
+part of the module file."
 ---
 
-## LAMMPS resources
+## What's the difference?
 
-The [LAMMPS manual][lammps-docs] is, in my opinion, a very well written manual with a lot of information about the various functionalities of LAMMPS.
-It is my go-to when I want to learn how to run a LAMMPS command, or when I want to understand how LAMMPS implements a specific functionality.
+The difference between functions and subroutines is to a degree one of
+context. A function returns a result and is generally used where it
+is best invoked as part of an expression or assignment, schematically:
+```
+  value = my_function(arg1, arg2, ...)
+```
+Unlike C, it is not possible simply to discard a function result.
+A subroutine, by contrast, does not return a result (it may be thought of as a
+`void` function in C terms), but it is also invoked differently:
+```
+  call my_subroutine(arg1, arg2, ...)
+```
+Subroutines are generally used to express more lengthy algorithms.
 
-In this manual, there is a handy [How-to](https://docs.lammps.org/Howto.html) section.
-You can find a number of tutorials in there for understanding and running various simulations.
+Note that in the calling context, the arguments `arg1`, `arg2`, etc
+are referred to as the _actual arguments_.
 
-The [LAMMPS example scripts](https://docs.lammps.org/Examples.html) that come with the source code are an excellent source of inspiration and a great starting point for testing ideas.
-When I want to understand how to use a function, I will check whether there is an exercise that uses said function and use that as a template to get my system to work.
 
-Finally, there is the [LAMMPS mailing list](https://matsci.org/c/lammps/40).
-You can post questions to this list to have them answered by other members of the LAMMPS community and by the LAMMPS developers.
-A lot of repeat questions get asked there, so before you post your question, have a look through the records to check that someone has not already asked it.
+## Dummy arguments and `intent` attribute
 
-## ARCHER2 resources
+Procedures may have zero or more arguments (referred to as the _dummy
+arguments_ at the point at which the procedure is defined). Three
+different cases can be identified:
 
-If you attended the live course, you will retain access to your `ta132` account (with a small amount of budget) for a couple of months following the course.
-This is to allow you to make sure that you understood all of the course materials,
-and have an opportunity to run any of the exercise simulations that you did not have time to complete in the training lesson.
-This is also to let you test out your own simulations on ARCHER2.
+1. read-only arguments whose values are not updated by the procedure;
+2. read-write arguments whose values are expected to be defined on
+   entry, and may also be updated by the procedure;
+3. write-only arguments whose values are only defined on exit.
 
-If you have any questions about using ARCHER2, the first port of call is the [ARCHER2 manual][archer2-docs].
-This manual covers a number of aspects of using ARCHER2,
-from the more simple "How to I get a program to run" to the more complex "How can I debug my software efficiently on a supercomputer".
+These three cases may be encoded in the declarations of the dummy
+arguments of a procedure via the `intent` attribute . For example:
+```
+  subroutine print_x(x)
 
-If you cannot find the answer to your question, please contact the ARCHER2 support team by email at support@archer2.ac.uk.
+    real, intent(in) :: x
 
-## ARCHER2 Training
+    print *, "The value of x is: ", x
 
-There is lots of training material available through the ARCHER2 service covering many different topics and to suit many different levels of experience. 
+  end subroutine print_x
+```
+Here, dummy argument `x` has `intent(in)` which tells the compiler that
+any attempt to modify the value is erroneous (a compiler error will result).
+This is different from C, where a change to an argument passed by value is
+merely not reflected in the caller.
 
-Details of courses, the upcoming schedule and information on how to register can be found in the [ARCHER2 training pages][archer2-training].
+If one wants to alter the existing value of the argument, `intent(inout)`
+is appropriate:
+```
+  subroutine increment_x(x)
 
-You can also find course material (and sometimes recordings) for previous ARCHER2 courses in the [ARCHER2 course repository][archer2-training-materials].
+    real, intent(inout) :: x
+
+    x = x + 1.0
+
+  end subroutine increment_x
+```
+If the dummy argument is undefined on entry, or has a value which is
+simply to be overwritten, use `intent(out)`, e.g.:
+```
+  subroutine assign_x(x)
+
+    real, intent(out) :: x
+
+    x = 1.0
+
+  end subroutine assign_x
+```
+The `intent` attribute, as well as allowing the compiler to detect
+inadvertent errors, provides some useful documentation for the
+reader.
+
+Local variables do not have intent; otherwise, they are declared as
+usual.
+
+
+### Exercise (2 minutes)
+
+Attempt to compile the accompanying `module1.f90` and associated main
+program `program1.f90`. Check the error message emitted, and sort out
+the intent of the dummy arguments in `module1.f90`.
+
+
+## Functions
+A function may be defined as:
+```
+function my_mapping(value) result(a)
+
+  real, intent(in) :: value
+  real             :: a
+
+  a = ...
+
+end function my_mapping
+```
+
+Formally,
+```
+[prefix] function function-name (dummy-arg-list) [suffix]
+  [ specification-part ]
+  [ executable-part ]
+end [ function [function-name] ]
+```
+As ever, there is some elasticity in the exact form of the declarations
+you may see. In particular, older versions did not have the `result()`
+suffix, and the _function-name_ was used as the variable to which the
+return value was assigned. E.g.,
+```
+real function length(area)
+  real area
+  length = sqrt(area)
+end function length
+```
+The modern form should be preferred; the `result()` part allows the two
+names to be decoupled.
+
+### `pure` procedures
+
+Procedures which have no side effects may be declared with the
+`pure` prefix; this may provide useful information to the compiler
+in some circumstances. E.g.,
+```
+pure function special_function(x) result(y)
+  real, intent(in) :: x
+  ! ...
+end function special_function
+```
+There are a number of conditions which must be met to qualify for
+`pure` status:
+1. For a function, any dummy arguments must be intent(in);
+2. No variables accessed by host association can be updated (and no variables with `save` attribute);
+3. there must be no operations on external files;
+4. there must be no `stop` statement.
+
+
+### `recursive` procedures
+
+If recursion is required, a procedure must be declared with the
+`recursive` prefix. E.g.,
+```
+recursive function fibonacci(n) result(nf)
+  ! ... implementation...
+  nf = fibonacci(n-1) + fibonacci(n-2)
+end function fibonacci
+```
+Such a declaration must be included for both direct or indirect recursion.
+
+## Subroutines
+
+Subroutines follow the same rules as functions, except that there is no
+`result()` suffix specification.
+
+### `return` statement
+
+One may have a `return` statement to indicate that control should
+be returned to the caller, but it is not necessary (the `end`
+statement does the same job). We will use `return` when we consider
+error handling later.
+
+
+## Exercise (5 minutes)
+
+1. Can your function for the evaluation of pi from the previous section safely be declared `pure`? You can use the accompanying template `exercise_module1.f90` and `exercise_program1.f90` to check.
+2. Add a new version of this calculation: a subroutine which takes the number of terms as an argument, and also returns the computed value in the argument list.
+3. Complete the recursive function to compute the nth Fibonacci number, and test it. See, for example https://en.wikipedia.org/wiki/Fibonacci_number.
+
 
 {% include links.md %}

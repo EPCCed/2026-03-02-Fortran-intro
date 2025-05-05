@@ -1,5 +1,5 @@
 ---
-title: "Variables: logical, character, and conditionals"
+title: "Logical and character variables"
 teaching: 10
 exercises: 10
 questions:
@@ -7,13 +7,9 @@ questions:
 objectives:
 - ""
 keypoints:
-- ""
+- "Fortran provides two non-numeric intrinsic data types: `logical` and
+`character`."
 ---
-
-# Logical and character variables
-
-Fortran provides two non-numeric intrinsic data types: `logical` and
-`character`.
 
 ## Logical variables
 

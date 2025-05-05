@@ -1,5 +1,5 @@
 ---
-title: "Variables: numeric; expressions and assignments, kind"
+title: "Variables"
 teaching: 10
 exercises: 10
 questions:
@@ -7,13 +7,9 @@ questions:
 objectives:
 - ""
 keypoints:
-- ""
+- "Fortran provides the following intrinsic data types: numeric types `integer`,
+`real` and `complex`; non-numeric types `logical` and `character`."
 ---
-
-# Variables
-
-Fortran provides the following intrinsic data types: numeric types `integer`,
-`real` and `complex`; non-numeric types `logical` and `character`.
 
 ## Numeric variables of intrinsic type
 

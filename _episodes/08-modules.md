@@ -1,55 +1,272 @@
 ---
-title: "Next steps"
-teaching: 15
-exercises: 0
+title: "Modules and compilation of modules"
+teaching: 10
+exercises: 10
 questions:
-- "Where can I get further information about LAMMPS?"
-- "Where can I find out more about ARCHER2?"
+- ""
 objectives:
-- "Be aware of the available LAMMPS documentation."
-- "Be aware of what other training is available through the ARCHER2 program."
+- ""
 keypoints:
-- "The LAMMPS manual is very easy to understand and provides a number of 
-  useful resources for learning about LAMMPS."
-- "You will retain access to ARCHER2 for a while -- please make use of it to 
-  test LAMMPS more."
-- "You can get access to ARCHER2 resources via a number of different routes."
+- "Modules in Fortran provide _the_ way to structure collections of related
+definitions and operations, and make them available elsewhere."
 ---
 
-## LAMMPS resources
+## Module structure
 
-The [LAMMPS manual][lammps-docs] is, in my opinion, a very well written manual with a lot of information about the various functionalities of LAMMPS.
-It is my go-to when I want to learn how to run a LAMMPS command, or when I want to understand how LAMMPS implements a specific functionality.
+We have already used one _intrinsic module_ (`iso_fortran_env`); we
+can also write our own, e.g.,
+```
+module module1
 
-In this manual, there is a handy [How-to](https://docs.lammps.org/Howto.html) section.
-You can find a number of tutorials in there for understanding and running various simulations.
+  implicit none
+  integer, parameter :: mykind = kind(1.d0)
 
-The [LAMMPS example scripts](https://docs.lammps.org/Examples.html) that come with the source code are an excellent source of inspiration and a great starting point for testing ideas.
-When I want to understand how to use a function, I will check whether there is an exercise that uses said function and use that as a template to get my system to work.
+contains
 
-Finally, there is the [LAMMPS mailing list](https://matsci.org/c/lammps/40).
-You can post questions to this list to have them answered by other members of the LAMMPS community and by the LAMMPS developers.
-A lot of repeat questions get asked there, so before you post your question, have a look through the records to check that someone has not already asked it.
+  function pi_mykind() result(pi)   ! Return the value of a well-known constant
 
-## ARCHER2 resources
+    real (kind = mykind) :: pi
+    pi = 4.0*atan(1.0_mykind)
 
-If you attended the live course, you will retain access to your `ta132` account (with a small amount of budget) for a couple of months following the course.
-This is to allow you to make sure that you understood all of the course materials,
-and have an opportunity to run any of the exercise simulations that you did not have time to complete in the training lesson.
-This is also to let you test out your own simulations on ARCHER2.
+  end function pi_mykind
 
-If you have any questions about using ARCHER2, the first port of call is the [ARCHER2 manual][archer2-docs].
-This manual covers a number of aspects of using ARCHER2,
-from the more simple "How to I get a program to run" to the more complex "How can I debug my software efficiently on a supercomputer".
+end module module1
+```
+We may now `use` the new module in other _program units_ (main program or
+other modules). For example:
+```
+program example1
 
-If you cannot find the answer to your question, please contact the ARCHER2 support team by email at support@archer2.ac.uk.
+  use module1
+  implicit none
 
-## ARCHER2 Training
+  real (kind = mykind) :: value
+  value = pi_mykind()
 
-There is lots of training material available through the ARCHER2 service covering many different topics and to suit many different levels of experience. 
+end program example1
+```
+Here both the parameter `mykind` and the function `pi_mykind()` are said
+to be available by _use association_. Note that any `use` statements
+must come before the `implicit` statement.
 
-Details of courses, the upcoming schedule and information on how to register can be found in the [ARCHER2 training pages][archer2-training].
+Formally, the structure of a module is:
+```
+  module module-name
+    [specification-statements]
+  [ contains
+    module-subprograms ]
+  end [ module [ module-name ]]
+```
+The `contains` statement separates the specification statements from
+module sub-programs.
+Sub-programs, or _procedures_,  consist of functions and/or subroutines,
+of which more later.
 
-You can also find course material (and sometimes recordings) for previous ARCHER2 courses in the [ARCHER2 course repository][archer2-training-materials].
+### Digression: compilation of modules, and programs
+
+One would typically expect modules and a main program to be in
+separate files, e.g.,:
+```
+$ ls
+module1.f90     program1.f90
+```
+It is often convenient to use the same name for the both module and
+the corresponding file (with extension `.f90`). You can do
+differently, but it can become confusing. Likewise for the main program.
+
+We can compile the module, e.g.,
+```
+$ ftn -c module1.f90
+```
+where the `-c` option to the Fortran compiler `ftn` requests compilation
+only (no link). This should give us two new files:
+```
+$ ls
+module1.f90     module1.mod     module1.o       program1.f90
+```
+The first is a compiler-specific _module file_ (usually with a `.mod`
+extension). This plays the role roughly analogous to a header (`.h`)
+file in C, in that it contains the relevant public information
+about what the module provides. The other file is the object file
+(`.o` extension) which can be linked with the run time to form an
+executable.
+
+We can now compile both the main program and the module to give an
+executable.
+```
+$ ftn module1.o program1.f90
+```
+Again, by analogy with C header files, we do not include the `.mod`
+file in the compilation command; there is a search path which the
+compiler uses to look for module files (which includes the current
+working directory).
+
+### Exercise (2 minutes)
+
+If you haven't already done so, compile the accompanying `module1.f90`
+and `program1.f90`. Check the errors which occur if you: (1) try to
+compile the program without the module file via, e.g.,
+```
+$ ftn program1.f90
+````
+and (2), if you try to compile and link the module file alone:
+```
+$ ftn module1.f90
+```
+
+
+## Scope
+
+Entities declared in a module are, by default, available by use association,
+that is, they are visible in program units which `use` the module. One can
+make this scope explicit via the `public` and `private` statements.
+```
+module module1
+
+  implicit none
+  public
+
+  integer, parameter :: mykind = kind(1.d0)
+
+contains
+
+  function pi_mykind() result(pi)
+
+    real (kind = mykind) :: pi
+    ...
+  end function pi_mykind()
+
+end module module1
+```
+Note that the parameter `mykind` is available throughout the module via
+_host association_ (always).
+
+An alternative would be to switch the default to `private`, and explicitly
+add `public` attributes:
+```
+module module1
+
+  implicit none
+  private
+
+  integer, parameter, public :: mykind = kind(1.d0)    ! visible via `use`
+  integer, parameter         :: mypriv = 2             ! not visible via `use`
+
+  public :: pi_mykind
+
+contains
+  function pi_mykind() result(pi)                      ! public
+    ! ... may call my_private() ...
+  end function pi_mykind
+
+  subroutine my_private()                              ! private
+    ...
+  end subroutine
+end module module1
+```
+Note that scope of the `implicit` statement also covers the whole module,
+including sub-programs.
+
+
+### Exercise (1 minute)
+
+Edit the accompanying `module1.f90` to add a `private` statement and
+check the error if you try to compile `program1.f90`.
+
+
+## Module data and other horrors
+
+It is possible to establish non-parameter data in the specification
+section of a module. E.g.,
+```
+module module2
+
+  implicit none
+  integer, dimension(:), allocatable :: iarray
+...
+```
+This course will argue that you should _not_ do so. There are a number
+of reasons.
+
+1. Any such data takes on the character of a global mutable object.
+Global objects are generally frowned upon in modern software development.
+2. Operations in module procedures on such data run the risk of being
+neither thread safe nor re-entrant.
+
+Even worse, variables declared with an initialisation in a module
+sub-program, e.g.,
+```
+  integer :: i = 1
+```
+implicitly take on the Fortran `save` attribute. This means the
+variable is placed in heap memory and retains its value between calls.
+(Analogous to a `static` declaration in C.) This is certainly neither
+thread-safe nor re-entrant. Uninitialised variables appear on the stack
+(and disappear) as expected.
+
+For this reason it is the rule, rather than the exception, that variables
+are not initialised at the point of declaration in Fortran.
+
+We will look at alternative ways of establishing and moving data
+as we go along.
+
+## Scope again: `block`
+
+It is not possible in Fortran to intermingle declarations and
+executable statements. Specification statements must appear
+at the start of scope before any executable statements. This
+can lead to rather lengthy list of declarations at the start
+of large routines.
+
+It is possible to introduce a local scope which follows executable
+statements using the `block` construct. Schematically:
+```
+   ... some computation ...
+   block
+     integer :: itmp                  ! in scope within the block only
+     ... some more computation ...
+   end block
+   ... some more computation ...
+```
+This can be useful for introducing temporary variables which are only
+required for the duration of a short part of a longer procedure.
+In this way, it acts like `{ .. }` in C.
+
+
+### Exercise (5 minutes)
+
+Return to your code for the approximation to pi via the Gauss-Legendre
+iteration (or use the template
+[section2.02/exercise1.f90](../section2.02/exercise1.f90)).
+Using the examples above as a template, write a module to contain a
+function which returns the value so computed.
+Check you can use the new function from a main program.
+
+What really needs to be publicly available from the module in this case?
+
+Additional exercise: Can we have the following situation:
+```
+module a
+
+  use b
+  implicit none
+  ! content a ...
+end module a
+```
+and
+```
+module b
+
+  use a
+  implicit none
+  ! content b ...
+end module b
+```
+If not, why not?
+
+Expert exercise: If you wish to express dependencies in a `Makefile` for
+a Fortran program using a module, does compilation the program source depend
+on the `.mod` module file, the `.o` object file, or both? Do you care?
+
 
 {% include links.md %}

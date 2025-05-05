@@ -1,7 +1,7 @@
 ---
-title: "Mini exercise"
-teaching: 15
-exercises: 0
+title: "Mini exercise: a choice of two"
+teaching: 0
+exercises: 20
 questions:
 - ""
 objectives:
@@ -9,8 +9,6 @@ objectives:
 keypoints:
 - ""
 ---
-
-# Mini-exercise: a choice of two
 
 ## Solve a tri-diagonal system (30 minutes)
 

@@ -10,8 +10,6 @@ keypoints:
 - ""
 ---
 
-# Hello World
-
 ## First example
 
 A very simple program might be:
