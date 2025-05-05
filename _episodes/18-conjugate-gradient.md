@@ -1,55 +1,108 @@
 ---
-title: "Next steps"
-teaching: 15
-exercises: 0
+title: "Exercises"
+teaching: 10
+exercises: 10
 questions:
-- "Where can I get further information about LAMMPS?"
-- "Where can I find out more about ARCHER2?"
+- ""
 objectives:
-- "Be aware of the available LAMMPS documentation."
-- "Be aware of what other training is available through the ARCHER2 program."
+- ""
 keypoints:
-- "The LAMMPS manual is very easy to understand and provides a number of 
-  useful resources for learning about LAMMPS."
-- "You will retain access to ARCHER2 for a while -- please make use of it to 
-  test LAMMPS more."
-- "You can get access to ARCHER2 resources via a number of different routes."
+- ""
 ---
 
-## LAMMPS resources
+## Conjugate gradient solver
 
-The [LAMMPS manual][lammps-docs] is, in my opinion, a very well written manual with a lot of information about the various functionalities of LAMMPS.
-It is my go-to when I want to learn how to run a LAMMPS command, or when I want to understand how LAMMPS implements a specific functionality.
+The conjugate gradient method provides a slightly more general
+method for the solution of linbear systems _Ax = b_ for symmetric
+matrices. The algorithm is explained here:
 
-In this manual, there is a handy [How-to](https://docs.lammps.org/Howto.html) section.
-You can find a number of tutorials in there for understanding and running various simulations.
+https://en.wikipedia.org/wiki/Conjugate_gradient_method
 
-The [LAMMPS example scripts](https://docs.lammps.org/Examples.html) that come with the source code are an excellent source of inspiration and a great starting point for testing ideas.
-When I want to understand how to use a function, I will check whether there is an exercise that uses said function and use that as a template to get my system to work.
+It is not necessary to understand the details, as we are just
+interested in implementing the algorithm.
 
-Finally, there is the [LAMMPS mailing list](https://matsci.org/c/lammps/40).
-You can post questions to this list to have them answered by other members of the LAMMPS community and by the LAMMPS developers.
-A lot of repeat questions get asked there, so before you post your question, have a look through the records to check that someone has not already asked it.
+There are two main steps involved. The first is to perform a
+matrix-vector multiplication. This can be done using the Fortran
+intrinsic function `matmul()`. (Or you can have a go at
+implementing your own version - it's not too difficult.)
 
-## ARCHER2 resources
+The second step is to compute a scalar residual from a vector
+residual. If we have an array (vector) `r(1:n)` this can be
+done with:
+```
+  residual = sum(r(:)*r(:))
+```
 
-If you attended the live course, you will retain access to your `ta132` account (with a small amount of budget) for a couple of months following the course.
-This is to allow you to make sure that you understood all of the course materials,
-and have an opportunity to run any of the exercise simulations that you did not have time to complete in the training lesson.
-This is also to let you test out your own simulations on ARCHER2.
+All the operations in the algorithm can be composed of these,
+as well as vector additions and multiplications by a scalar.
 
-If you have any questions about using ARCHER2, the first port of call is the [ARCHER2 manual][archer2-docs].
-This manual covers a number of aspects of using ARCHER2,
-from the more simple "How to I get a program to run" to the more complex "How can I debug my software efficiently on a supercomputer".
+A template program is provided with a small matrix to use as a
+test. You need to implement a module `cgradient` which supplies
+a function `cg_test()` taking the arguments set out in the template.
 
-If you cannot find the answer to your question, please contact the ARCHER2 support team by email at support@archer2.ac.uk.
+Remember that you can always check your answer by multiplying out
+_Ax_ to recover the original right-hand side _b_.
 
-## ARCHER2 Training
 
-There is lots of training material available through the ARCHER2 service covering many different topics and to suit many different levels of experience. 
+## Larger matrices
 
-Details of courses, the upcoming schedule and information on how to register can be found in the [ARCHER2 training pages][archer2-training].
+The Matrix Market provides a number of archived matrices of different
+types. It also defines a simple ASCII format for the storage of
+sparse matrices.
 
-You can also find course material (and sometimes recordings) for previous ARCHER2 courses in the [ARCHER2 course repository][archer2-training-materials].
+https://math.nist.gov/MatrixMarket/
+
+The Matrix Market Exchange format `.mtx` files are structured as
+follows.
+```
+%% Exactly one header line starting %%
+% Zero or more comment lines starting %
+nrows ncols nnonzero
+i1 j1 a(i1,j1)
+i2 j2 a(i2,j2)
+...
+```
+where `nrows` and `ncols` are the number of rows and columns in the
+matrix, respectively. `nnonzero` is the number of non-zero entries
+in the matrix. For each non-zero entry there then follows a single
+line which the row index, the column index, and the value of the
+matrix element itself.
+
+Download an example, e.g.,
+```
+$ wget https://math.nist.gov/pub/MatrixMarket2/Harwell-Boeing/laplace/gr_30_30.mtx.gz
+$ gunzip gr_30_30.mtx
+```
+
+If you look at the fist few line of this example, you should see
+```
+%%MatrixMarket matrix coordinate real symmetric
+900 900 4322
+1 1  8.0000000000000e+00
+2 1 -1.0000000000000e+00
+31 1 -1.0000000000000e+00
+32 1 -1.0000000000000e+00
+2 2  8.0000000000000e+00
+```
+
+### Exercise
+
+* Define a type that can hold the sparse representation
+and provide a procedure which initialises such a type from a
+file.
+
+* Provide a procedure which brings into existence a dense matrix
+(just a two-dimensional array) initialised with the correct non-zero
+elements.
+
+* Use the `.pbm` file generator to produce an image of the non-zero
+elements to provide a check the file has been read correctly.
+
+* Try some other matrices from the Matrix Market.
+
+
+## Solutions
+
+Some solutions are available in the [solutions](./solutions) directory.
 
 {% include links.md %}

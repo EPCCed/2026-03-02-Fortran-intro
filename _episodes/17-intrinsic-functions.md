@@ -1,55 +1,151 @@
 ---
-title: "Next steps"
-teaching: 15
-exercises: 0
+title: "Miscellaneous"
+teaching: 10
+exercises: 10
 questions:
-- "Where can I get further information about LAMMPS?"
-- "Where can I find out more about ARCHER2?"
+- ""
 objectives:
-- "Be aware of the available LAMMPS documentation."
-- "Be aware of what other training is available through the ARCHER2 program."
+- ""
 keypoints:
-- "The LAMMPS manual is very easy to understand and provides a number of 
-  useful resources for learning about LAMMPS."
-- "You will retain access to ARCHER2 for a while -- please make use of it to 
-  test LAMMPS more."
-- "You can get access to ARCHER2 resources via a number of different routes."
+- ""
 ---
 
-## LAMMPS resources
+There a a number of features which have not been covered so far, but
+are useful in certain contexts.
 
-The [LAMMPS manual][lammps-docs] is, in my opinion, a very well written manual with a lot of information about the various functionalities of LAMMPS.
-It is my go-to when I want to learn how to run a LAMMPS command, or when I want to understand how LAMMPS implements a specific functionality.
+## Interacting with the environment
 
-In this manual, there is a handy [How-to](https://docs.lammps.org/Howto.html) section.
-You can find a number of tutorials in there for understanding and running various simulations.
+### Command line arguments
 
-The [LAMMPS example scripts](https://docs.lammps.org/Examples.html) that come with the source code are an excellent source of inspiration and a great starting point for testing ideas.
-When I want to understand how to use a function, I will check whether there is an exercise that uses said function and use that as a template to get my system to work.
+If you wish to write a program which makes use of command line arguments,
+or simply wish to know the executable name at run time, the command line
+can be retrieved.
 
-Finally, there is the [LAMMPS mailing list](https://matsci.org/c/lammps/40).
-You can post questions to this list to have them answered by other members of the LAMMPS community and by the LAMMPS developers.
-A lot of repeat questions get asked there, so before you post your question, have a look through the records to check that someone has not already asked it.
+The number of command line arguments is returned by the function
+```
+command_argument_count()
+```
+This returns an `integer`: zero if the information is not available,
+or the number of arguments _not including_ the executable name itself.
 
-## ARCHER2 resources
+The entire command line can be retrieved as a string via
+```
+  call get_command(command = cmd, length = len, status = stat)
+```
+This returns the command line as a string (truncated or padded with spaces
+as appropriate), the integer length of the command line string, and an
+integer status which will be non-zero if the information is not available.
+All the arguments are optional.
 
-If you attended the live course, you will retain access to your `ta132` account (with a small amount of budget) for a couple of months following the course.
-This is to allow you to make sure that you understood all of the course materials,
-and have an opportunity to run any of the exercise simulations that you did not have time to complete in the training lesson.
-This is also to let you test out your own simulations on ARCHER2.
+Individual command line arguments based on their position can be retrieved
+using the subroutine
+```
+  subroutine get_command_argument(position, value, length, status)
+    integer,                       intent(in)  :: position
+    character (len = *), optional, intent(out) :: value
+    integer,             optional, intent(out) :: length
+    integer,             optional, intent(out) :: status
+```
+Here, `position` is zero for the (executable) command itself and positive
+for others. The remaining arguments are: `value` is the command; length is
+the length of the command, and `istat` returns 0 on success, -ve if the
+`arg` string is too short, or +ve if the information is not available.
 
-If you have any questions about using ARCHER2, the first port of call is the [ARCHER2 manual][archer2-docs].
-This manual covers a number of aspects of using ARCHER2,
-from the more simple "How to I get a program to run" to the more complex "How can I debug my software efficiently on a supercomputer".
+### Environment variables
 
-If you cannot find the answer to your question, please contact the ARCHER2 support team by email at support@archer2.ac.uk.
+A similar routine exists for inquiry about environment variables
+```
+subroutine get_environment_varaible(name, value, length, status, trim_name)
+  character (len = *),           intent(in)  :: name
+  character (len = *), optional, intent(out) :: value
+  integer,             optional, intent(out) :: length
+  integer,             optional, intent(out) :: status
+  logical,             optional, intent(in)  :: trim_name
+```
+This will return the value associated with the given name if it exists.
+Various non-zero `status` error conditions can occur, including a value
+of `1` if the variable does not exist, or `-1` if the value is present,
+but is too long to fit in the string provided.
 
-## ARCHER2 Training
 
-There is lots of training material available through the ARCHER2 service covering many different topics and to suit many different levels of experience. 
+### System commands
 
-Details of courses, the upcoming schedule and information on how to register can be found in the [ARCHER2 training pages][archer2-training].
+It is sometimes useful to pass control of execution back to the operating
+system so that some other command can be used.
+```
+subroutine execute_command_line(command, wait, iexit, icmd, cmdmsg)
 
-You can also find course material (and sometimes recordings) for previous ARCHER2 courses in the [ARCHER2 course repository][archer2-training-materials].
+  character (len = *),           intent(in)    :: command
+  logical,             optional, intent(in)    :: wait
+  integer,             optional, intent(inout) :: iexit
+  integer,             optional, intent(out)   :: icmd
+  character (len = *), optional, intent(inout) :: cmdmsg
+
+```
+The command should be a string. The `wait` argument tells the routine to
+return only when the command has finishing executing.
+The `iexit` gives the return value of the command.
+The `icmd` argument returns a positive value if the command fails to execute
+(e.g., the command was not found), or negative if execution is not supported,
+or zero on successful execution. An informative message should be returned in
+`cmdmsg` if `icmd` is positive.
+
+It is recommended to use `wait = .true.` always. Portable programs should
+use system commands with extreme caution, or not at all.
+
+
+### Time and date from `date_and_time()`
+
+Use, e.g.,
+```
+  character (len = 8)   :: date        ! "yyyymmdd"
+  character (len = 10)  :: time        ! "hhmmss.sss"
+  character (len = 5)   :: zone        ! "shhmm"
+  integer, dimension(8) :: ivalues     ! see below
+
+  call date_and_time(date = date, time = time, zone = zone, values = ivalues)
+```
+All the arguments are optional. On return the `date` holds the year, month,
+and day in a string of the form "yyyymmdd"; time holds the time in hours,
+minutes, seconds, and milliseconds; the time zone is encoded with a sign
+(`+` or `-`) and the time difference from Greenwich Mean Time (UTC) in
+hours and minutes.
+
+The integer values are: year, month (1-12), day (1-31), time difference in
+minutes between local and UTC, hour (0-23), minute (0-59), seconds (0-59),
+and milliseconds (0-999).
+
+
+## Timing pieces of code
+
+If you want to record the time taken to execute a particular section
+of code, the `cpu_time()` function can be used. This returns a
+`real` positive value which is some system-dependnent time in seconds.
+Subtracting two consecutive values will give and elapsed time:
+```
+   real :: t0, t1
+
+   call cpu_time(t0)
+   ! ... code to be timed here ...
+   call cpu_time(t1)
+
+   print *, "That piece of code took ", t1-t0, " seconds"
+```
+In the unlikely event that there is no clock available, a negative
+value may be returned from `cpu_time()`.
+
+
+## Exercise (10 minutes)
+
+Write a program to display the command line arguments of the program.
+The arguments should not be truncated.
+How can you deal with the fact that the length of the strings is not
+known in advance?
+
+Additional exercise.
+Write a program to display the date and time in a reasonable format.
+
+Additional exercise.
+Try a simple system command, such as `cat README.md`. What can go wrong?
 
 {% include links.md %}
