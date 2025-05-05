@@ -1,401 +1,161 @@
 ---
-title: "Replica exchange"
-teaching: 30
-exercises: 30
+title: "Array declarations"
+teaching: 10
+exercises: 10
 questions:
-- "What is replica exchange?"
-- "How can I run a replica exchange simulation in LAMMPS?"
-- "How can I analyse the output of a replica exchange simulation?"
+- ""
 objectives:
-- "Understand how to setup replica exchange simulations with suitable settings."
-- "Understand how to check analyse the output of a replica exchange simulation."
+- ""
 keypoints:
-- "Choose the temperature scale carefully."
-- "Check the acceptance ratios and replica traversal."
-- "Make sure you reorder the trajectories before analysing."
+- ""
 ---
 
-Introduction and example code for running replica exchange with
-[LAMMPS](https://www.lammps.org/).
+# Arrays
+
+Unlike C, which often uses pointers to handle array data, Fortran has arrays
+which are an intrinsic feature of the language.
+
+## A one-dimensional array
+
+Arrays may be declared with addition of the `dimension` attribute, e.g.,
+```
+program example1
+
+  implicit none
+
+  real, dimension(3) :: a    ! declare a with elements a(1), a(2), a(3)
+
+end program example1
+```
+The _size_ of the array is the total number of elements (here 3).
+The default _lower bound_ is 1 and the _upper bound_ is 3.
 
 
-## Table of Contents
-   * [Replica exchange](#replica-exchange-also-called-parallel-tempering)
-   * [Example system](#example-system)
-   * [Input file](#input-file)
-   * [Choosing the temperature scale](#choosing-the-temperature-scale)
-   * [Running the simulation](#running-the-simulation)
-   * [Simulation output](#simulation-output)
-   * [Checking the simulation](#checking-the-simulation)
-      * [Acceptance ratios](#acceptance-ratios)
-      * [Traversal of the temperatures](#traversal-of-the-temperatures)
-   * [Reordering the trajectories into constant temperature](#reordering-the-trajectories-into-constant-temperature)
-   * [Analysing the constant temperature trajectories](#analysing-the-constant-temperature-trajectories)
+### Lower and upper bounds
+```
+  real, dimension(-2:1) :: b ! elements b(-2), b(-1), b(0), b(1)
+```
+Here we specify, explicitly, the lower and upper bounds. The
+_size_ of this array is 4.
 
 
----
+### Array constructor
 
-
-## Replica exchange (also called parallel tempering)
-
-Replica exchange, also known as parallel tempering, is an enhanced sampling technique that can be used on molecular simulations to improve sampling of the phase-space.
-The idea is to run multiple replicas of the system in parallel, each with a different temperature, and periodically attempt to exchange which configurations are at which temperature.
-The higher temperatures allow the system to overcome free energy barriers and therefore improve the sampling.
-
-{% include figure.html url="" max-width="80%" file="/fig/5_replica_exchange/phase_space.png" alt="Phase space diagram" %}
-
-The image shows how lower temperature systems in a rough potential energy surface end up trapped in local minima.
-High temperature replicas can overcome the energy barriers.
-
-
-The exchanges between replicas are computed using the Metropolis exchange criteria which gives the probability of accenting a swap between replicas 1 and 2:
-
-{% include figure.html url="" max-width="80%" file="/fig/5_replica_exchange/metropolis_exchange.png" alt="Metropolis exchange" %}
-
-For computational efficiency, it is the temperatures that are swapped between replicas.
-
----
-## Example system
-
-The code for this section can be downloaded from the git repository:
-
-```bash
-git clone --depth=1 https://www.github.com/EPCCed/archer2-advanced-use-of-lammps.git
-cd exercises/3-replica-exchange-exercise
+One may specify array values as a constructor
+```
+  integer, dimension(3), parameter :: s = (/ -1, 0, +1 /)   ! F2003 or
+  integer, dimension(3), parameter :: t = [  -1, 0, +1 ]    ! F2008
 ```
 
-We will use a toy system: A 50 particle bead-spring polymer.
-This is typical of coarse-grain protein models.
-
-{% include figure.html url="" max-width="80%" file="/fig/5_replica_exchange/polymer.png" alt="polymer.txt" %}
-
-The data file `polymer.txt` contains the system topology.
-
-
-## Input file
-
-The input file `run.in` contains the simulation settings.
-
-Most of the lines are general to any LAMMPS simulation.
-The important ones for running replica exchange are the following:
-
+## A two-dimensional array
 ```
-variable    T world 300.00 354.47 416.81 488.14 569.86 663.45 764.45 865.45 966.45 1000.00
+  real, dimension(2,3) :: a   ! elements a(1,1), a(1,2), a(1,3)
+                              !          a(2,1), a(2,2), a(2,3)
 ```
+This two-dimensional array (said to have _rank_ 2) has two elements
+in the first dimension (or _extent_ 2), and 3 elements in the second
+dimension (_extent_ 3). It is said to have _shape_ (2,3), which is
+the sequence of extents in each dimension. Its size is 6 elements.
 
-and
-
+There is an array element order which in which we expect the implementation
+to store contiguously in memory. In Fortran this has to be the left-most
+dimension counting fastest. For array `a` we expect the order in
+memory to be
 ```
-variable    I world 0 1 2 3 4 5 6 7 8 9
-
+a(1,1), a(2,1), a(1,2), a(2,2), a(1,3), a(2,3)
 ```
+that is, the opposite the convention in C.
 
-Which use the `world` variable type to assign a temperature and corresponding index to each replica that will be run.
-Note here we have chosen to use 10 replicas.
+### `reshape`
 
-
+A constructor for an array of rank 2 or above might be used, e.g.,
 ```
-fix         2 all langevin ${T} ${T} 1000 ${SEED}
+  integer, dimension(2,3) :: m = reshape([1,2,3,4,5,6], shape = [2,3])
 ```
+where we have used the intrinsic function `reshape()`.
 
-The substitutions `${T}` set the Langevin thermostat settings to the specified
-temperature for each replica.
+### Exercise (2 minutes)
+
+Check the accompanying `example1.f90` to see examples of intrinsic functions
+available to interrogate array size and shape at run time.
 
 
+## Allocatable arrays
+
+If we wish to establish storage with shape determined at run time,
+the _allocatable_ attribute can be used. The rank must be specified:
 ```
-dump        1 all atom 1000 polymer.${I}.lammpstrj
+  real, dimension(:, :), allocatable :: a
 
+  ! ... establish shape required, say (imax, jmax) ...
+
+  allocate(a(imax, jmax))
+
+  ! ... use and then release storage ...
+
+  deallocate(a)
 ```
+Again, this array will take on the default lower bound of 1 in each
+dimension.
 
-The substitution `${I}` allows each replica to write its own trajectory.
-
+Formally,
 ```
-temper      1000000 100 $T 2 ${SEED} ${SEED}
+  allocate(allocate-list [, source = array-expr] [ , stat = scalar-int-var])
 ```
+The optional `source` argument may be used to provide a template for
+the newly allocated object (values will be copied). We will return to
+this in more detail in the context of dynamic type.
 
-The `temper` command performs the parallel tempering run.
-This replaces the `run` command in normal LAMMPS input scripts.
+A successful allocation with the optional `stat` argument will assign a
+value of zero to the argument.
 
-The arguments are:
-  - Total number of timesteps to run for (1000000).
-  - Frequency to attempt replica swaps (every 100 timesteps).
-  - Temperature of this replica.
-  - Fix id of the thermostat (the Langevin thermostat).
-  - Two random number seeds, one for choosing which replicas to swap, one for the Metropolis Monte Carlo acceptance step.
+### Allocation status
 
-## Choosing the temperature scale
-
-We have provided an input file that has 10 temperatures spanning 300K to 1000K. These have been chosen to give approximately a 30% acceptance ratio for the swap attempts.
-As a general rule 30% is a suitable acceptance ratio.
-The number of replicas needed and the temperature spacing is a function of the degrees of freedom of the system.
-We have used a online calculator to generate the temperature scale.
-
-[http://virtualchemistry.org/remd-temperature-generator/](http://virtualchemistry.org/remd-temperature-generator)
-
-Source code here: [https://github.com/dspoel/remd-temperature-generator](https://github.com/dspoel/remd-temperature-generator)
-
-Publication: [http://dx.doi.org/10.1039/b716554d](http://dx.doi.org/10.1039/b716554d)
-
-Using:
-  - number of proteins = 50
-  - number of water = 0
-  - lower temperature = 300
-  - higher temperature = 1000
-  - exchange probability = 0.3
-
-you should get the same temperature scale.
-
-## Running the simulation
-
-To run the simulation the `-partition` argument must be used when running LAMMPS.
-
-In this example we have 10 replicas so 10 partitions must be used.
-An example command to do this is:
-
-```bash
-mpirun -np 10 lmp -in run.in -partition 10x1
+An array declared with the _allocatable_ attribute is initially in
+an unallocated state. When allocated, this status will change; this
+status can be interrogated via the intrinsic function `allocated()`.
 ```
-
-This will use 10 MPI processes to run 10 replicas of the simulation (1 MPI processes per replica).
-
-More MPI processes per replica can be used, for example
-
-```bash
-mpirun -np 20 lmp -in run.in -partition 10x2
+  integer, dimension(:), allocatable :: m
+  ...
+  if (allocated(m)) then
+    ! ... we can do something ...
+  end if
 ```
-
-will run the same parallel tempering simulation but use 2 MPI processes per
-replica.
-
-For this toy example of only 50 atoms there will be no parallel
-speedup from doing this.
-
-> ## Note
-> On ARCHER2 the provided batch script `run.slurm` will run this on the compute
-> nodes. Remember that ARCHER2 does not have `mpirun` and the only way to run
-> MPI programs is with ``srun`` on the compute nodes.
-{: .callout}
+Attempt to `deallocate` a variable which is not allocated is an error.
 
 
-```bash
-sbatch run.slurm
+### Exercise (5 minutes)
+
+Return again to the program to compute the approximation of pi via
+the Gauss-Legendre expansion (last seen in section2.01). You may use
+your own version or the new template provided in this directory
+(see `exercise1.f90`).
+
+Introduce array storage for the quantites `a`, `b` and `t`. Use a
+fixed number of terms. Assign appropriate values in a first loop.
+In a second loop, compute the approximation of pi at each iteration.
+
+What might you do if you wanted to store only the number of terms
+taken to reach a converged answer?
+
+
+#### Help is available!
+
+As arrays are self-describing in Fortran, it is relatively easy for the
+compiler to analyse whether array accesses are valid, or within bounds.
+This can help debugging. Most compilers will have an option that instructs
+the compiler to inject additional code which checks bounds at run time.
+For the Cray Fortran compiler, this is `-hbounds`; for the GNU compiler,
+this is `-fcheck=bounds`.
+
+E.g.,
 ```
-
-## Simulation output
-
-The master log file `log.lammps` contains the information about which
-temperature each replica is at each timestep. Below is an example:
-
+$ ftn -hbounds exercise1.f90
 ```
-LAMMPS (29 Sep 2021)
-Running on 10 partitions of processors
-Setting up tempering ...
-Step T0 T1 T2 T3 T4 T5 T6 T7 T8 T9
-0 0 1 2 3 4 5 6 7 8 9
-100 1 0 3 2 5 4 7 6 9 8
-200 1 0 3 2 4 5 6 7 8 9
-300 2 0 3 1 4 5 6 7 8 9
-400 3 1 2 0 5 4 7 6 9 8
-500 3 2 1 0 5 4 8 6 9 7
-600 4 2 1 0 6 3 7 5 9 8
-700 3 1 2 0 6 4 7 5 9 8
-800 3 2 1 0 5 4 8 6 9 7
-900 4 2 1 0 6 3 7 5 9 8
-1000 4 1 2 0 6 3 7 5 9 8
-```
-{: .output}
-
-If we look at step 1000 we see that replica 0 has temperature index 4 (569.86
-K), replica 2 has temperature index 1 (354.47), etc...
-
-Each replica has its own log file `log.lammps.n` which contains the thermo
-output. The `screen.n` files contain what would usually be printed to the
-terminal for a normal non-replica LAMMPS run.
-
-The files `polymer.n.lammpstrj` contain the trajectories of each replica.
-These are continuous in coordinate space, not in temperature. The temperature
-of each trajectory varies corresponding to the swaps listed in the master log
-file. Before analysis the trajectories must be re-ordered into trajectories of
-the same temperature.
-
-## Checking the simulation
-
-It is important to check that parallel tempering simulations are running
-correctly.
-
-### Acceptance ratios
-
-The key quantity is the acceptance ratio which is the probability of a
-successful swap between replicas. The number should be in the range 20 to 40 %
-for optimal sampling. When we setup the temperate scale we aimed for an
-acceptance ratio of 30%. We have provided a python script to calculate the
-acceptance ratio of the simulation.
-
-```bash
-module load cray-python
-python acceptance_ratio.py
-```
-
-Output:
-
-```
-T indexes, Acceptance ratio
-0 - 1, 0.275972402759724
-1 - 2, 0.32836716328367166
-2 - 3, 0.35176482351764826
-3 - 4, 0.3711628837116288
-4 - 5, 0.38036196380361964
-5 - 6, 0.45835416458354167
-6 - 7, 0.5427457254274572
-7 - 8, 0.6203379662033797
-8 - 9, 0.8687131286871312
-```
-{: .output}
-
-We see that the lower T index have a ratio close to 0.3 which is ideal, the
-higher ones have a larger ratio, this is an artefact of our small toy system
--- The calculator we used to generate the temperature scale is designed for
-larger explicit solvent bio-molecular systems in the NPT ensemble.
-
-If the ratios were too low (less than 20%) you would want to reduce the
-temperature differences, and use more replicas, If too high (greater than 50%)
-you would want to increase the temperature difference and use less replicas.
-
-### Traversal of the temperatures
-
-It is also important to check that the replicas are fully traversing
-temperature space. If you plot the columns of the master log file you will see
-how the temperature index varies with the timestep.
-
-``` bash
-module load gnuplot
-gnuplot
-gnuplot> plot "log.lammps" using 1:2 with lines
-```
-
-{% include figure.html url="" max-width="80%" file="/fig/5_replica_exchange/traversal.png" alt="Temperature traversal" %}
-
-The plot on the left shows good traversal, the replica reaches T0 and T9
-multiple times.
-
-The plot on the right is an example of poor traversal (we changed the swap
-frequency to 10000).
-
-## Reordering the trajectories into constant temperature
-
-This can be done using the provided python script `reorder.py`
-
-```bash
-python reorder.py polymer 10
-```
-
-Where the first argument is the prefix of the trajectory files and the second
-is the number of replicas.
-
-This will produce the reordered trajectories named `polymer.Tn.lammpstrj` where `Tn` is the temperature index,
-i.e `T0` is the first temperature (300K ), and `T1` is the second temperature (354.47K) etc.
-
-## Analysing the constant temperature trajectories
-
-We can now analyse the reordered trajectories.
-This can be done using the `rerun` command.
-If you move into the `rerun` folder you will find the input script `rerun.in`.
-
-```bash
-cd rerun
-```
-
-If you open it you will see some differences to the run script `run.in`.
-The key parts are that the data file must still be read in.
-The pair and bond styles are still defined the same way.
-The NVE and Langevin fixes are not needed as no integration is performed for a rerun.
-We define a compute for the analysis we want to do
-
-```
-compute       RG all gyration
-```
-
-which computes the radius of gyration of the polymer.
-
-We then use `ave/histo` fix which creates a histogram of the RG values over the whole simulation and saves it to a file.
-
-```
-fix 4 all ave/histo 1000 1000 1000000 7 20 100 c_RG file RG_histogram_T${I}.txt start 100000
-```
-
-Finally the rerun command
-
-```
-rerun ../polymer.T${I}.lammpstrj dump x y z
-```
-
-This reads the re-ordered trajectories from the simulation and computes the radius of gyration for each frame.
-
-To run this for all temperatures at once we can use the LAMMPS partition switch again.
-
-```bash
-mpirun -np 10 lmp -in rerun.in -partition 10x1
-```
-
-For ARCHER2 the slurm script `rerun.slurm` is provided.
-
-```bash
-sbatch rerun.slurm
-```
-
-Note that this can be done in serial individually for each temperature.
-It is trivially parallel as no communication is needed between the replicas we are rerunning (unlike the parallel tempering run).
-To do this you would just need to change the line
-
-```
-variable I world 0 1 2 3 4 5 6 7 8 9
-```
-
-to the single temperature index of interest. E.g.
-
-```
-variable I index 0
-```
-
-And then run as normal
-
-```bash
-lmp -in rerun.in
-```
-
-We now have the RG histograms for each temperature ``RG_histogram_Tn.txt``.
-
-They can be plotted using the provided gnuplot script
-
-```bash
-gnuplot -p plot.gp
-```
-
-On ARCHER2 remember to load the gnuplot module (if you haven't yet)
-
-```bash
-module load gnuplot
-```
-
-{% include figure.html url="" max-width="80%" file="/fig/5_replica_exchange/RG.png" alt="Plot of RG histograms" %}
-
-We can see that temperature index 0 (300K) has the most well defined peak with the smallest radius of gyration.
-This typical of a globule like polymer state.
-The highest temperature index 9 (1000K) has a different profile, typical of a coil like polymer state.
-
-To reduce the noise on the histograms you would need to run the simulation longer, we have kept it short here for demonstration purposes.
-
-The plot shows the enhanced sampling capabilities of parallel tempering.
-The extended high T configurations enable a greater exploration of the compact low T configurations.
-
-{% include figure.html url="" max-width="80%" file="/fig/5_replica_exchange/structures.png" alt="Polymer structures" %}
-
-The low and high temperature configurations of the polymer are shown in the image.
-
-## Further reading
-
-- [https://docs.lammps.org/Howto_replica.html](https://docs.lammps.org/Howto_replica.html)
-- Parallel tempering: Theory, applications, and new perspectives [http://dx.doi.org/10.1039/B509983H](http://dx.doi.org/10.1039/B509983H)
-- A temperature predictor for parallel tempering simulations [http://dx.doi.org/10.1039/B716554D](http://dx.doi.org/10.1039/B716554D)
+Some compilers may also be able to check certain bounds at compile
+time, and issue a compile-time message. However, in general, errors
+may not appear until run time. If your program crashes, or produces
+unexpected results, this compiler option can help to track down
+problems with invalid array accesses.
 
 {% include links.md %}
