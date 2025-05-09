@@ -2,6 +2,7 @@
 title: "Connecting to ARCHER2 and transferring data"
 teaching: 20
 exercises: 20
+start: True
 questions:
 - "What can I expect from this course?"
 - "How will the course work and how will I get help?"

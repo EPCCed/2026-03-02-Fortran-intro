@@ -2,6 +2,7 @@
 title: "Modules and compilation of modules"
 teaching: 10
 exercises: 10
+start: True
 questions:
 - ""
 objectives:

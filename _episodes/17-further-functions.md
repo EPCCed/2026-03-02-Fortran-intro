@@ -2,6 +2,7 @@
 title: "Procedures again: interfaces"
 teaching: 10
 exercises: 10
+start: True
 questions:
 - ""
 objectives:

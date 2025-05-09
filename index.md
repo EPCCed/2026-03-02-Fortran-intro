@@ -10,8 +10,8 @@ humandate:
 humantime: 
 startdate: 
 enddate: 
-instructor: ["Paul Bartholomew and William Lucas"]
-helper: [""]
+instructor: ["Paul Bartholomew", "William Lucas"]
+helper: ["p.bartholomew@epcc.ed.ac.uk", "w.lucas@epcc.ed.ac.uk"]
 email: [""]
 collaborative_notes: 
 eventbrite: 
