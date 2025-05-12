@@ -1,5 +1,5 @@
 ---
-title: "Logical and character variables"
+title: "Logical and conditionals, character variables"
 teaching: 10
 exercises: 10
 questions:

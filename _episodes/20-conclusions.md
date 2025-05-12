@@ -1,5 +1,5 @@
 ---
-title: "Things you may see"
+title: "Other things you may see"
 teaching: 15
 exercises: 0
 questions:
