@@ -5,13 +5,12 @@ title: Setup
 
 Please try to complete the following setup tasks ahead of the lesson. 
 
-## Create appropriate SAFE accounts
+## Create appropriate SAFE and ARCHER2 machine accounts
 
-Course attendees should have received instructions on how to set up an Archer SAFE account.
+Course attendees should have received instructions on how to set up an ARCHER2 [SAFE](https://safe.epcc.ed.ac.uk/) account.
 Details are available in the [ARCHER2 documentation][archer2-quickstart].
 
-This will allow you to obtain a machine account which will be used for the course.
-(If you already have a machine account, it is possible to use that, although you may not have access to the course queue reservation.)
+You will firstly create a SAFE account. The [SAFE](https://safe.epcc.ed.ac.uk/) is used to manage ARCHER2 projects and accounts. Once you have a SAFE account, you will then be able to request an account on ARCHER2 itself. (If you already have a SAFE or ARCHER2 machine account, you may reuse those.)
 
 Any problems encountered will be addressed as the first part of the course.
 

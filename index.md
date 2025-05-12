@@ -24,15 +24,13 @@ This course is aimed at users and developers who know how to program, but have l
 
 Fortran (a contraction of Formula Translation) was the first programming language to have a standard (in 1954), but has changed significantly over the years. More recent standards (the latest being Fortran 2023) come under the umbrella term "Modern Fortran". Fortran retains very great significance in many areas of scientific and numerical computing, particularly for applications such as quantum chemistry, plasmas, and in numerical weather prediction and climate models.
 
-This course provides an introduction to the basics of writing Fortran. It will cover basic syntax, variables, expressions and assignments, flow of control, and introductions to i/o and user-defined types. Common Fortran idioms are introduced and contrasted with those available in C-like languages; the course will try to focus on real usage rather than formal descriptions.
+This course provides an introduction to the basics of writing Fortran. It will cover basic syntax, variables, expressions and assignments, flow of control, and introductions to I/O and user-defined types. Common Fortran idioms are introduced and contrasted with those available in C-like languages; the course will try to focus on real usage rather than formal descriptions.
 
-At the end of the course you should be able to understand many Fortran programs and be confident to start to write well-structured and portable Fortran. Fortran is a rather "large" language, so it is not possible to cover all its features in a two day course. Further elements of Fortran are discussed in the "Intermediate Modern Fortran" course.
+At the end of the course you should be able to understand many Fortran programs and be confident enough to start writing well-structured and portable Fortran. Fortran is a rather "large" language, so it is not possible to cover all its features in a three day course. Further elements of Fortran are discussed in the "Intermediate Modern Fortran" course.
 
-Prerequisites: attendees must be familiar with the basic concepts of programming: variables, logic, flow of control, loops, functions and so on. No knowledge of Fortran is assumed. Previous programming experience might typically be in the context C/C++ or python. If you know no programming, we suggest this course on Fortran is not the place to start.
+The course requires a Fortran compiler. We will provide accounts on ARCHER2 for you to use; this guarantees that everyone is working in the same environment with the same software. That said, if you wish to work on a local machine or laptop which has a Fortran compiler [1], you of course may do so. Use of a text editor will be required will be required.
 
-The course requires a Fortran compiler, for which a local machine or laptop may be appropriate [1]. If you do not have access to a Fortran compiler, course training accounts on ARCHER2 will be available which provide access to various compilers. Use of a text editor will be required (some may prefer an IDE, but we do not intend to consider or support IDEs).
-
-[1] This may typically be gfortran, freely available as part of Gnu Compiler Collection (GCC). See e.g., https://gcc.gnu.org/wiki/GFortranBinaries
+[1] This may typically be `gfortran`, freely available as part of GNU Compiler Collection (GCC). See e.g., [https://gcc.gnu.org/wiki/GFortranBinaries](https://gcc.gnu.org/wiki/GFortranBinaries).
 
 <hr/>
 

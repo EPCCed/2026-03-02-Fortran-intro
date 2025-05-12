@@ -12,7 +12,7 @@ objectives:
 - "Understand how this course works, how I can get help and how I can give feedback."
 - "Understand how to connect to ARCHER2."
 keypoints:
-- "We should all understand and follow the [ARCHER2 Code of Conduct][archer2-tcoc] to ensure this course is conducted in the best teaching environment."
+- "We should all understand and follow the [ARCHER2 Code of Conduct](archer2-tcoc) to ensure this course is conducted in the best teaching environment."
 - "The course will be flexible to best meet the learning needs of the attendees."
 - "Feedback is an essential part of our training to allow us to continue to improve and make sure the course is as useful as possible to attendees."
 - "ARCHER2's login address is `login.archer2.ac.uk`."
@@ -22,12 +22,10 @@ keypoints:
 
 ## Purpose
 
-Attendees of this course will get access to the ARCHER2 HPC facility.
-You will have the ability to request an account and to login to ARCHER2 before the course begins.
-If you are not able to login, you can come to this pre-session where the instructors will help make sure you can login to ARCHER2.
-
-Note that if you are not able to login to ARCHER2, and do not attend this session,
-you may struggle to run the course exercises as these were designed to run on ARCHER2 specifically.
+Attendees of this course will get access to the ARCHER2 HPC facility. You will
+have the ability to request an account and to log in to ARCHER2 before the
+course begins. If you are not able to log in, you can come to this pre-session
+where the instructors will help make sure you can login to ARCHER2.
 
 ## Connecting using SSH
 
@@ -42,7 +40,7 @@ Access to ARCHER2 is via SSH using **both** a time-based one time password (TOTP
 ## Passwords and password policy
 
 When you first get an ARCHER2 account, you will get a single-use password from the SAFE which you will be asked to change to a password of your choice.
-Your chosen  password must have the required complexity as specified in the [ARCHER2 Password Policy][archer2-password].
+Your chosen  password must have the required complexity as specified in the [ARCHER2 Password Policy](https://www.archer2.ac.uk/about/policies/passwords_usernames.html).
 
 The password policy has been chosen to allow users to use both complex, shorter passwords and long, but comparatively simple passwords.
 For example, passwords in the style of both `LA10!£lsty` and `horsebatterystaple` would be supported.
@@ -63,7 +61,7 @@ Instructions on how to add MFA authentication to a machine account on SAFE can b
 
 ARCHER2 supports a number of different data transfer mechanisms.
 The one you choose depends on the amount and structure of the data you want to transfer and where you want to transfer the data to.
-The three main options are:
+The two main options are:
 
 * `scp`: The standard way to transfer small to medium amounts of data off ARCHER2 to any other location.
 * `rsync`: Used if you need to keep small to medium datasets synchronised between two different locations
@@ -81,33 +79,39 @@ Check out the git repository to your laptop or ARCHER2 account.
 $ git clone https://github.com/EPCCed/2025-05-19-MO-Fortran-intro.git
 $ cd 2025-05-19-MO-Fortran-intro
 ```
-The default Fortran compiler on ARCHER2 is the Cray Fortran compiler
+
+Within the repository, the code we will use is located in the `exercises`
+directory. The default Fortran compiler on ARCHER2 is the Cray Fortran compiler
 invoked using `ftn`. For example,
 ```
-$ cd section1.01
+$ cd example/01-hello-world
 $ ftn example1.f90
 ```
-should generate an executable with the default name `a.out`.
+should generate an executable with the default name `a.out`. If you are working on another machine, you should invoke the correct compiler e.g. `gfortran`.
 
-Each section of the course is associated with a different directory,
-each of which
-contains a number of example programs and exercise templates. Answers to
-exercises generally re-appear as templates to later exercises.
-Miscellaneous solutions also appear in the [solutions](./solutions) directory.
+Each section of the course is associated with a different directory, each of
+which contains a number of example programs and exercise templates. Answers to
+exercises generally re-appear as templates to later exercises. Miscellaneous
+solutions to some of the larger problems also appear in `solutions` subdirectories.
 
 Not all the examples compile. Some have deliberate errors which will be
 discussed as part of the course.
 
 ## Course structure and method
 
-Rather than having separate lectures and practical sessions, this course is taught following [The Carpentries methodology][c-site],
-where we all work together through material learning key skills and information throughout the course.
-Typically, this follows the method of the instructor demonstrating and then the attendees doing along with the instructor.
+Rather than having separate lectures and practical sessions, this course is
+taught following [The Carpentries methodology][c-site], where we all work
+together through material learning key skills and information throughout the
+course. Typically, this follows the method of the instructor demonstrating and
+then the attendees doing along with the instructor. There are some larger
+exercises we will start working on at the end of day one.
 
-There are many helpers available to assist you and to answer any questions you may have as we work through the material together.
-You should also feel free to ask questions of the instructor whenever you like.
-The instructor will also provide many opportunities to pause and ask questions.
+There are many helpers available to assist you and to answer any questions you
+may have as we work through the material together. You should also feel free to
+ask questions of the instructor whenever you like. The instructor will also
+provide many opportunities to pause and ask questions.
 
+<!---
 We will also make use of a shared collaborative document - the *etherpad*.
 You will find a link to this collaborative document on the course page.
 We will use it for a number of different purposes, for example,
@@ -117,6 +121,7 @@ If you have useful information to share with the class then please do add it to 
 At the end of the course, we take a copy of the information in the etherpad,
 remove any personally-identifiable information,
 and post this on the course archive page so you should always be able to come back and find any information you found useful.
+-->
 
 ## Feedback
 
