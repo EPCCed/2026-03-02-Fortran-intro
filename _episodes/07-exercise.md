@@ -1,7 +1,7 @@
 ---
 title: "Mini exercise: a choice of two"
 teaching: 10
-exercises: 80
+exercises: 50
 questions:
 - ""
 objectives:

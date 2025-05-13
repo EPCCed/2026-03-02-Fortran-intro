@@ -1,6 +1,6 @@
 ---
 title: "Exercises"
-exercises: 90
+exercises: 60
 questions:
 - ""
 objectives:
