@@ -7,8 +7,7 @@ questions:
 objectives:
 - ""
 keypoints:
-- "Fortran provides two non-numeric intrinsic data types: `logical` and
-`character`."
+- "Fortran provides two non-numeric intrinsic data types: `logical` and `character`."
 ---
 
 ## Logical variables

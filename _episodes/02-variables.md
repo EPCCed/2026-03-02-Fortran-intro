@@ -1,14 +1,21 @@
 ---
 title: "Variables"
 teaching: 10
-exercises: 10
+exercises: 20
 questions:
-- ""
+- "What are some basic types of numeric variables in Fortran?"
+- "How are variables declared and defined?"
+- "Can I create constants?"
 objectives:
-- ""
+- "Understand how to create variables and assign values to them."
+- "Specify the representation in memory of variables independently of the implementation."
+- "Store constant values."
 keypoints:
-- "Fortran provides the following intrinsic data types: numeric types `integer`,
-`real` and `complex`; non-numeric types `logical` and `character`."
+- "Fortran provides the intrinsic numeric types of `integer`, `real` and `complex`."
+- "Without a `kind`, these types are implementation-defined. Use `kind` to specify the representation of variables."
+- "The `iso_fortran_env` intrinsic module provides standard kinds such as `real32` and `real64`."
+- "Always use `implicit none` to prevent the accidental implicit declaration of new variables."
+- "Use the `parameter` attribute to make the value associated with the name constant."
 ---
 
 ## Numeric variables of intrinsic type
@@ -36,8 +43,28 @@ underscore `_`. Valid names must begin with a character. The maximum
 length of a name is 63 characters (F2003) with no spaces allowed.
 This includes names for programs, and names for variables.
 
-Other special characters recognised by Fortran are given in
-[F-SPECIAL-CHARACTERS.md](../docs/F-SPECIAL-CHARACTERS.md).
+Other special characters recognised by Fortran are:
+
+| Character | Name                  | Character      | Name             |
+|-----------|-----------------------|----------------|------------------|
+|           | Blank                 | `;`            | Semi-colon       |
+|   `=`     | Equals                | `!`            | Exclamation mark |
+|   `+`     | Plus                  | `"`            | Double quote     |
+|   `-`     | Minus                 | `%`            | Percent          |
+|   `*`     | Asterick              | `&`            | Ampersand        |
+|   `/`     | Slash                 | `~`            | Tilde            |
+|   `\`     | Backslash             | `<`            | Less than        |
+|   `(`     | Left parenthesis      | `>`            | Greater than     |
+|   `)`     | Right parenthesis     | `?`            | Question mark    |
+|   `[`     | Left square bracket   | `'`            | Apostrophe       |
+|   `]`     | Right square bracket  | <code>`</code> | Grave accent     |
+|   `{`     | Left curly brace      | `^`            | Circumflex       |
+|   `}`     | Right curly brace     | `\|`           | Pipe             |
+|   `,`     | Comma                 | `$`            | Dollar sign      |
+|   `.`     | Decimal point         | `#`            | Hash             |
+|   `:`     | Colon                 | `@`            | At               |
+
+Other characters may appear in comments.
 
 
 ### `implicit` statement
@@ -62,12 +89,19 @@ In this case, all variable names must be declared explicitly before they
 are referenced.
 
 However, it is still common to see the idiom that variables beginning
-with `i-n` are integers and so on.
+with `i-n` are integers and so on, albeit declared explicitly.
+
+> ## Using `implicit none`
+>
+> To reiterate -- all modern Fortran code really should use
+> `implicit none`. Failing to do so will almost certainly lead to bugs
+> and hence time spent debugging!
+{: .callout}
 
 
 ### Exercise (1 minute)
 
-Compile and run the accompanying program `exercise1.f90`. What's
+Compile and run the accompanying program [exercise1.f90](../exercises/02-variables/exercise1.f90). What's
 the problem and how should we avoid it? Check the compiler can trap
 the problem.
 
@@ -118,8 +152,8 @@ concise declaration with an explicit kind type parameter is:
 
 ### Example (2 minutes)
 
-Take a moment to compare the output of the programs `example1.f90` and
-`example2.f90`, which declare and initialise a variable of each type and
+Take a moment to compare the output of the programs [example1.f90](../exercises/02-variables/example1.f90) and
+[example2.f90](../exercises/02-variables/example2.f90), which declare and initialise a variable of each type and
 print out their values to the screen.
 
 ### Numeric literal constants
@@ -196,12 +230,12 @@ radians) of the argument.
 
 ### Exercise (2 minutes)
 
-Consider further the accompanying `example3.f90`, where we have introduced
-another intrinsic function `storage_size()` (roughly equiavalent to C
+Consider further the accompanying [example3.f90](../exercises/02-variables/example3.f90), where we have introduced
+another intrinsic function `storage_size()` (roughly equivalent to C's
 `sizeof()` although it returns a size in bits rather than bytes).
 Run the program and check the actual values of the kind type parameters
 and associated storage sizes. Speculate on the portability of a program
-declaring, e.g.,:
+declaring, e.g.:
 ```
   integer (4) :: i32
   integer (8) :: i64
@@ -209,8 +243,9 @@ declaring, e.g.,:
 
 ### Exercise (2 minutes)
 
-Consider the accompanying `exercise2.f90`. Check the compiler error emitted and
-remove the offending line.
+Consider the accompanying
+[exercise2.f90](../exercises/02-variables/exercise2.f90). Check the compiler
+error emitted and remove the offending line.
 
 
 ### Arithmetic operations on numeric types
@@ -281,22 +316,25 @@ of a negative value stored as a real variable?
 
 ### Exercise (5 minutes)
 
-The accompanying template `exercise3.f90` provides instructions for an
+The accompanying template [exercise3.f90](../exercises/02-variables/exercise3.f90) provides instructions for an
 exercise which involves the approximation to the constant pi computed
 via a Gauss-Legendre algorithm. Some
-background can be found at https://en.wikipedia.org/wiki/Gauss-Legendre_algorithm.
+background can be found at
+[https://en.wikipedia.org/wiki/Gauss-Legendre_algorithm](https://en.wikipedia.org/wiki/Gauss-Legendre_algorithm).
 
-A solution to this problem appears as the template for the exercise in
-[section2.01](../section2.01/exercise1.f90).
+A solution to this problem appears as the template for the [first
+exercise](../exercises/04-do-statements/exercise1.f90) in the [episode on
+loops]({{ page.root }}{% link _episodes/04-do-statements.md %}).
 
 ### Exercise (5 minutes)
 
 A second exercise in a similar vein looks at an approximation to the
 conductance of a rectangular channel subject to a constant flow.
-Instructions are in `exercise4.f90`.
+Instructions are in [exercise4.f90](../exercises/02-variables/exercise4.f90).
 
-A solution to this problem appears as the template for the second
-exercise in [section2.01](../section2.01/exercise2.f90).
+A solution to this problem appears as the template for the [second
+exercise](../exercises/04-do-statements/exercise2.f90) in the [episode on
+loops]({{ page.root }}{% link _episodes/04-do-statements.md %}).
 
 
 {% include links.md %}

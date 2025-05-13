@@ -3,11 +3,18 @@ title: "Hello World"
 teaching: 10
 exercises: 10
 questions:
-- ""
+- "What is the structure of a Fortran program?"
+- "How do I print output from the program to the terminal?"
 objectives:
-- ""
+- "Write, compile and run a simple Fortran program."
+- "Understand how to use the `print` and `write` statements.`"
+- "Load the `iso_fortran_env` module with a `use` statement."
 keypoints:
-- ""
+- "A Fortran program begins with a `program` statement and ends with an `end program` statement."
+- "A `print` statement is a simple way to write output to the terminal."
+- "A `write` statement provides more control including ways to write to file."
+- "Modules can be loaded with the `use` statement."
+- "The `iso_fortran_env` module provides symbols which can be used to help read from and write to the terminal."
 ---
 
 ## First example
@@ -99,7 +106,8 @@ Formally,
 ```
 If `module-nature` is present, it must be either `intrinsic` or
 `non_intrinsic`. The implementation must provide certain intrinsic
-modules such `iso_fortran_env`.
+modules such `iso_fortran_env`. You can write modules of your own, as
+we will see later on.
 
 There is no formal namespace mechanism in Fortran (cf. C++), so
 restrictions on which symbols are visible can be made via an optional

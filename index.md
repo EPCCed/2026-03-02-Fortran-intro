@@ -6,13 +6,13 @@ address:
 country: "UK"
 language: "English"
 latlng: 
-humandate: 
+humandate: "19 to 21 May 2025"
 humantime: 
-startdate: 
-enddate: 
+startdate: 2025-05-19
+enddate: 2025-05-21
 instructor: ["Paul Bartholomew", "William Lucas"]
-helper: ["p.bartholomew@epcc.ed.ac.uk", "w.lucas@epcc.ed.ac.uk"]
-email: [""]
+helper: []
+email: ["w.lucas@epcc.ed.ac.uk"]
 collaborative_notes: 
 eventbrite: 
 root: .
@@ -89,7 +89,7 @@ The course requires a Fortran compiler. We will provide accounts on ARCHER2 for 
 
   Modify the block below if there are any barriers to accessibility or
   special instructions.
-{% endcomment %}
+
 <p id="accessibility">
   <strong>Accessibility:</strong> We are committed to making this workshop
   accessible to everybody.
@@ -101,6 +101,7 @@ The course requires a Fortran compiler. We will provide accounts on ARCHER2 for 
   get in touch (using contact details below) and we will
   attempt to provide them.
 </p>
+{% endcomment %}
 
 {% comment %}
   CONTACT EMAIL ADDRESS
