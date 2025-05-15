@@ -1,21 +1,24 @@
 ---
 title: "Array expressions and assignments"
 teaching: 10
-exercises: 10
+exercises: 20
 questions:
-- ""
+- "How do I assign values to Fortran arrays?"
+- "Can I work at once with subsets of an array?"
+- "How can I reduce or extract information from an array?"
 objectives:
-- ""
+- "Learn the syntax used to work with array sections."
+- "Learn about array reductions."
+- "Understand how to use arrays in logical expressions."
 keypoints:
-- "Fortran allows some flexible operations on arrays or subsets
-of array elements, and provides numerous intrinsic functions
-for such operations."
+- "Fortran allows flexible operations on arrays or subsets of array elements and provides numerous intrinsic functions for such operations."
+- "Some of these, such as `all()` and `any()` can be useful in directing the logical flow of a program."
 ---
 
 ## Array sections
 
 A general subset of array elements, an _array section_,  may be constructed
-from the triplet
+from a triplet with a start and end subscript and a stride:
 ```
   [subscript] : [subscript] [: stride]
 ```
@@ -24,11 +27,19 @@ Given a rank 1 array `a(:)`, some valid array sub-objects are:
   a         ! the whole array
   a(:)      ! the whole array again
   a(1:4)    ! array section [ a(1), a(2), a(3), a(4) ]
-  a(:4)     ! all elements up to an including a(4)
+  a(:4)     ! all elements up to and including a(4)
   a(2::2)   ! elements a(2), a(4), a(6), ...
 ```
 If an array subscript is present, it must be valid; if the stride is present
 it may not be zero.
+
+> ## Array style
+>
+> It may be a good idea to prefer use of `a(:)` over `a` when referencing the
+> whole array. The former has the appearance of an array, while the latter may
+> incorrectly appear to be a scalar to an unfamiliar reader of the code (or you
+> yourself if it's been a while since you last read it).
+{: .callout}
 
 ## Array expressions and assignments
 
@@ -60,8 +71,9 @@ A caution. How should we interpret the following assignments?
   d = 1.0
   e(:) = 1.0
 ```
-Compile the accompanying program `example1.f90`, check the compilation
-errors and improve the program.
+Compile the accompanying program
+[example1.f90](../exercises/06-array-expressions/example1.f90), check the
+compilation errors and improve the program.
 
 ## Elemental intrinsic functions
 
@@ -75,20 +87,22 @@ For example,
    ...
    b(1:4) = cos(a(1:4))
 ```
+will fill each element of `b` with the cosine of the corresponding element in
+`a`.
 
 ## Reductions
 
 Other intrinsic functions can be used to perform reduction operations
 on arrays, and usually return a scalar. Common reductions are
 ```
-   a = minval( [1.0, 2.0, 3.0] )
-   b = maxval( [1.0, 2.0, 3.0] )
-   c = sum(array(:))
+   a = minval( [1.0, 2.0, 3.0] )  ! the minimum value from the array
+   b = maxval( [1.0, 2.0, 3.0] )  ! the maximum value from the array
+   c = sum(array(:))              ! the sum of all values in the array
 ```
 
 ## Logical expressions and masks
 
-There is an array equivalent of the `if` construct, e.g.,:
+There is an array equivalent of the `if` construct called `where`, e.g.,:
 ```
   real, dimension(20) :: a
   ...
@@ -105,18 +119,22 @@ which performs the appropriate operations element-wise. Formally,
 in which all the _array-logical-expr_ and _array-assignments_ must have the
 same shape.
 
-Logical functions `any()`, `all()`, and others may be used to reduce
-logical arrays or array expressions:
+Logical functions `any()`, `all()`, and others may be used to reduce logical
+arrays or array expressions. These return a `logical` value so can be used in an
+`if` statement:
 ```
    if (any(a(:) < 0.0)) then
-     ! ...
+     ! do something if at least one element of a(:) is negative
+   end if
+   if (all(a(:) < 0.0)) then
+     ! do something if every element of a(:) is negative
    end if
 ```
 Some intrinsic functions have an optional mask argument which can be used to
 restrict the operations to certain elements, e.g.,
 ```
-  b = min(array(:), mask = (array(:) > 0.0))     ! minimum +ve value
-  n = count(array(:), mask = (array(:) > 0.0))   ! count number of +ve values
+  b = min(array(:), mask = (array(:) > 0.0))     ! minimum of positive value
+  n = count(array(:), mask = (array(:) > 0.0))   ! count the number of positive values
 ```
 These may be useful in certain situations.
 
@@ -133,15 +151,15 @@ If array expressions are used, simple ones are best.
 
 ### Exercise (5 minutes)
 
-The template `exercise1.f90` re-visits the quadratic equation exercise. Check
-you can replace the scalars where appropriate. See the template for further
-instructions.
+The template [exercise1.f90](../exercises/06-array-expressions/exercise1.f90)
+re-visits the quadratic equation exercise. Check you can replace the scalars
+where appropriate. See the template for further instructions.
 
-Additional exercise: write a program to implement the Sieve of Eratosthenes.
-
-https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
-
-See `exercise2.f90` for a template with some further instructions.
-How much array syntax can you reasonably introduce?
+Additional exercise: write a program to implement the [Sieve of
+Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) algorithm
+which performs a search for prime numbers. See
+[exercise2.f90](../exercises/06-array-expressions/exercise2.f90) for a template
+with some further instructions. How much array syntax can you reasonably
+introduce?
 
 {% include links.md %}
