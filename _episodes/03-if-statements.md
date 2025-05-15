@@ -3,11 +3,19 @@ title: "Logical and conditionals, character variables"
 teaching: 10
 exercises: 10
 questions:
-- ""
+- "What other types of variable does Fortran provide?"
+- "How can I direct a program's flow down different paths?"
+- "Is it possible to store characters in a variable?"
 objectives:
-- ""
+- "Understand how to use `logical` variables."
+- "Be able to control the flow of a program with `if` statements."
+- "Write conditional expressions using logical and relational operators."
+- "Be able to use a `case` construct."
+- "Learn how to declare `character` variables."
 keypoints:
 - "Fortran provides two non-numeric intrinsic data types: `logical` and `character`."
+- "A program's flow can be directed using the results of logical operations used in conjunction with `if` and `case` constructs."
+
 ---
 
 ## Logical variables
@@ -31,6 +39,10 @@ precedence is illustrated by, e.g.,
   q = i .or. j .and. .not. k    ! evaluated as i .or. (j .and. (.not. k))
 ```
 Again, use parentheses to avoid ambiguity, or to add clarity.
+
+Remember that `.or.` evaluates to `.true.` if either or both its operands are
+`.true.`, while `.and.` requires both to be `.true.` in order to evaluate to
+`.true.`. The `.not.` operator inverts the value of its operand.
 
 
 ### Relational operators
@@ -88,9 +100,9 @@ A single clause `if` statement is also available, for example:
 
 ### Example 1 (3 minutes)
 
-The file `example1.f90` contains a version of the code above. Check
-it works as expected. Can you replace the relational operators to use
-the older form given in the table above?
+The file [example1.f90](../exercises/03-if-statements/example1.f90) contains a
+version of the code above. Check it works as expected. Can you replace the
+relational operators to use the older form given in the table above?
 
 
 ### Construct names
@@ -192,9 +204,10 @@ strings in a later section.
 
 ## Exercise (1 minute)
 
-Compile and check the output of `example2.f90` to see the result of
-the examples above. What happens if you change one of the `len`
-specifications to be too short?
+Compile and check the output of
+[example2.f90](../exercises/03-if-statements/example2.f90) to see the result of
+the examples above. What happens if you change one of the `len` specifications
+to be too short?
 
 
 ## Exercise (5 minutes)
@@ -204,12 +217,15 @@ to the quadratic equation:
 ```
    a*x**2 + b*x + c = 0
 ```
-for given values of `a`, `b`, and `c`.
-See https://en.wikipedia.org/wiki/Quadratic_formula
+for given values of `a`, `b`, and `c`. See
+[Wikipedia's page](https://en.wikipedia.org/wiki/Quadratic_formula) for some
+background.
 
-A template `exercise1.f90` provides some instructions.
+A template [exercise1.f90](../exercises/03-if-statements/exercise1.f90) provides
+some instructions.
 
-A solution to this exercise appears as a template for the exercise
-in [section2.03](../section2.03/exercise1.f90).
+A solution to this exercise appears as a template for the [first
+exercise](../exercises/06-array-expressions/exercise1.f90) in the [episode on
+array expressions]({{ page.root }}{% link _episodes/06-array-expressions.md %})
 
 {% include links.md %}
