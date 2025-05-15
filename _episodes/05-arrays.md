@@ -3,12 +3,23 @@ title: "Array declarations"
 teaching: 10
 exercises: 10
 questions:
-- ""
+- "How do I create arrays of different sizes and numbers of dimensions?"
+- "Can I create the arrays at runtime if I don't yet know how big they need to be?"
 objectives:
-- ""
+- "Understand how to create arrays of one, two and more dimensions."
+- "Recognise and use array terminology."
+- "Be able to create and use allocatable arrays."
+- "Get help from the compiler if things go wrong."
 keypoints:
-- "Unlike C, which often uses pointers to handle array data, Fortran has arrays
-which are an intrinsic feature of the language."
+- "Unlike C, which often uses pointers to handle array data, Fortran has arrays which are an intrinsic feature of the language."
+- "The number of dimensions in an array is its _rank_."
+- "The number of elements in one of an array's dimensions is its _extent_."
+- "The ordered sequence of extents in an array is its _shape_."
+- "The total number of elements in an array, equal to the product of its shape, is its _size_."
+- "In Fortran array indices begin at 1 by default, but this can be changed if required."
+- "New arrays can be created by using the intrinsic `reshape()` function with an existing one."
+- "An array with an unknown size can be allocated at runtime."
+- "Compilers are typically able to help you debug issues with arrays if you ask them to."
 ---
 
 ## A one-dimensional array
@@ -26,8 +37,26 @@ end program example1
 The _size_ of the array is the total number of elements (here 3).
 The default _lower bound_ is 1 and the _upper bound_ is 3.
 
+In a slightly older style you may also see arrays declared by placing the size
+of the array directly after the name, e.g. and equivalently,
+```
+  real :: a(3)               ! declare a with elements a(1), a(2), a(3)
+```
+
+> ## Fortran array indexing
+>
+> Very importantly, Fortran arrays by default begin their indexing at 1. This is
+> in direct contrast to other languages such as C, C++ and Python which begin at 0.
+> Both styles have advantages and disadvantages; the Fortran standard has
+> simply settled on a style that more closely resembles the indexing of
+> mathematical matrices, while starting from 0 makes the offset in the memory
+> more visible.
+{: .callout}
+
 
 ### Lower and upper bounds
+If necessary or useful, you can however choose yourself the bounding indices of
+your arrays:
 ```
   real, dimension(-2:1) :: b ! elements b(-2), b(-1), b(0), b(1)
 ```
@@ -62,6 +91,25 @@ a(1,1), a(2,1), a(1,2), a(2,2), a(1,3), a(2,3)
 ```
 that is, the opposite the convention in C.
 
+> ## Looping through multi-dimensional arrays
+>
+> In you write a loop which moves through an array, remember that you will
+> typically move most quickly through the first index. That means that generally
+> the innermost loop's control variable should be used for the first index, the
+> next outer loop should use the second control variable, and so on, e.g.,
+> ```
+> do j = 1, 10
+>   do i = 1, 20
+>     a(i,j) = ...   ! Do work to calculate the (i,j)th element of a
+>   end do
+> end do
+> ```
+{: .callout}
+
+The principles of rank-2 arrays can be extended to higher ranks. The standard
+requires support for a minimum of rank-15 arrays, but individual compilers may
+allow for even more. 
+
 ### `reshape`
 
 A constructor for an array of rank 2 or above might be used, e.g.,
@@ -70,16 +118,20 @@ A constructor for an array of rank 2 or above might be used, e.g.,
 ```
 where we have used the intrinsic function `reshape()`.
 
+`reshape()` can be used whereever you might need to alter an array's shape.
+
 ### Exercise (2 minutes)
 
-Check the accompanying `example1.f90` to see examples of intrinsic functions
-available to interrogate array size and shape at run time.
+Check the accompanying [example1.f90](../exercises/05-arrays/example1.f90) to
+see examples of intrinsic functions available to interrogate array size and
+shape at run time.
 
 
 ## Allocatable arrays
 
-If we wish to establish storage with shape determined at run time,
-the _allocatable_ attribute can be used. The rank must be specified:
+If we wish to establish storage with shape determined at run time, the
+_allocatable_ attribute can be used. The rank must be specified by the value of
+the extent in each dimension is deferred using the `:` symbol:
 ```
   real, dimension(:, :), allocatable :: a
 
@@ -123,9 +175,10 @@ Attempt to `deallocate` a variable which is not allocated is an error.
 ### Exercise (5 minutes)
 
 Return again to the program to compute the approximation of pi via
-the Gauss-Legendre expansion (last seen in section2.01). You may use
+the Gauss-Legendre expansion (last seen in the [previous episode on do loops]({{
+page.root }}{% link _episodes/04-do-statements.md %})). You may use
 your own version or the new template provided in this directory
-(see `exercise1.f90`).
+(see [exercise1.f90](../exercises/05-arrays/exercise1.f90)).
 
 Introduce array storage for the quantites `a`, `b` and `t`. Use a
 fixed number of terms. Assign appropriate values in a first loop.
