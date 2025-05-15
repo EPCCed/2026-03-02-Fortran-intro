@@ -5,7 +5,7 @@ exercises: 20
 questions:
 - "What are some basic types of numeric variables in Fortran?"
 - "How are variables declared and defined?"
-- "Can I create constants?"
+- "How do I create constants?"
 objectives:
 - "Understand how to create variables and assign values to them."
 - "Specify the representation in memory of variables independently of the implementation."
