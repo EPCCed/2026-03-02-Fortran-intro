@@ -3,23 +3,34 @@ title: "Mini exercise: a choice of two"
 teaching: 10
 exercises: 50
 questions:
-- ""
+- "What are some real problems I can try out?"
 objectives:
-- ""
+- "Work on one of two larger exercises, putting your new skills to use."
 keypoints:
-- ""
+- "With a fairly small amount of the Fortran language, you can already solve some real problems."
 ---
+
+## A choice...
+
+We have two exercises you can choose to work on now. Both will allow you to make
+use of the Fortran that you have learnt today. The former exercise is the
+solution of a tri-diagonal system of equations, while the latter will allow you
+program an implementation of Conway's Game of Life.
+
+Whichever you choose (or if you choose both), we have time this afternoon and
+tomorrow for you to work on your solutions.
 
 ## Solve a tri-diagonal system (30 minutes)
 
-This exercise will solve a tri-diagonal system of equations as described
-here: https://en.wikipedia.org/wiki/Tridiagonal_matrix_algorithm
+This exercise will solve a tri-diagonal system of equations. as described
+at [Wikipedia](https://en.wikipedia.org/wiki/Tridiagonal_matrix_algorithm).
 
-The accompanying template `tri-diagonal.f90` has some further instructions,
-and some suggestions on how to test the result.
+The accompanying template
+[tri-diagonal.f90](../exercises/07-exercise/tri-diagonal.f90) has some further
+instructions, and some suggestions on how to test the result.
 
-A solution to the problem appears as a template to the exercise in
-[section3.03](../section3.03/exercise.f90).
+A solution to the problem appears as a template to the exercise in the [later episode on dummy arguments]({{
+page.root }}{% link _episodes/10-dummy-array-arguments.md %}).
 
 
 ## Game of Life (60 minutes)
@@ -31,8 +42,11 @@ updated based on some simple
 [rules](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Rules)
 which give rise to complex patterns.
 
-The rules as summarised in the following table. Each "live" neighbour
-counts 1 to the sum in the second column.
+This model uses a 'board' of cells, each cell having a value of 0 ("dead") or 1
+("alive"). The board's initial state is chosen and then stepped forwards. In a
+new step, each cell calculates the sum of the surrounding eight cells. Depending
+on the value of that sum, the cell's state may change or stay the same. The
+rules governing the update are summarised in the following table:
 
 | Cell state   | Sum of neighbouring 8 cells     | New Cell state |
 | ------------ | ------------------------------- | -------------- |
@@ -43,7 +57,8 @@ counts 1 to the sum in the second column.
 | 1            | 2,3                             | 1              |
 
 
-A template `life.f90` is provided with some hints to get you started.
+A template [life.f90](../exercises/07-exercise/life.f90) is provided with some
+hints to get you started.
 
 
 ### Reference
@@ -99,8 +114,11 @@ $ ./a.out
  .....................
  .....................
  ```
- Two reference answers are given in the solutions directory. The first
- only computes the first update, the second has the time stepping.
+ Two reference answers are given in the `solutions-1` directory. The
+ [first](../exercises/07-exercise/solutions-1/life-step2.f90) only computes the
+ first update, while the
+ [second](../exercises/07-exercise/solutions-1/life-step3.f90) includes the time
+ stepping loop.
 
 
 {% include links.md %}

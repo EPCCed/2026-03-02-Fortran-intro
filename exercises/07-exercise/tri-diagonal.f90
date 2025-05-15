@@ -1,4 +1,4 @@
-program exercise
+program tridiagonal
 
   ! Tri-diagonal matrix problem via Thomas' algorithm
   ! See https://en.wikipedia.org/wiki/Tridiagonal_matrix_algorithm
@@ -26,4 +26,4 @@ program exercise
   !    before entering the solution phase.
   !    See also https://en.wikipedia.org/wiki/Diagonally_dominant_matrix
 
-end program exercise
+end program tridiagonal
