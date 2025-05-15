@@ -1,14 +1,20 @@
 ---
-title: "Loops and flow of control"
-teaching: 20
-exercises: 20
+title: "Loops and loop control"
+teaching: 10
+exercises: 10
 questions:
-- ""
+- "How can I make the program do work repeatedly?"
+- "How can I have the program only do as much work as is required?"
 objectives:
-- ""
+- "Learn how to use a `do` construct to execute a single block of code many times."
+- "See how to have a `do` construct skip a loop with `cycle` or end early with `exit`."
+- "Learn how to use loop control variables with `do` constructs."
 keypoints:
-- "Iteration in Fortran is based around the `do` construct (somewhat analogous to
-C `for` construct). There is no equivalent of the C++ iterator class."
+- "Iteration in Fortran is based around the `do` construct (somewhat analogous to C `for` construct). There is no equivalent of the C++ iterator class."
+- "Without any control, a `do` loop will execute forever."
+- "A loop iteration can be skipped with a `cycle` statement."
+- "A loop can be ended if an `exit` statement is encountered."
+- "It is very common to control the execution of a loop with an `integer` variable."
 ---
 
 ## Uncontrolled `do` construct
@@ -19,7 +25,8 @@ A simple iteration is provided by the `do` statement. For example, ...
     ! ... go around for ever ...
   end do
 ```
-A slightly more useful version requires some control (see `example1.f90`):
+A slightly more useful version requires some control (see
+[example1.f90](../exercises/04-do-statements/example1.f90)):
 ```
    integer :: i = 0
    do
@@ -31,7 +38,8 @@ A slightly more useful version requires some control (see `example1.f90`):
 
    ! ... control continues here after exit ...
 ```
-Loop constructs may be nested, and may also be named (see `example2.f90`):
+Loop constructs may be nested, and may also be named (see
+[example2.f90](../exercises/04-do-statements/example2.f90)):
 ```
   some_outer_loop: &
   do
@@ -90,35 +98,37 @@ What is the number of iterations in the following cases?
      print *, "i is ", i
    end do
 ```
-You can confirm your answers by running `example3.f90`. Note there is
-no way (cf. C `for`) to limit the scope of the loop
-variable to the loop construct itself; the variable will then have a
-final value after exit from the loop.
+You can confirm your answers by running
+[example3.f90](../exercises/04-do-statements/example3.f90). Note there is no way
+(cf. C `for`) to limit the scope of the loop variable to the loop construct
+itself; the variable will then have a final value after exit from the loop.
 
 ### Exercise (5 minutes)
 
-We return the exercises discussed in section1.02. You can use your
-own solutions, or the new template in this directory.
+We return the exercises discussed in the earlier [episode on variables]({{
+page.root }}{% link _episodes/02-variables.md %}). You can use your own
+solutions, or the new template in this directory.
 
-For `exercise1.f90` which computes an approximation to the constant pi
-using the Gauss-Legendre algorithm, introduce an iteration to
-compute a fixed number of successive improvements. How many
-iterations are required to converge when using kind(1.d0)? Can you
-adjust the program to halt the iteration if the approximation
-is within a given tolerance of the true answer?
+For [exercise1.f90](../exercises/04-do-statements/exercise1.f90) which computes
+an approximation to the constant pi using the Gauss-Legendre algorithm,
+introduce an iteration to compute a fixed number of successive improvements. How
+many iterations are required to converge when using `kind(1.d0)`? Can you adjust
+the program to halt the iteration if the approximation is within a given
+tolerance of the true answer?
 
-A simple solution to this problem is used as a template to
-the exercise in [section2.02](../section2.02/exercise1.f90).
+A simple solution to this problem is used as a template to the
+[exercise](../exercises/05-arrays/exercise1.f90) in the [episode on arrays]({{
+page.root }}{% link _episodes/05-arrays.md %}).
 
 ### Exercise (5 minutes)
 
-For `exercise2.f90` a similar thing is required. Use a loop to compute
-a fixed number of terms in the sum over index k (use real type `real64`
-for the sum). Here you should find convergence is much slower (you
-may need about 1000 terms); check by printing out the current value
-every so many terms (say 20).
+[exercise2.f90](../exercises/04-do-statements/exercise2.f90) will need similar
+work. Use a loop to compute a fixed number of terms in the sum over index k (use
+real type `real64` for the sum). Here you should find convergence is much slower
+(you may need about 1000 terms); check by printing out the current value every
+so many terms (say 20).
 
 Expert question: What happens if you accumulate the sum in the reverse
-order in this case?
+order in this case? Can you think why this happens?
 
 {% include links.md %}

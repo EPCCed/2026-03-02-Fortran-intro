@@ -1,4 +1,4 @@
-program example2
+program example3
 
   ! Loop trip count: check for each case ...
 
@@ -21,4 +21,4 @@ program example2
     print *, "i is ", i
   end do
 
-end program example2
+end program example3

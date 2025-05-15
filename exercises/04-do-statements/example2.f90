@@ -1,4 +1,4 @@
-program example1
+program example2
 
   ! Example: exit from a nested loop.
 
@@ -19,4 +19,4 @@ program example1
 
   print *, "End of iteration"
 
-end program example1
+end program example2
