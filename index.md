@@ -77,7 +77,7 @@ The course requires a Fortran compiler. We will provide accounts on ARCHER2 for 
   <strong>Requirements:</strong> Participants must have a working laptop or 
   desktop computer with a Mac, Linux, or Windows operating system (not a 
   tablet, Chromebook, etc.) that they have administrative privileges on. They 
-  should have access to a terminal (Max and Linux users should have a terminal 
+  should have access to a terminal (Mac and Linux users should have a terminal 
   installed by default; Windows users should get either 
   <a href="https://mobaxterm.mobatek.net/">MobaXterm</a> or 
   <a href="https://www.putty.org/">PuTTY</a>. They are also required to abide 
