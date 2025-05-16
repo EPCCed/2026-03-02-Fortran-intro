@@ -3,15 +3,26 @@ title: "More on array dummy arguments"
 teaching: 10
 exercises: 10
 questions:
-- ""
+- "What do I need to take into consideration when passing and array as an argument?"
+- "Can I pass arrays which haven't yet been allocated?"
+- "How do I implement optional dummy arguments?"
 objectives:
-- ""
+- "Understand the meaning of an assumed shape array and where care needs to be taken with its bounds."
+- "Be able to use the intrinsic `lbound()` and `ubound()` functions."
+- "Understand the conditions around the usage of allocatable arrays as dummy arguments."
+- "Make some arguments optional and be able to provide them using keyword arguments."
 keypoints:
-- "There are some additional considerations to think about when dummy arguments
-are arrays."
+- "There are some additional considerations to think about when dummy arguments are arrays."
+- "You may wish to pass the shape of the array explicitly, at the cost of providing more dummy arguments."
+- "Arrays may have an assumed shape, but remember that they only receive the shape and not the original bounds of its dimensions."
+- "Allocatable arrays can also be used as dummy arguments."
+- "Dummy arguments can have the `optional` attribute. The corresponding actual arguments can be positional or provided as a keyword argument."
 ---
 
 ## Array dummy arguments
+
+When a dummy argument is an array, we need to think about how we want the
+procedure to know about its shape.
 
 ### Explicit shape
 
@@ -43,21 +54,30 @@ Note that the rank is always explicit.
 There are pros and cons to this: it is slightly more concise and general,
 but some care may need to be exercised with the distinction between
 _extents_ and bounds. It is the _shape_ that is passed along with the
-actual arguments.
+actual arguments, and not the bounds.
+
+> ## Bounds, extents and shapes
+>
+> Remember from the earlier lesson on arrays that the number of elements an array has in
+> a given dimension is that dimension's _extent_. The ordered set of extents is the array's _shape_.
+> The bounds are the minimum and maximum indices used in each dimension.
+{: .callout}
 
 
 ### `lbound()` and `ubound()` again
 
-The `lbound()` and `ubound()` functions return a rank one array which
-is the relevant bound in each dimension. The optional argument `dim`
-can be used to obtain the bound in the corresponding rank or dimension
-e.g.,
+You will have seen the `lbound()` and `ubound()` functions being used during the
+[example](../exercises/05-arrays/example1.f90) in the earlier [episode on
+arrays]({{ page.root }}{% link _episodes/05-arrays.md %}). These functions
+return a rank one array which is the relevant bound in each dimension. The
+optional argument `dim` can be used to obtain the bound in the corresponding
+rank or dimension e.g.,
 ```
   real, dimension(:,:), intent(in) :: a
   integer :: lb1, lb2
 
   lb1 = lbound(a, dim = 1)  ! lower bound in first dimension
-  lb2 = ubound(a, dim = 2)  ! lower bound in second dimension
+  lb2 = ubound(a, dim = 2)  ! upper bound in second dimension
 ```
 
 ### Exercise (4 minutes)
@@ -103,16 +123,18 @@ argument with both an intent and `allocatable` attribute.
   end subroutine my_storage
 ```
 There are a number of conditions to such usage.
-1. The corresponding actual argument must also be allocatable (and have the same type and rank);
+1. The corresponding actual argument must also be allocatable (and have the same
+   type and rank);
 2. If the intent is `intent(in)` the allocation status cannot be changed;
-3. If the intent is `intent(out)` and the array is allocated on entry, the array is automatically deallocated.
+3. If the intent is `intent(out)` and the array is allocated on entry, the array
+   is automatically deallocated.
 
 The intent applies to both the allocation status and to the array itself.
 Some care may be required.
 
 A `function` may have an allocatable result which is an array; this might
 be thought of as returning a temporary array which is automatically
-deallocated when the relevant expression has been evaluated.
+deallocated when the relevant calling expression has been evaluated.
 
 
 ## Optional arguments
@@ -163,7 +185,8 @@ argument `ierr`. The rules are:
 Consider again the problem of the tri-diagonal matrix.
 
 Refactor your existing stand-alone program (or use the template
-`exercise.f90`) to provide a module subroutine such as
+[exercise.f90](../exercises/10-dummy-array-arguments/exercise.f90)) to provide a
+module subroutine such as
 ```
   subroutine tridiagonal_solve(b, a, c, rhs, x)
 ```
@@ -177,7 +200,7 @@ exit. Assume, in the first instance, that all the arrays are of the
 correct extent on entry.
 
 Check your result by calling the subroutine from a main program with some
-tests values. (You may wish to take two copies of the template `exercise.f90`
+test values. (You may wish to take two copies of the template `exercise.f90`
 and use one as the basis of a module, and the other as the basis of the main
 program.)
 
