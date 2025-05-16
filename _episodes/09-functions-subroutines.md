@@ -3,14 +3,17 @@ title: "Functions and subroutines"
 teaching: 10
 exercises: 10
 questions:
-- ""
+- "How can I factor code out into different program procedures?"
+- "How do I control the flow of information into and out of procedures?"
 objectives:
-- ""
+- "See how to create and call both functions and subroutines."
+- "Use the `intent` attribute with dummy arguments to change their read and write permissions within the procedure."
+- "Understand the meanings of `pure` and `recursive` procedures."
 keypoints:
-- "Functions and subroutines, referred to collectively as `_procedures_`, may be
-defined as module sub-programs, where the compiler will automatically
-generate the contract block (aka. forward declaration, prototype) as
-part of the module file."
+- "Functions and subroutines are referred to collectively as `_procedures_`."
+- "Using `intent` for dummy variables allows control over whether updates to their values are permitted."
+- "Procedures can be modified with prefixes such as `pure` and `recursive` which ensure respectively that the procedure has no side-effects and that it is able to directly or indirectly call itself."
+- "Procedures may be defined as module sub-programs for which the compiler will automatically generate the contract block as part of the module file."
 ---
 
 ## What's the difference?
@@ -60,6 +63,17 @@ any attempt to modify the value is erroneous (a compiler error will result).
 This is different from C, where a change to an argument passed by value is
 merely not reflected in the caller.
 
+> ## Passing by reference
+>
+> If you are used to C/C++, you should remain aware here that the Fortran
+> standard requires actual arguments to be passed to functions and subroutines
+> in such a way that they 'appear' to have been passed by reference. How to do
+> so is left to the compiler (which may use copies or actually pass by
+> reference) but any changes made to a dummy argument inside a procedure _will_
+> be reflected in the actual arguments passed to it, unless prevented by having
+> `intent(in)`.
+{: .callout}
+
 If one wants to alter the existing value of the argument, `intent(inout)`
 is appropriate:
 ```
@@ -86,15 +100,17 @@ The `intent` attribute, as well as allowing the compiler to detect
 inadvertent errors, provides some useful documentation for the
 reader.
 
-Local variables do not have intent; otherwise, they are declared as
+Local variables do not have intent and are declared as
 usual.
 
 
 ### Exercise (2 minutes)
 
-Attempt to compile the accompanying `module1.f90` and associated main
-program `program1.f90`. Check the error message emitted, and sort out
-the intent of the dummy arguments in `module1.f90`.
+Attempt to compile the accompanying
+[module1.f90](../exercises/09-functions-subroutines/module1.f90) and associated
+main program [program1.f90](../exercises/09-functions-subroutines/program1.f90).
+Check the error message emitted, and sort out the intent of the dummy arguments
+in [module1.f90](../exercises/09-functions-subroutines/module1.f90).
 
 
 ## Functions
@@ -159,12 +175,21 @@ recursive function fibonacci(n) result(nf)
   nf = fibonacci(n-1) + fibonacci(n-2)
 end function fibonacci
 ```
-Such a declaration must be included for both direct or indirect recursion.
+Such a declaration must be included for both types of recursion: direct (a
+procedure calling itself) and indirect (a procedure calling another which in
+turn calls the first).
 
 ## Subroutines
 
 Subroutines follow the same rules as functions, except that there is no
-`result()` suffix specification.
+`result()` suffix specification:
+
+```
+[prefix] subroutine subroutine-name (dummy-arg-list)
+  [ specification-part ]
+  [ executable-part ]
+end [ subroutine [subroutine-name] ]
+```
 
 ### `return` statement
 
@@ -173,12 +198,32 @@ be returned to the caller, but it is not necessary (the `end`
 statement does the same job). We will use `return` when we consider
 error handling later.
 
+## Placing procedures in modules
+
+It is very often a good idea to include your procedures within modules beneath
+the `contains` statement. Aside from leading to good organisation of code, this
+has an extra advantage in that the compiler will then automatically generate the
+contract block (forward declaration or prototype) for the procedure as part of
+the module. This can make it easier when using certain types of procedures (such
+as those with `allocatable` dummy arguments) or in certain contexts (such as
+passing the procedure as an argument).
 
 ## Exercise (5 minutes)
 
-1. Can your function for the evaluation of pi from the previous section safely be declared `pure`? You can use the accompanying template `exercise_module1.f90` and `exercise_program1.f90` to check.
-2. Add a new version of this calculation: a subroutine which takes the number of terms as an argument, and also returns the computed value in the argument list.
-3. Complete the recursive function to compute the nth Fibonacci number, and test it. See, for example https://en.wikipedia.org/wiki/Fibonacci_number.
+1. Can your function for the evaluation of pi from the previous episodes safely
+   be declared `pure`? You can also use the accompanying template
+   [exercise_module1.f90](../exercises/09-functions-subroutines/exercise_module1.f90)
+   and
+   [exercise_program1.f90](../exercises/09-functions-subroutines/exercise_program1.f90)
+   to check.
+2. Add a new version of this calculation: a subroutine which takes the number of
+   terms as an argument, and also returns the computed value in the argument
+   list.
+3. Add to the module a recursive function to compute the nth Fibonacci number,
+   and test it in the main code. See, for example the page at
+   [Wikipedia](https://en.wikipedia.org/wiki/Fibonacci_number).
+
+Solutions are available in same directory.
 
 
 {% include links.md %}
