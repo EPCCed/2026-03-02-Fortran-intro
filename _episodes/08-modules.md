@@ -107,11 +107,14 @@ working directory).
 
 > ## `.mod` files
 >
-> The `.mod` files created during compilation generally use a format
-> specific to the compiler used. That means that you shouldn't expect
-> that a `.mod` file created by one compiler will be usable by a different
-> compiler. Sometimes the naming scheme can also change -- for example,
-> the Cray Fortran compiler may give them names in allcaps.
+> As stated, the `.mod` files are compiler specific. That means that you
+> shouldn't expect that a file created by one compiler will be usable by a
+> different compiler. This can be can cause compile time errors if you try to
+> use a `.mod` from one compiler with another; perhaps the most common scenario
+> for this is when testing builds with different compilers without first
+> cleaning up the `.mod` files. Sometimes compilers also use different naming
+> schemes for the `.mod` files can also change. This behaviour can usually be
+> changed with compiler flags.
 {: .callout}
 
 ### Exercise (2 minutes)
