@@ -3,9 +3,12 @@ title: "Formats and edit descriptors"
 teaching: 10
 exercises: 10
 questions:
-- ""
+- "How do I read input from the keyboard to my program?"
+- "How can I control the format of input and output of various types?"
 objectives:
-- ""
+- "Use the `read` statement analogously to `write` to obtain input from the keyboard."
+- "Learn how to combine edit descriptors to create a format specifier."
+- "Use format specifiers to control the appearance of output of the various types we have encountered."
 keypoints:
 - "Control over the appearance of output is via the format specifier, which is a string."
 - "This similar in spirit to the format string provided to `printf()` in C."
@@ -24,7 +27,7 @@ is via the `read` statement.
 In very many respects, `read` looks much like `write`, in that it
 takes the same arguments, including unit number and format specifier.
 However, whereas `write` may have an I/O list involving expressions, `read`
-must have only variables.
+must have only the variables which will store the incoming values.
 
 The standard input unit (`input_unit` from `iso_fortran_env` in the above)
 is typically the keyboard (or "screen") for interactive use.
@@ -41,9 +44,9 @@ string constructed at run time. Some examples are:
    write(unit = myunit) var    ! unformatted (no format)
 ```
 
-Output with string (or `*`) format specifier is referred to as _formatted_ I/O.
-This is to distinguish it from _unformatted_ I/O; this is essentially a
-direct dump of the binary internal representation. For unformatted
+Output with a format specifier, either string or `*`, is referred to as
+_formatted_ I/O. This is to distinguish it from _unformatted_ I/O; this is
+essentially a direct dump of the binary internal representation. For unformatted
 I/O the format specifier is simply omitted.
 
 Binary output can have its uses, but more portable and flexible methods
@@ -135,21 +138,25 @@ If a leading plus sign is wanted, use the `sp` control, e.g.:
 
 ### Exercise (2 minutes)
 
-Compile and run the accompanying `example1.f90`, which provides some specimen
-formats. Some of the format specifiers have not allowed a large enough
-width. What's the result? What's the solution?
+Compile and run the accompanying
+[example1.f90](../exercises/12-read-write/example1.f90) program, which provides
+some specimen formats. Some of the format specifiers have not been allowed a
+large enough width. What's the result? What's the solution?
 
 
 ## Repeat counts
 
-For a larger number of items of the same type, it can be useful to specify
-a _repeat count_. Simply prefix a literal integer count to the format, e.g.:
+For a larger number of items of the same type, it can be useful to specify a
+_repeat count_. Simply place the items to be repeated within parentheses and
+prefix a literal integer count to the format, e.g.:
 ```
    real, dimension(4) :: a = [ 1.0, 2.0, 3.0, 4.0]
 
    print "(4(2x,e14.7))", a(1:4)
 ```
-In this way, more complex formats can be constructed.
+Multiple subformats are comma-separated, much like the individual items, and
+subformats can also be nested. In this way, more complex formats can be
+constructed.
 
 ### Complex variables
 
@@ -191,18 +198,17 @@ when we come to error handling.
 
 ## Exercise (5 minutes)
 
-Using the example program, check what happens if there is a mismatch
-between the format specifier and the data type in the i/o list.
-Choose an example, and run the program.
+Using the [example1.f90](../exercises/12-read-write/example1.f90) program, check
+what happens if there is a mismatch between the format specifier and the data
+type in the I/O list. Choose an example, and run the program.
 
 What happens if the number of items in the io-list is larger than
 the number of edit descriptors?
 
 Additional exercise. The `b` edit descriptor can be used to convert integer
-values
-to their binary representation. For a 32-bit integer type, the recommended
-descriptor would be `b32.32` to ensure the leading zeros are visible. You
-may wish to try this out.
+values to their binary representation. For a 32-bit integer type, the
+recommended descriptor would be `b32.32` to ensure the leading zeros are
+visible. You may wish to try this out.
 
 
 {% include links.md %}
