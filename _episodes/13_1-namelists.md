@@ -114,9 +114,58 @@ After reading a `namelist` the file reader will be positioned at its end, and tr
 Either the reading subroutine must match the order wich `namelist`s occur in the file, or file
 motion subroutines such as `rewind` should be used to ensure reading is independent of order.
 
-#### Exercies (5 mins)
+#### Exercise (5 mins)
 
 Extend the example program to read the numerical `schemes` namelist.
 
 (Optional) ensure that your program can read the `run` configuration and the numerical `schemes`
 regardless of the order in which they appear.
+
+## Writing a namelist
+
+Writing a `namelist` works similarly to reading one.
+With an open file, or other output device, passing the `namelist` as the argument to `write()` will
+write the `namelist` to the file.
+```
+integer :: a, b, c
+namelist /ints/ a, b, c
+
+a = 1
+b = 2
+c = 3
+
+open(101, "output")
+write(101, ints)
+close(101)
+```
+will output
+```
+&INTS
+ A=1          ,
+ B=2          ,
+ C=3          ,
+ /
+```
+
+### Exercise (10 minutes)
+
+Write a program to write the simulation parameters as a `namelist` so that it can be read by the
+previous example program.
+
+(Optional) if you completed the extension to read the `namelist`s in any order, confirm that this
+works with your new program when writing in any order.
+
+## Handling complex data
+
+So far we have only considered simple scalars and strings, `namelist`s also support I/O of more
+complex data structures such as arrays or user-defined types (introduced in the intermediate Fortran
+course).
+These are handled similarly to the code we have seen so far.
+
+### Exercise (10 minutes)
+
+An example program is provided to write more complex data structures to a `namelist`.
+Try running this program and inspecting the output to see how these data structures are represented.
+
+Modify the program to read the `namelist` back into data and confirm that the data is correct, for
+example by testing array elements match their expected values.
