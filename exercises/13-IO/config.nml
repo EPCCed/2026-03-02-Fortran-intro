@@ -1,0 +1,6 @@
+&run
+ name   = "TGV"       ! Case name
+ nsteps = 100         ! Number of timesteps
+ dt     = 0.100000001 ! Timestep
+ /
+ 
