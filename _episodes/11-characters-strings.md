@@ -3,12 +3,17 @@ title: "More on characters and strings"
 teaching: 10
 exercises: 10
 questions:
-- ""
+- "How are character variables compared in Fortran?"
+- "How can I create and use flexible strings?"
 objectives:
-- ""
+- "Understand relational operators and some of the intrinsic functions that can be used with character variables."
+- "Be able to create and use deferred length character variables."
+- "Work with arrays of character variables."
+- "Be able to use characters as procedure dummy arguments and results."
 keypoints:
-- "String-handling can be a headache if there is no mechanism to keep
-track of the length of the string."
+- "String-handling can be problematic if there is no mechanism to keep track of the length of the string."
+- "Remember that Fortran provides intrinsic functions such as `trim()` and operators such as concatenation `//` which can help with string manipulation."
+- "Pay attention when using strings as dummy arguments or procedure results."
 ---
 
 ## Useful `character` operations
@@ -31,10 +36,13 @@ can be found via an intrinsic function, e.g.:
    i = iachar("A")           ! i = 65
    c = achar(i)              ! c = "A"; requires 1 <= i <= 127
 ```
+Remember that in ASCII the upper case characters `A` to `Z` have integer values
+65 to 90, while the lower case characters `a` to `z` have integer values 97 to
+122.
 
-If character variables are compared, then each letter is compared
-left-to-right until a difference is found (or not). If the variables
-have different lengths, then the shorter is padded with blanks.
+If `character` variables are compared, then each letter is compared
+left-to-right until a difference is found (or not). If the variables have
+different lengths, then the shorter is padded with blanks.
 
 
 ### Some other intrinsic functions
@@ -44,7 +52,7 @@ function.
 
 The length with trailing blanks removed is `len_trim()`. To actually
 remove the trailing blanks, use `trim()`. This is often seen when
-concatenating fixed-length character strings:
+concatenating fixed-length character strings using the `//` operator:
 ```
   print *, "File name: ", trim(file_stub)//"."//trim(extension)
 ```
@@ -68,7 +76,7 @@ justification, sub-string searches, and so on.
 ## Deferred length strings
 
 The easiest way to provide a string which can be manipulated on a
-flexible basis is the deferred length character:
+flexible basis is the deferred length `character`:
 ```
   character (len = :), allocatable :: string
 
@@ -114,7 +122,8 @@ and so on. One might be tempted to try something of the form:
 
 ### Exercise (2 minutes)
 
-Check the result of the compilation of `example3.f90`.
+Check the result of the compilation of
+[example3.f90](../exercises/11-characters-strings/example3.f90).
 
 The are a number of solutions to this issue. One could try to pad the
 lengths of each array element to be the same length. A better way is
@@ -125,7 +134,8 @@ to use a constructor with a type specification:
 Here the type specification is used to avoid ambiguity in how the
 list is to be interpreted.
 
-Check you can make this adjustment to `example3.f90`.
+Check you can make this adjustment to
+[example3.f90](../exercises/11-characters-strings/example3.f90).
 
 
 ## Strings as dummy arguments, or results
@@ -141,7 +151,7 @@ it typically may be declared:
 This is also appropriate for character variables of intent `inout`
 where the length does not change.
 
-For all other cases, use of deferred length allocable characters is
+For all other cases, use of deferred length allocatable characters is
 recommended. E.g.,
 ```
   function build_filename(stub, extension) result(filename)
@@ -162,8 +172,10 @@ and "Z" is replaced by the corresponding character between "a" and "z".
 Write an additional function to return a new string which is all
 lower case, leaving the original unchanged.
 
-You can use the accompanying templates `exercise_module1.f90` and
-`exercise_program1.f90`.
+You can use the accompanying templates
+[exercise_module1.f90](../exercises/11-characters-strings/exercise_module1.f90)
+and
+[exercise_program1.f90](../exercises/11-characters-strings/exercise_program1.f90).
 
 A solution to the exercise can be found in the [solutions](./solutions)
 directory.
