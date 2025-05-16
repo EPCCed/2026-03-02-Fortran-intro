@@ -4,12 +4,15 @@ teaching: 10
 exercises: 10
 start: True
 questions:
-- ""
+- "How can I collect parameters and sub-programs of my own in a module?"
+- "Can I keep some parts of the module internal to it and hidden?"
+- "Am I able to use scoping to introduce temporary variables in a larger program unit?"
 objectives:
-- ""
+- "Learn how to write a non-intrinsic module of your own, and understand what is and isn't appropriate to place within them.."
+- "Understand how to use `public` and `private` within a module to control what components are visible externally."
+- "Use the `block` construct to control the scope of names within larger program structures."
 keypoints:
-- "Modules in Fortran provide _the_ way to structure collections of related
-definitions and operations, and make them available elsewhere."
+- "Modules in Fortran provide _the_ way to structure collections of related definitions and operations, and make them available elsewhere."
 ---
 
 ## Module structure
@@ -58,10 +61,10 @@ Formally, the structure of a module is:
     module-subprograms ]
   end [ module [ module-name ]]
 ```
-The `contains` statement separates the specification statements from
-module sub-programs.
-Sub-programs, or _procedures_,  consist of functions and/or subroutines,
-of which more later.
+The `contains` statement separates the specification statements from module
+sub-programs. Sub-programs, or _procedures_,  consist of functions and/or
+subroutines which will cover in the [next episode]({{ page.root }}{% link
+_episodes/09-functions-subroutines.md %}).
 
 ### Digression: compilation of modules, and programs
 
@@ -102,14 +105,24 @@ file in the compilation command; there is a search path which the
 compiler uses to look for module files (which includes the current
 working directory).
 
+> ## `.mod` files
+>
+> The `.mod` files created during compilation generally use a format
+> specific to the compiler used. That means that you shouldn't expect
+> that a `.mod` file created by one compiler will be usable by a different
+> compiler. Sometimes the naming scheme can also change -- for example,
+> the Cray Fortran compiler may give them names in allcaps.
+{: .callout}
+
 ### Exercise (2 minutes)
 
-If you haven't already done so, compile the accompanying `module1.f90`
-and `program1.f90`. Check the errors which occur if you: (1) try to
-compile the program without the module file via, e.g.,
+If you haven't already done so, compile the accompanying
+[module1.f90](../exercises/08-modules/module1.f90) and
+[program1.f90](../exercises/08-modules/program1.f90). Check the errors which
+occur if you: (1) try to compile the program without the module file via, e.g.,
 ```
 $ ftn program1.f90
-````
+```
 and (2), if you try to compile and link the module file alone:
 ```
 $ ftn module1.f90
@@ -199,11 +212,11 @@ sub-program, e.g.,
 ```
   integer :: i = 1
 ```
-implicitly take on the Fortran `save` attribute. This means the
-variable is placed in heap memory and retains its value between calls.
-(Analogous to a `static` declaration in C.) This is certainly neither
-thread-safe nor re-entrant. Uninitialised variables appear on the stack
-(and disappear) as expected.
+implicitly take on the Fortran `save` attribute. This means the variable is
+placed in heap memory and retains its value between calls. (This is analogous to
+a `static` declaration in C.) This is certainly neither thread-safe nor
+re-entrant. Uninitialised variables appear on the stack (and disappear) as
+expected.
 
 For this reason it is the rule, rather than the exception, that variables
 are not initialised at the point of declaration in Fortran.
@@ -236,12 +249,11 @@ In this way, it acts like `{ .. }` in C.
 
 ### Exercise (5 minutes)
 
-Return to your code for the approximation to pi via the Gauss-Legendre
-iteration (or use the template
-[section2.02/exercise1.f90](../section2.02/exercise1.f90)).
-Using the examples above as a template, write a module to contain a
-function which returns the value so computed.
-Check you can use the new function from a main program.
+Return to your code for the approximation to pi via the Gauss-Legendre iteration
+(or use the template [exercise1.f90](../exercises/05-arrays/exercise1.f90) from
+the earlier episode on arrays). Using the examples above as a template, write a
+module to contain a function which returns the value so computed. Check you can
+use the new function from a main program.
 
 What really needs to be publicly available from the module in this case?
 
@@ -266,7 +278,7 @@ end module b
 If not, why not?
 
 Expert exercise: If you wish to express dependencies in a `Makefile` for
-a Fortran program using a module, does compilation the program source depend
+a Fortran program using a module, does compilation of the program source depend
 on the `.mod` module file, the `.o` object file, or both? Do you care?
 
 
