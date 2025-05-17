@@ -1,12 +1,16 @@
 ---
 title: "Structures: derived types"
 teaching: 10
-exercises: 10
+exercises: 15
 start: True
 questions:
-- ""
+- "How can I group together variables to make more complex structures?"
+- "How are these derived types defined and then initialised?"
 objectives:
-- ""
+- "Understand what a derived type is."
+- "Learn how to define a derived type."
+- "Learn the different ways of initialising a derived type variable."
+- "Get a glimpse of more advanced object oriented methodology."
 keypoints:
 - "The ability to aggregate related data in a structure is important."
 - "Fortran offers the `_derived type_` in addition to intrinsic types."
