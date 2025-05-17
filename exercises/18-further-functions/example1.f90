@@ -1,15 +1,19 @@
 program example1
 
-  ! Use of pointer and target
+  ! Calling a external function
+
+  ! 1, Add an extern declaration to allow the program to compile
+  ! 2. Replace the extern declaration by an interface which is
+  !    consistent with the definition of array_size() as it
+  !    appears in external.f90. What new error has the interface
+  !    exposed?
 
   implicit none
 
-  integer          :: datum = 1
-  integer, pointer :: p => null()
+  real, dimension(3,2) :: a
 
-  p => datum
-  p = 2
+  ! Place an external declaration or interface block (not both) here.
 
-  print *, "datum is ", datum
+  print *, "The array size is: ", array_size(a), size(a)
 
 end program example1
