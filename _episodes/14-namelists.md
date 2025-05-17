@@ -25,13 +25,13 @@ grouping of variables for reading and writing.
 The namelist associates a name with a list of variables. The namelist is
 declared using a `namelist` construct which takes the form
 ```
-namelist /namelist-group-name/ variable-name-list
+  namelist /namelist-group-name/ variable-name-list
 ```
 where the `namelist-group-name` is surrounded by forward slashes `/` and the
 `variable-name-list` is a comma separated list of variables, e.g.:
 ```
-integer :: a, b, c
-namelist /ints/ a, b, c
+  integer :: a, b, c
+  namelist /ints/ a, b, c
 ```
 
 ## Namelists in a file
@@ -76,16 +76,16 @@ To read the namelist from a file, the `namelist-group-name` is passed as the
 argument to `read()`, so in order to read this `run` namelist we might do the
 following:
 ```
-integer :: myunit
-character(len=:) :: name
-integer :: nsteps
-real :: dt
+  integer :: myunit
+  character(len=:) :: name
+  integer :: nsteps
+  real :: dt
 
-namelist /run/ name, nsteps, dt
+  namelist /run/ name, nsteps, dt
 
-open(newunit = myunit, file = 'config', action = 'read', status = 'old')
-read(myunit, run)
-close(myunit)
+  open(newunit = myunit, file = 'config', action = 'read', status = 'old')
+  read(myunit, run)
+  close(myunit)
 ```
 Note that any variables not set in the `namelist` file will retain their initial
 values.
@@ -147,17 +147,17 @@ Writing a namelist works similarly to reading one. With an open file, or other
 output device, passing the namelist as the argument to `write()` will write the
 namelist to the file.
 ```
-integer :: myunit
-integer :: a, b, c
-namelist /ints/ a, b, c
+  integer :: myunit
+  integer :: a, b, c
+  namelist /ints/ a, b, c
 
-a = 1
-b = 2
-c = 3
+  a = 1
+  b = 2
+  c = 3
 
-open(newunit = myunit, file = 'output.nml', action = 'write', status = 'new')
-write(myunit, ints)
-close(myunit)
+  open(newunit = myunit, file = 'output.nml', action = 'write', status = 'new')
+  write(myunit, ints)
+  close(myunit)
 ```
 will output the following to the new file `output.nml`:
 ```
