@@ -2,6 +2,8 @@ program namelist_write
 
   implicit none
 
+  integer :: nmlunit
+
   ! Declare variables
   character(len=:), allocatable :: name
   integer :: nsteps 
@@ -14,8 +16,8 @@ program namelist_write
   dt = 0.1
 
   ! Write data to namelist
-  open(101, file="config-out.nml")
-  write(101, run)
-  close(101)
+  open(nmlunit, file="config-out.nml", status = "new", action = "write")
+  write(nmlunit, run)
+  close(nmlunit)
 
 end program namelist_write

@@ -3,26 +3,32 @@ title: "Using namelists"
 teaching: 20
 exercises: 20
 questions:
-- ""
+- "What is a namelist?"
+- "How can I use a namelist to read and write grouped data?"
 objectives:
-- ""
+- "Understand what a namelist is and how to create declare one."
+- "Be able to read and write namelists from file."
+- "Understand how namelists store structured data such as arrays and derived types."
 keypoints:
-- "Using Fortran namelists for I/O."
+- "Namelists are declared using the `namelist /namelist-group-name/ variable-name-list` construct."
+- "Read and write namelists by passing them directly to the `read` and `write` statements."
+- "Remember that namelists cannot be read out of order from a file without first moving backwards through the file."
 ---
 
 # Fortran namelists
 
-Fortran supports a special form of file I/O called `namelist`s, these enable grouping variables
-together for reading and writing.
+Fortran supports a special form of file I/O called namelists which enable the
+grouping of variables for reading and writing.
 
 ## The namelist specification
 
-The `namelist` associates a name with a list of variables, this takes the form
+The namelist associates a name with a list of variables. The namelist is
+declared using a `namelist` construct which takes the form
 ```
 namelist /namelist-group-name/ variable-name-list
 ```
-where the `name-list-group-name` is surrounded by forward slashes `/` and the `variable-name-list`
-is a comma separated list of variables, for example
+where the `namelist-group-name` is surrounded by forward slashes `/` and the
+`variable-name-list` is a comma separated list of variables, e.g.:
 ```
 integer :: a, b, c
 namelist /ints/ a, b, c
@@ -30,9 +36,9 @@ namelist /ints/ a, b, c
 
 ## Namelists in a file
 
-A `namelist` file may contain one or more namelists, these are indicated by `&namelist-group-name`
-and terminated by `/`.
-Variable-value assignments occur in the body of the `namelist`, for example
+A namelist file is plain text and may contain one or more namelists. Each of
+these is begun by `&namelist-group-name` and terminated by `/`. Variable-value
+assignments occur in the body of the `namelist`, e.g. the file may contain
 ```
 &ints
 a = 1
@@ -41,8 +47,8 @@ c = 3
 /
 ```
 
-The ordering of variables in the name list does not matter, the previous example could also have
-been written as
+The ordering of variables in the namelist does not matter, so the previous
+example could also have been written as
 ```
 &ints
 c = 3
@@ -53,8 +59,9 @@ b = 2
 
 ## Reading a namelist
 
-A common usecase for `namelists` is to specify parameters for a program at runtime, for example a
-simulation code might read its configuration from a `namelist`
+A common usecase for namelists is to specify parameters for a program at
+runtime. For example a simulation code might read its configuration from a
+namelist called `run` as follows:
 ```
 &run
 name = "TGV" ! Case name
@@ -62,37 +69,46 @@ nsteps = 100 ! Number of timesteps
 dt = 0.1     ! Timestep
 /
 ```
-a nice feature of `namelist`s for input files is their support for comments using the `!`.
+As you can see, an extra nice feature of namelists is their support for
+comments using the same `!` character as in Fortran code.
 
-To read the `namelist` from a file, the `namelist-group-name` is passed as the argument to `read()`,
-for example
+To read the namelist from a file, the `namelist-group-name` is passed as the
+argument to `read()`, so in order to read this `run` namelist we might do the
+following:
 ```
+integer :: myunit
 character(len=:) :: name
 integer :: nsteps
 real :: dt
 
 namelist /run/ name, nsteps, dt
 
-open(101, "config")
-read(101, run)
-close(101)
+open(newunit = myunit, file = 'config', action = 'read', status = 'old')
+read(myunit, run)
+close(myunit)
 ```
-Note that any variables not set in the `namelist` file will retain their initial values.
+Note that any variables not set in the `namelist` file will retain their initial
+values.
 
 ### Exercise (5 minutes)
 
-Using the provided example program, confirm that the runtime values can be specified by changing the
-contents of the `namelist`.
-Modify the program to specify a default value for `dt` and confirm that `dt` retains its value
-unless otherwise set in the `namelist`.
+Using [namelist-read.f90](../exercises/14-namelists/namelist-read.f90), confirm
+that the runtime values can be specified by changing the contents of the
+namelist in [config.nml](../exercises/14-namelists/config.nml). Modify the
+program to specify a default value for `dt` and confirm that `dt` retains its
+value unless otherwise set in the `namelist`.
 
-What happens if the value set is not of the same type as the variable specification in the program?
-What happens if you add an unexpected value to the namelist?
+What happens if the value set is not of the same type as the variable
+specification in the program?
+
+What happens if you add an unexpected value to the
+namelist?
 
 ### Reading multiple namelists
 
-As stated earlier, we can have multiple namelists within a file.
-Continuing our simulation example we might additionally want to specify some numerical schemes for the simulation
+As stated earlier, we can have multiple namelists within a single file.
+Continuing with our simulation example we might additionally want to specify
+some numerical schemes for the simulation, e.g. adding the `schemes` namelist:
 ```
 &run
 name = "TGV" ! Case name
@@ -107,26 +123,31 @@ transient = "RK3"     ! Timestepping scheme
 /
 ```
 
-and we can read the values for each `namelist` as outlined previously.
-Note, however that the order of the `namelist`s themselves is important.
-After reading a `namelist` the file reader will be positioned at its end, and trying to read a
-`namelist` that occurred previously in the file will fail.
-Either the reading subroutine must match the order wich `namelist`s occur in the file, or file
-motion subroutines such as `rewind` should be used to ensure reading is independent of order.
+We can read the values for each of these namelists as outlined previously, but
+note, however that the order of the namelists themselves is important. After
+reading a namelist the file reader will be positioned at its end, and trying to
+read a namelist that occurred previously in the file will fail. Either the
+reading subroutine must match the order of the namelists which occur in the
+file or file motion calls such as `rewind()` should be used to ensure that
+reading is independent of order.
 
-#### Exercise (5 mins)
+### Exercise (5 mins)
 
-Extend the example program to read the numerical `schemes` namelist.
+Extend the example program
+[namelist-read.f90](../exercises/14-namelists/namelist-read.f90) to read the
+numerical `schemes` namelist from
+[config-full.nml](../exercises/14-namelists/config-full.nml).
 
-(Optional) ensure that your program can read the `run` configuration and the numerical `schemes`
-regardless of the order in which they appear.
+(Optional) Ensure that your program can read the `run` configuration and the
+numerical `schemes` regardless of the order in which they appear.
 
 ## Writing a namelist
 
-Writing a `namelist` works similarly to reading one.
-With an open file, or other output device, passing the `namelist` as the argument to `write()` will
-write the `namelist` to the file.
+Writing a namelist works similarly to reading one. With an open file, or other
+output device, passing the namelist as the argument to `write()` will write the
+namelist to the file.
 ```
+integer :: myunit
 integer :: a, b, c
 namelist /ints/ a, b, c
 
@@ -134,11 +155,11 @@ a = 1
 b = 2
 c = 3
 
-open(101, "output")
-write(101, ints)
-close(101)
+open(newunit = myunit, file = 'output.nml', action = 'write', status = 'new')
+write(myunit, ints)
+close(myunit)
 ```
-will output
+will output the following to the new file `output.nml`:
 ```
 &INTS
  A=1          ,
@@ -149,23 +170,25 @@ will output
 
 ### Exercise (10 minutes)
 
-Write a program to write the simulation parameters as a `namelist` so that it can be read by the
-previous example program.
+Write a program to write the simulation parameters as a namelist so that it can
+be read by the previous example program.
 
-(Optional) if you completed the extension to read the `namelist`s in any order, confirm that this
-works with your new program when writing in any order.
+(Optional) If you completed the extension to read the namelists in any order,
+confirm that this works with your new program when writing in any order.
 
 ## Handling complex data
 
-So far we have only considered simple scalars and strings, `namelist`s also support I/O of more
-complex data structures such as arrays or user-defined types (introduced in the intermediate Fortran
-course).
-These are handled similarly to the code we have seen so far.
+So far we have only considered simple scalars and strings, but namelists also
+support I/O of more complex data structures such as arrays or user-defined
+types. These are handled similarly to the code we have seen so far.
 
 ### Exercise (10 minutes)
 
-An example program is provided to write more complex data structures to a `namelist`.
-Try running this program and inspecting the output to see how these data structures are represented.
+An example program
+[namelist-complex.f90](../exercises/14-namelists/namelist-complex.f90) is
+provided to write more complex data structures to a namelist. Try running this
+program and inspecting the output to see how these data structures are
+represented.
 
-Modify the program to read the `namelist` back into data and confirm that the data is correct, for
-example by testing array elements match their expected values.
+Modify the program to read the namelist back into data and confirm that the data
+is correct, for example by testing array elements match their expected values.

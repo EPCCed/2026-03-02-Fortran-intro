@@ -15,6 +15,8 @@ program namelist_complex
   
   implicit none
 
+  integer :: nmlunit
+
   integer, dimension(5) :: a
   type(mytype) :: b
   namelist /comp/ a, b
@@ -29,9 +31,9 @@ program namelist_complex
   b%b = 3.14
 
   ! Write data to namelist
-  open(101, file="complex.nml")
-  write(101, comp)
-  close(101)
+  open(newunit = nmlunit, file="complex.nml", status = "new", action = "write")
+  write(nmlunit, comp)
+  close(nmlunit)
 
 end program namelist_complex
   
