@@ -1,6 +1,6 @@
 program solution_program
 
-  ! Establish a logical array an write out a suitable pbm file.
+  ! Establish a logical array and write out a suitable pbm file.
 
   use solution_module
   implicit none
