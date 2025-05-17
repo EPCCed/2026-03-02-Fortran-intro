@@ -3,7 +3,7 @@ title: "More on array dummy arguments"
 teaching: 10
 exercises: 10
 questions:
-- "What do I need to take into consideration when passing and array as an argument?"
+- "What do I need to take into consideration when passing an array as an argument?"
 - "Can I pass arrays which haven't yet been allocated?"
 - "How do I implement optional dummy arguments?"
 objectives:
