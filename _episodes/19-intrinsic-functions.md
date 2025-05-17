@@ -135,17 +135,4 @@ In the unlikely event that there is no clock available, a negative
 value may be returned from `cpu_time()`.
 
 
-## Exercise (10 minutes)
-
-Write a program to display the command line arguments of the program.
-The arguments should not be truncated.
-How can you deal with the fact that the length of the strings is not
-known in advance?
-
-Additional exercise.
-Write a program to display the date and time in a reasonable format.
-
-Additional exercise.
-Try a simple system command, such as `cat README.md`. What can go wrong?
-
 {% include links.md %}
