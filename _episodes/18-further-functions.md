@@ -1,13 +1,24 @@
 ---
 title: "Procedures again: interfaces"
 teaching: 10
-exercises: 10
+exercises: 30
 questions:
-- ""
+- "What is an interface and why might I need to write one?"
+- "Can I use a function or a subroutine as an argument to another procedure?"
+- "How can I write a procedure that will accept arguments of different types?"
+- "Can I overload arithmetic and relational operators to work with my derived types?"
+- "Can I write a function that will accept both scalar and array arguments?"
 objectives:
-- ""
+- "Understand the need for interfaces and recognise when they are necessary."
+- "Be able to write an interface to allow the passing of a procedure as an actual argument."
+- "Understand and be able to implement overloading and polymorphism."
+- "Understand what an `elemental` function is and be able to write one."
 keypoints:
-- ""
+- "An interface provides important information about a procedure to the compiler. Without this information, the compiler may not be able to use it."
+- "When using modules, interfaces are generated automatically and provided to the compiler."
+- "If not in a module, a function can be made visible to the compiler by declaring it with the `external` attribute, but the compiler can go further by checking the argument types if you write a full, explicit `interface` block."
+- "Interfaces can also be used to implement limited polymorphism and operator overloading for derived types."
+- "An elemental function is one which can be applied to a scalar actual argument or element-by-element to an array actual argument."
 ---
 
 So far, we have demanded that all procedures be defined as part of a
@@ -32,7 +43,7 @@ contains a function declaration outside a module scope. E.g.,
 ```
 If we compile a program which includes a reference to this function,
 an error may result. We have not given the compiler any information
-about the function.
+about how the function is meant to be used.
 
 It is possible to provide the compiler with some limited information
 about the return value of the function with the `external` attribute
@@ -55,7 +66,7 @@ it explicit, the `interface` construct is available:
     interface
       function my_mapping(i) result(imap)
         integer, intent(in) :: i
-	integer             :: imap
+	      integer             :: imap
       end function my_mapping
     end interface
 
@@ -63,7 +74,7 @@ it explicit, the `interface` construct is available:
 ```
 This has provided a full, explicit, statement about the interface of the
 function `my_mappping()`. (Note that the dummy argument names are not
-significant, but the function name is.)
+significant, but the function name and the argument types and intents are.)
 
 The compiler should now be able to check the arguments are used correctly
 in the calling program (as if we had declared the function in a module).
@@ -72,9 +83,11 @@ Interface blocks are necessary in other contexts.
 
 ### Exercise (5 minutes)
 
-To illustrate the points made above, a very simple external function is
-defined in the file `external.f90`, and an accompanying program
-`example1.f90` calls the function therein.
+To illustrate the points made above, a very simple external function is defined
+in the file [external.f90](../exercises/18-further-functions/external.f90), and
+an accompanying program
+[example1.f90](../exercises/18-further-functions/example1.f90) calls the
+function therein.
 
 Compile the two files, e.g.:
 ```
@@ -101,8 +114,8 @@ numerical optimisation or numerical integration methods where
 a user-defined function needs to be evaluated for a series of
 different arguments which cannot be prescribed in advance.
 
-This can be done if an interface block is provided which describes
-the function that is the dummy argument. E.g.,
+This can be done if an interface block is provided which describes to the
+calling procedure the function that is the dummy argument. E.g.,
 ```
   subroutine my_integral(a, b, afunc, result)
     real, intent(in) :: a
@@ -110,7 +123,7 @@ the function that is the dummy argument. E.g.,
     interface
       function afunc(x) result(y)
         real, intent(in) :: x
-	real                y
+	      real                y
       end function afunc
     end interface
     ...
@@ -150,19 +163,21 @@ based on the actual argument when used with a _generic name_. This is:
     ...
   end interface my_generic_name
 ```
-This should appear in the specification part of the relevant module.
+This should appear in the specification (upper) part of the relevant module.
 The two specific implementations must be distinguishable by the compiler,
 that is, at least one non-optional dummy argument must be different.
 
 ### Exercise
 
-In section 4.03, we wrote a module to produce a `.pnm` image file. The
-accompanying module `pbm_image.f90` provides two implementations
-of such a routine: one for a logical array, and another for an integer
-array.
+In the earlier [episode on I/O]({{ page.root }}{% link _episodes/13-IO.md %}),
+we wrote a module to produce a `.pbm` image file. The accompanying module
+[pbm_image.f90](../exercises/18-further-functions/pbm_image.f90) provides two
+implementations of such a routine: one for a logical array, and another for an
+integer array.
 
-Check you can add the appropriate `interface` block with the generic
-name `write_pbm` to allow the program `example3.f90` to be compiled
+Check you can add the appropriate `interface` block with the generic name
+`write_pbm` to allow the program
+[example3.f90](../exercises/18-further-functions/example3.f90) to be compiled
 correctly.
 
 
@@ -193,7 +208,7 @@ As a syntactic convenience, it might be useful to use `==` in a logical
 expression using dates. This can be arranged via
 ```
   interface operator(==)
-    module proceduce my_dates_equal
+    module procedure my_dates_equal
   end interface
 ```
 Again this should appear in the relevant specification part of the
@@ -231,9 +246,10 @@ usually must also be `pure`.
 
 ### Exercise (5 minutes)
 
-In the `pbm_image.f90` module there is a utility function `logical_to_pbm()`
-which is used in `write_logical_pbm()` to translate the logical array to
-an integer array. Refactor this part of the code to use an elemental function.
+In the [pbm_image.f90](../exercises/18-further-functions/pbm_image.f90) module
+there is a utility function `logical_to_pbm()` which is used in
+`write_logical_pbm()` to translate the logical array to an integer array.
+Refactor this part of the code to use an elemental function.
 
 
 ## Exercise (20 minutes)
@@ -245,8 +261,9 @@ integral can be approximated by
 ```
   (b - a)*(f(a) + f(b))/2.0
 ```
-If we introduce a small interval `h = (b - a)/n` then the same
-expression is
+We can go further and split the interval between `a` and `b` into small sections
+of size `h = (b - a)/n`. In a similar manner, approximating the integral of each
+small section with a trapezium allows us to estimate the total integral to be
 ```
   h*(f(a) + sum + f(b))/2.0
 ```
@@ -263,5 +280,8 @@ of steps `n`, and the function, and returns a result.
 To check, you can evaluate the function `cos(x) sin(x)` between `a = 0`
 and `b = pi/2` (the answer should be 1/2). Check your answer gets better
 for value of `n = 10, 100, 1000`.
+
+A sample solution is provided in [integral_program.f90](../exercises/18-further-functions/solutions/integral_program.f90) and
+[integral_program.f90](../exercises/18-further-functions/solutions/integral_module.f90).
 
 {% include links.md %}
