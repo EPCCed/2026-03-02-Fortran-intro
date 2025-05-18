@@ -118,7 +118,7 @@ A constructor for an array of rank 2 or above might be used, e.g.,
 ```
 where we have used the intrinsic function `reshape()`.
 
-`reshape()` can be used whereever you might need to alter an array's shape.
+`reshape()` can be used wherever you might need to alter an array's shape.
 
 ### Exercise (2 minutes)
 
