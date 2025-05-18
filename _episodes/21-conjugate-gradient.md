@@ -1,7 +1,7 @@
 ---
 title: "Exercises: conjugate gradient and matrices"
 teaching: 10
-exercises: 45
+exercises: 50
 questions:
 - "How can I really push what I've learnt so far?"
 objectives:

@@ -1,7 +1,7 @@
 ---
 layout: break
 title: "Lunch"
-break: 65
+break: 60
 ---
 
 Break for lunch.
