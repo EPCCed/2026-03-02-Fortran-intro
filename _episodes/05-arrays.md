@@ -130,7 +130,7 @@ shape at run time.
 ## Allocatable arrays
 
 If we wish to establish storage with shape determined at run time, the
-_allocatable_ attribute can be used. The rank must be specified by the value of
+_allocatable_ attribute can be used. The rank must be specified but the value of
 the extent in each dimension is deferred using the `:` symbol:
 ```
   real, dimension(:, :), allocatable :: a
