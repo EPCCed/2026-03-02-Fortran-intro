@@ -28,8 +28,9 @@ Some of these we have only touched on, and others not mentioned at all.
 Don't panic! Consult a reference to see what is happening.
 
 May include:
-* old-style declarations `real*4` `real*8` etc.
-* Namelists `&nlist var1 = 1 var2 = 3 /`
+* old-style declarations `real*4`, `real*8`, `character*10` etc.
+* `GO TO` statements
+* `DATA` blocks
 
 Some features are formally _obsolescent_, in which case the compiler
 should give a warning. There should be a more modern ("better") way
@@ -164,24 +165,21 @@ of compiler implementations is in flux.
 
 ## Testing
 
-Testing is an important consideration in modern software
-engineering. A number of unit test frameworks exist:
+Testing is an important consideration in modern software engineering. There are
+a number of unit test frameworks such as
+[pFUnit](https://github.com/Goddard-Fortran-Ecosystem/pFUnit).
 
-* pFUnit https://github.com/Goddard-Fortran-Ecosystem/pFUnit
-
-Some others are mentioned at the Fortran wiki
-https://fortranwiki.org/fortran/show/Unit+testing+frameworks
+Some others are mentioned at the [Fortran wiki](https://fortranwiki.org/fortran/show/Unit+testing+frameworks).
 
 
 ## Resources
 
-The standard reference is "Modern Fortran explained" by Metcalf, Reid,
-and Cohen (Oxford University Press).
+The standard reference is "Modern Fortran Explained" by Metcalf, Reid, Cohen and
+Bader (Oxford University Press). The latest version is "Modern Fortran
+Explained: Incorporating Fortran 2023" (2023).
 
-The latest version is "Modern Fortran explained: Incorporating Fortran 2018"
-(2018).
+The [Fortran wiki](https://fortranwiki.org/fortran/show/HomePage) also has a lot
+of useful material.
 
-The Fortran wiki also has quite a lot of material
-https://fortranwiki.org/fortran/show/HomePage
 
 {% include links.md %}
