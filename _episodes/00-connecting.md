@@ -13,8 +13,6 @@ objectives:
 - "Understand how to connect to ARCHER2."
 keypoints:
 - "We should all understand and follow the [ARCHER2 Code of Conduct](archer2-tcoc) to ensure this course is conducted in the best teaching environment."
-- "The course will be flexible to best meet the learning needs of the attendees."
-- "Feedback is an essential part of our training to allow us to continue to improve and make sure the course is as useful as possible to attendees."
 - "ARCHER2's login address is `login.archer2.ac.uk`."
 - "You have to change the default text password the first time you log in"
 - "MFA is mandatory in ARCHER2"
