@@ -123,18 +123,29 @@ remove any personally-identifiable information,
 and post this on the course archive page so you should always be able to come back and find any information you found useful.
 -->
 
+<!--
 ## Feedback
 
-Feedback is integral to how we approach training both during and after the course.
-In particular, we use informal and structured feedback activities during the course to ensure we tailor the pace and content appropriately for the attendees,
-and feedback after the course to help us improve our training for the future.
+Feedback is integral to how we approach training both during and after the
+course. In particular, we use informal and structured feedback activities during
+the course to ensure we tailor the pace and content appropriately for the
+attendees, and feedback after the course to help us improve our training for the
+future.
 
-If you are not comfortable with the pace/content then you can use the reaction function of the collaborate session.
+If you are not comfortable with the pace/content then you can use the reaction
+function of the collaborate session.
 
-At the lunch break (and end of days for multi-day courses) we will also run a quick feedback activity to gauge how the course is matching onto attendees requirements.
-Instructors and helpers will review this feedback over lunch and provide a summary of what we found at the start of the next session and, potentially, how the upcoming materiel/schedule will be changed to address the feedback.
+At the lunch break (and end of days for multi-day courses) we will also run a
+quick feedback activity to gauge how the course is matching onto attendees
+requirements. Instructors and helpers will review this feedback over lunch and
+provide a summary of what we found at the start of the next session and,
+potentially, how the upcoming materiel/schedule will be changed to address the
+feedback.
 
-Finally, you will be provided with the opportunity to provide feedback on the course after it has finished.
-We welcome all this feedback, both good and bad, as this information in key to allow us to continually improve the training we offer.
+Finally, you will be provided with the opportunity to provide feedback on the
+course after it has finished. We welcome all this feedback, both good and bad,
+as this information in key to allow us to continually improve the training we
+offer.
+-->
 
 {% include links.md %}

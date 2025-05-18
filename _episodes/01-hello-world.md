@@ -42,7 +42,8 @@ in C/C++. However, note there is not (and must not be) a return statement.
 
 ### Exercise (1 minute)
 
-Check now you can compile and run the first example program `example1.f90`.
+Check now you can compile and run the first example program
+[example1.f90](../exercises/01-hello-world/example1.f90).
 
 ### Formal description
 
@@ -56,7 +57,7 @@ Check now you can compile and run the first example program `example1.f90`.
 ```
 Optional components are represented with square brackets `[...]`. It
 follows that the shortest standard-conforming program will be (see
-`example2.f90`):
+[example2.f90](../exercises/01-hello-world/example2.f90)):
 ```
 end
 ```
@@ -81,7 +82,7 @@ is allowed to apply a default format for a given type of item.
 
 ## Alternative
 
-Consider the following program (available as `example3.f90`):
+Consider the following program (available as [example3.f90](../exercises/01-hello-world/example3.f90)):
 ```
 program example3
 
@@ -176,6 +177,7 @@ add it now. What happens to the results if you miss out one of the
 symbols referenced from the `only` clause? This behaviour will be
 explained in the following section.
 
-A version of this program is available as `exercise1.f90`.
+A sample solution is available as
+[exercise1.f90](../exercises/01-hello-world/exercise1.f90).
 
 {% include links.md %}
