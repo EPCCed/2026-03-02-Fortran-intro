@@ -16,7 +16,7 @@ program namelist_write
   dt = 0.1
 
   ! Write data to namelist
-  open(nmlunit, file="config-out.nml", status = "new", action = "write")
+  open(newunit = nmlunit, file="config-out.nml", status = "new", action = "write")
   write(nmlunit, run)
   close(nmlunit)
 
