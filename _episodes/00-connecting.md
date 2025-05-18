@@ -82,7 +82,7 @@ Within the repository, the code we will use is located in the `exercises`
 directory. The default Fortran compiler on ARCHER2 is the Cray Fortran compiler
 invoked using `ftn`. For example,
 ```
-$ cd example/01-hello-world
+$ cd exercises/01-hello-world
 $ ftn example1.f90
 ```
 should generate an executable with the default name `a.out`. If you are working on another machine, you should invoke the correct compiler e.g. `gfortran`.
