@@ -1,24 +1,28 @@
 ---
 title: "Exercises: conjugate gradient and matrices"
 teaching: 10
-exercises: 70
+exercises: 45
 questions:
-- ""
+- "How can I really push what I've learnt so far?"
 objectives:
-- ""
+- "Write a conjugate gradient solver."
+- "Read a Matrix Market Exchange file and plot a downloaded matrix."
 keypoints:
-- ""
+- "Fortran performance and array handling make it ideal for the solution of intense problems."
 ---
 
 ## Conjugate gradient solver
 
-The conjugate gradient method provides a slightly more general
-method for the solution of linbear systems _Ax = b_ for symmetric
-matrices. The algorithm is explained here:
+Contrasting with the very specific tri-diagonal solver we've been working on,
+the conjugate gradient method provides a slightly more general method for the
+solution of linear systems _Ax = b_ -- at least for symmetric positive definite
+matrices. The algorithm is explained in detail on
+[Wikipedia](https://en.wikipedia.org/wiki/Conjugate_gradient_method), and if you
+are very interested you might like to read [An Introduction to the Conjugate
+Gradient Method Without the Agonizing
+Pain](https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf).
 
-https://en.wikipedia.org/wiki/Conjugate_gradient_method
-
-It is not necessary to understand the details, as we are just
+However, it is not necessary to understand the details, as here we are just
 interested in implementing the algorithm.
 
 There are two main steps involved. The first is to perform a
@@ -36,21 +40,25 @@ done with:
 All the operations in the algorithm can be composed of these,
 as well as vector additions and multiplications by a scalar.
 
-A template program is provided with a small matrix to use as a
-test. You need to implement a module `cgradient` which supplies
-a function `cg_test()` taking the arguments set out in the template.
+A template program [cg_test.f90](../exercises/21-conjugate-gradient/cg_test.f90)
+is provided with a small matrix to use as a test. You need to implement a module
+`cgradient` which supplies a function `cg_test()` taking the arguments set out
+in the template.
 
 Remember that you can always check your answer by multiplying out
 _Ax_ to recover the original right-hand side _b_.
 
+You can check a suggested solution in
+[cg_test_solution.f90](../exercises/21-conjugate-gradient/solutions-1/cg_test_solution.f90)
+and
+[cgradient_solution.f90](../exercises/21-conjugate-gradient/solutions-1/cgradient_solution.f90).
+
 
 ## Larger matrices
 
-The Matrix Market provides a number of archived matrices of different
-types. It also defines a simple ASCII format for the storage of
-sparse matrices.
-
-https://math.nist.gov/MatrixMarket/
+The [Matrix Market](https://math.nist.gov/MatrixMarket/) provides a number of
+archived matrices of different types. It also defines a simple ASCII format for
+the storage of sparse matrices.
 
 The Matrix Market Exchange format `.mtx` files are structured as
 follows.
@@ -65,7 +73,7 @@ i2 j2 a(i2,j2)
 where `nrows` and `ncols` are the number of rows and columns in the
 matrix, respectively. `nnonzero` is the number of non-zero entries
 in the matrix. For each non-zero entry there then follows a single
-line which the row index, the column index, and the value of the
+line which contains the row index, the column index, and the value of the
 matrix element itself.
 
 Download an example, e.g.,
@@ -74,7 +82,7 @@ $ wget https://math.nist.gov/pub/MatrixMarket2/Harwell-Boeing/laplace/gr_30_30.m
 $ gunzip gr_30_30.mtx
 ```
 
-If you look at the fist few line of this example, you should see
+If you look at the first few line of this example, you should see
 ```
 %%MatrixMarket matrix coordinate real symmetric
 900 900 4322
@@ -100,9 +108,9 @@ elements to provide a check the file has been read correctly.
 
 * Try some other matrices from the Matrix Market.
 
+A suggested solution in provided in
+[mmtest.f90](../exercises/21-conjugate-gradient/solutions-2/mm_test.f90) and
+[mmarket.f90](../exercises/21-conjugate-gradient/solutions-2/mmarket.f90).
 
-## Solutions
-
-Some solutions are available in the [solutions](./solutions) directory.
 
 {% include links.md %}
