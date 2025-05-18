@@ -1,13 +1,20 @@
 ---
 title: "Miscellaneous"
-teaching: 10
-exercises: 10
+teaching: 20
+exercises: 0
 questions:
-- ""
+- "How can I retrieve any command line arguments I want to give my program?"
+- "How can I examine environment variables?"
+- "Can I have my Fortran code execute OS commands on the terminal?"
+- "Can I get the time and date?"
 objectives:
-- ""
+- "Learn several useful procedures that allow your programs to interact with the outside shell and environment."
+- "Learn how to obtain the time and date and be able to time sections of code."
 keypoints:
-- ""
+- "Fortran provides other utility procedures that can help with your program's functionality."
+- "These allow you to retrieve information from the calling command line and environment."
+- "You can pass commands back to the operating system, but you should be very careful that your code remains portable."
+- "Timing your code with `cpu_time()` can help you profile your code."
 ---
 
 There a a number of features which have not been covered so far, but
@@ -53,9 +60,9 @@ the length of the command, and `istat` returns 0 on success, -ve if the
 
 ### Environment variables
 
-A similar routine exists for inquiry about environment variables
+A similar routine exists for inquiry about environment variables:
 ```
-subroutine get_environment_varaible(name, value, length, status, trim_name)
+subroutine get_environment_variable(name, value, length, status, trim_name)
   character (len = *),           intent(in)  :: name
   character (len = *), optional, intent(out) :: value
   integer,             optional, intent(out) :: length
@@ -84,7 +91,7 @@ subroutine execute_command_line(command, wait, iexit, icmd, cmdmsg)
 ```
 The command should be a string. The `wait` argument tells the routine to
 return only when the command has finishing executing.
-The `iexit` gives the return value of the command.
+The `iexit` argument gives the return value of the command.
 The `icmd` argument returns a positive value if the command fails to execute
 (e.g., the command was not found), or negative if execution is not supported,
 or zero on successful execution. An informative message should be returned in
@@ -106,22 +113,23 @@ Use, e.g.,
   call date_and_time(date = date, time = time, zone = zone, values = ivalues)
 ```
 All the arguments are optional. On return the `date` holds the year, month,
-and day in a string of the form "yyyymmdd"; time holds the time in hours,
+and day in a string of the form "yyyymmdd"; `time` holds the time in hours,
 minutes, seconds, and milliseconds; the time zone is encoded with a sign
-(`+` or `-`) and the time difference from Greenwich Mean Time (UTC) in
-hours and minutes.
+(`+` or `-`) and the time difference from Coordinated Universal Time (UTC)
+in hours and minutes.
 
-The integer values are: year, month (1-12), day (1-31), time difference in
-minutes between local and UTC, hour (0-23), minute (0-59), seconds (0-59),
-and milliseconds (0-999).
+`ivalues` returns the same information as the other three arguments in the form
+of an array of integers. These are, in order: year, month (1-12), day (1-31),
+time difference in minutes between local and UTC, hour (0-23), minute (0-59),
+seconds (0-59), and milliseconds (0-999).
 
 
 ## Timing pieces of code
 
 If you want to record the time taken to execute a particular section
 of code, the `cpu_time()` function can be used. This returns a
-`real` positive value which is some system-dependnent time in seconds.
-Subtracting two consecutive values will give and elapsed time:
+`real` positive value which is some system-dependent time in seconds.
+Subtracting two consecutive values will give an elapsed time:
 ```
    real :: t0, t1
 
