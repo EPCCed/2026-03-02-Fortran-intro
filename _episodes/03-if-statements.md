@@ -100,9 +100,29 @@ A single clause `if` statement is also available, for example:
 
 ### Example 1 (3 minutes)
 
-The file [example1.f90](../exercises/03-if-statements/example1.f90) contains a
-version of the code above. Check it works as expected. Can you replace the
-relational operators to use the older form given in the table above?
+> ## Using relational operators
+>
+> The file [example1.f90](../exercises/03-if-statements/example1.f90) contains a
+> version of the code above. Check it works as expected. Can you replace the
+> relational operators to use the older form given in the table above?
+> 
+> > ## Solution
+> > 
+> > You should be able to compile the code and run it to obtain the output:
+> > ```
+> >  The smaller is: i  1
+> > ```
+> > {: .output}
+> > To use the older forms of the operators `>` and `<`, change them respectively
+> > to `.gt.` and `.lt.`:
+> > ```
+> >   condition1 = (i .lt. j)
+> >   condition2 = (i .gt. j)
+> > ```
+> > {: .source}
+> > 
+> {: .solution}
+{: .challenge}
 
 
 ### Construct names
@@ -204,28 +224,67 @@ strings in a later section.
 
 ## Exercise (1 minute)
 
-Compile and check the output of
-[example2.f90](../exercises/03-if-statements/example2.f90) to see the result of
-the examples above. What happens if you change one of the `len` specifications
-to be too short?
+> ## Character `len`
+>
+> Compile and check the output of
+> [example2.f90](../exercises/03-if-statements/example2.f90) to see the result
+> of the examples above. What happens if you change one of the `len`
+> specifications to be too short?
+> 
+> > ## Solution
+> > 
+> > Without modifications, the code should produce the following output:
+> > ```
+> >  string1: don't
+> >  string2: Don"t
+> >  string3: don't
+> >  Catenated:       don't Don"tdon't
+> >  Substring:       Do
+> >  kind('A'):        1
+> > ```
+> > {: .output}
+> > If we make `string3` too short, e.g.:
+> > ```
+> >   character (len = 2)            :: string3 = 'don''t'
+> > ```
+> > {: .source}
+> > then the variable will truncate at that length:
+> > ```
+> >  string1: don't
+> >  string2: Don"t
+> >  string3: do
+> >  Catenated:       doDon"tdon't
+> >  Substring:       Do
+> >  kind('A'):        1
+> > ```
+> > {: .output}
+> > 
+> {: .solution}
+{: .challenge}
 
 
 ## Exercise (5 minutes)
 
-Write a program which uses real data types to compute the two solutions
-to the quadratic equation:
-```
-   a*x**2 + b*x + c = 0
-```
-for given values of `a`, `b`, and `c`. See
-[Wikipedia's page](https://en.wikipedia.org/wiki/Quadratic_formula) for some
-background.
+> ## Solving a quadratic equation
+>
+> Write a program which uses real data types to compute the two solutions
+> to the quadratic equation:
+> ```
+>    a*x**2 + b*x + c = 0
+> ```
+> for given values of `a`, `b`, and `c`. See [Wikipedia's
+> page](https://en.wikipedia.org/wiki/Quadratic_formula) for some background. A
+> template [exercise1.f90](../exercises/03-if-statements/exercise1.f90) provides
+> some instructions.
+> 
+> > ## Solution
+> > 
+> > A solution to this exercise appears as a template for the [first
+> > exercise](../exercises/06-array-expressions/exercise1.f90) in the [episode on
+> > array expressions]({{ page.root }}{% link _episodes/06-array-expressions.md %})
+> > 
+> {: .solution}
+{: .challenge}
 
-A template [exercise1.f90](../exercises/03-if-statements/exercise1.f90) provides
-some instructions.
-
-A solution to this exercise appears as a template for the [first
-exercise](../exercises/06-array-expressions/exercise1.f90) in the [episode on
-array expressions]({{ page.root }}{% link _episodes/06-array-expressions.md %})
 
 {% include links.md %}

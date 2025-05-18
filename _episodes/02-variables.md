@@ -101,9 +101,52 @@ with `i-n` are integers and so on, albeit declared explicitly.
 
 ### Exercise (1 minute)
 
-Compile and run the accompanying program [exercise1.f90](../exercises/02-variables/exercise1.f90). What's
-the problem and how should we avoid it? Check the compiler can trap
-the problem.
+> ## The importance of being explicit
+>
+> Compile and run the accompanying program
+> [exercise1.f90](../exercises/02-variables/exercise1.f90). What's the problem
+> and how should we avoid it? Check the compiler can trap the problem.
+> 
+> > ## Solution
+> > 
+> > The issue is that the variable we declare is initialise is `ll`, but the
+> > variable we print is `l1`. Look closely at these names: the latter
+> > mistakenly uses a digit one `1` where it should be the letter `l`. When we
+> > print the hitherto unmentioned `l1`, the compiler implicitly creates it as a
+> > new `integer`.
+> > 
+> > Add `implicit none` to the top of the code
+> > ```
+> > program exercise1
+> >
+> >   implicit none
+> > 
+> >   integer :: ll = 1
+> >
+> >   print *, "The value of ll is: ", l1
+> >
+> > end program exercise1
+> > ```
+> > {: .source}
+> > which then produces an error at compile time, e.g. with the Cray compiler:
+> > ```
+> > 
+> >   print *, "The value of ll is: ", l1
+> >                                    ^
+> > ftn-113 ftn: ERROR EXERCISE1, File = exercise1.f90, Line = 7, Column = 36
+> >   IMPLICIT NONE is specified in the local scope, therefore an explicit type must be specified for data object "L1".
+> > 
+> > Cray Fortran : Version 15.0.0 (20221026200610_324a8e7de6a18594c06a0ee5d8c0eda2109c6ac6)
+> > Cray Fortran : Compile time:  0.0024 seconds
+> > Cray Fortran : 9 source lines
+> > Cray Fortran : 1 errors, 0 warnings, 0 other messages, 0 ansi
+> > Cray Fortran : "explain ftn-message number" gives more information about each message.
+> > ```
+> > {: .output}
+> > 
+> {: .solution}
+{: .challenge}
+
 
 ### `kind` of type
 
@@ -243,9 +286,25 @@ declaring, e.g.:
 
 ### Exercise (2 minutes)
 
-Consider the accompanying
-[exercise2.f90](../exercises/02-variables/exercise2.f90). Check the compiler
-error emitted and remove the offending line.
+> ## Parameters
+>
+> Consider the accompanying
+> [exercise2.f90](../exercises/02-variables/exercise2.f90). Check the compiler
+> error emitted and remove the offending line.
+> 
+> > ## Solution
+> > 
+> > The problem is that `nmax` is created with the `parameter` attribute and
+> > given a value of 32, but that later on an attempt is made to assign a new
+> > value of 33.
+> > ```
+> > nmax = 33
+> > ```
+> > {: .source}
+> > to resolve the issue.
+> > 
+> {: .solution}
+{: .challenge}
 
 
 ### Arithmetic operations on numeric types
@@ -309,32 +368,69 @@ intrinsic functions, respectively.
 
 ### Exercise (2 minutes)
 
-By using variables of complex type, check that you can use the
-intrinsic function `srqt()` to confirm that the square root of
--1 is `i`. What happens if you try to try to take the square root
-of a negative value stored as a real variable?
+> ## Using `sqrt()`
+>
+> By using variables of complex type, check that you can use the intrinsic
+> function `srqt()` to confirm that the square root of -1 is `i`. What happens
+> if you try to try to take the square root of a negative value stored as a real
+> variable?
+> 
+> > ## Solution
+> > 
+> > If you call `sqrt()` on a complex variable `z%re = -1.0` and `z%im = 0.0`
+> > then a result will be returned with a real part of `0` and an imaginary part
+> > of `1`.
+> >
+> > If you call `sqrt()` on a real number `-1` then the compiler will exit with
+> > an error and a message explaining why this is not valid.
+> > 
+> {: .solution}
+{: .challenge}
+
 
 ### Exercise (5 minutes)
 
-The accompanying template [exercise3.f90](../exercises/02-variables/exercise3.f90) provides instructions for an
-exercise which involves the approximation to the constant pi computed
-via a Gauss-Legendre algorithm. Some
-background can be found at
-[https://en.wikipedia.org/wiki/Gauss-Legendre_algorithm](https://en.wikipedia.org/wiki/Gauss-Legendre_algorithm).
+> ## Calculating pi
+>
+> The accompanying template
+> [exercise3.f90](../exercises/02-variables/exercise3.f90) provides instructions
+> for an exercise which involves the approximation to the constant pi computed
+> via a Gauss-Legendre algorithm. Some background can be found at
+> [https://en.wikipedia.org/wiki/Gauss-Legendre_algorithm](https://en.wikipedia.org/wiki/Gauss-Legendre_algorithm).
+>
+> Use the instructions in the template to calculate an estimate of pi by creating an
+> appropriate parameter to store a `kind`, declaring the appropriate variables,
+> then performing the calculation and printing the values of pi.
+> 
+> > ## Solution
+> > 
+> > A solution to this problem appears as the template for the [first
+> > exercise](../exercises/04-do-statements/exercise1.f90) in the [episode on
+> > loops]({{ page.root }}{% link _episodes/04-do-statements.md %}).
+> > 
+> {: .solution}
+{: .challenge}
 
-A solution to this problem appears as the template for the [first
-exercise](../exercises/04-do-statements/exercise1.f90) in the [episode on
-loops]({{ page.root }}{% link _episodes/04-do-statements.md %}).
 
 ### Exercise (5 minutes)
 
-A second exercise in a similar vein looks at an approximation to the
-conductance of a rectangular channel subject to a constant flow.
-Instructions are in [exercise4.f90](../exercises/02-variables/exercise4.f90).
-
-A solution to this problem appears as the template for the [second
-exercise](../exercises/04-do-statements/exercise2.f90) in the [episode on
-loops]({{ page.root }}{% link _episodes/04-do-statements.md %}).
+> ## Calculating the conductance in a narrow channel
+>
+> A second exercise in a similar vein looks at an approximation to the
+> conductance of a rectangular channel subject to a constant flow. Instructions
+> are in [exercise4.f90](../exercises/02-variables/exercise4.f90).
+>
+> As with the previous exercise, create a `kind`, the variables, then perform
+> the necessary arithmetic to calculate `C_1`.
+> 
+> > ## Solution
+> > 
+> > A solution to this problem appears as the template for the [second
+> > exercise](../exercises/04-do-statements/exercise2.f90) in the [episode on
+> > loops]({{ page.root }}{% link _episodes/04-do-statements.md %}).
+> > 
+> {: .solution}
+{: .challenge}
 
 
 {% include links.md %}

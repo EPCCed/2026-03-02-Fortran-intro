@@ -84,51 +84,125 @@ present, it will be 1 (unity); if the stride is present, it may not be zero.
 
 ### Exercise (2 minutes)
 
-What is the number of iterations in the following cases?
-```
-   do i = 1, 10
-     print *, "i is  ", i
-   end do
+> ## How many iterations make a do loop?
+>
+> What is the number of iterations in the following cases?
+> ```
+>    do i = 1, 10
+>      print *, "i is  ", i
+>    end do
+>
+>    do i = 1, 10, -2
+>      print *, "i is ", i
+>    end do
+>
+>    do i = 10, 1, -2
+>      print *, "i is ", i
+>    end do
+> ```
+> You can confirm your answers by running
+> [example3.f90](../exercises/04-do-statements/example3.f90). Note there is no
+> way (cf. C `for`) to limit the scope of the loop variable to the loop
+> construct itself; the variable will then have a final value after exit from
+> the loop.
+> 
+> > ## Solution
+> > 
+> > The following output is produced:
+> > ```
+> >  First loop: 1, 10
+> >  i is  1
+> >  i is  2
+> >  i is  3
+> >  i is  4
+> >  i is  5
+> >  i is  6
+> >  i is  7
+> >  i is  8
+> >  i is  9
+> >  i is  10
+> >  Second loop: 1, 10, -2
+> >  Third loop: 10, 1, -2
+> >  i is  10
+> >  i is  8
+> >  i is  6
+> >  i is  4
+> >  i is  2
+> > ```
+> > {: .output}
+> > The first loop has ten iterations with `i` running from 0 to 10 in steps of 1.
+> > 
+> > The second loop runs zero times as, with a stride of -2, there is no way to iterate from 1 to 10.
+> >
+> > The third loop has five iterations, from 10 to 2 in steps of -2. The stated
+> > end value of 1 can't be reached, and 0 would go too far, so it finishes at 2.
+> > 
+> {: .solution}
+{: .challenge}
 
-   do i = 1, 10, -2
-     print *, "i is ", i
-   end do
-
-   do i = 10, 1, -2
-     print *, "i is ", i
-   end do
-```
-You can confirm your answers by running
-[example3.f90](../exercises/04-do-statements/example3.f90). Note there is no way
-(cf. C `for`) to limit the scope of the loop variable to the loop construct
-itself; the variable will then have a final value after exit from the loop.
 
 ### Exercise (5 minutes)
 
-We return the exercises discussed in the earlier [episode on variables]({{
-page.root }}{% link _episodes/02-variables.md %}). You can use your own
-solutions, or the new template in this directory.
+> ## Calculating pi with loops
+>
+> We return the exercises discussed in the earlier [episode on
+> variables]({{page.root }}{% link _episodes/02-variables.md %}). You can use
+> your own solutions, or the new template here.
+>
+> For [exercise1.f90](../exercises/04-do-statements/exercise1.f90) which
+> computes an approximation to the constant pi using the Gauss-Legendre
+> algorithm, introduce an iteration to compute a fixed number of successive
+> improvements. How many iterations are required to converge when using
+> `kind(1.d0)`? Would you be able to adjust the program to halt the iteration if
+> the approximation is within a given tolerance of the true answer?
+> 
+> > ## Solution
+> > 
+> > Sample code implementing loops with this problem is used as a template to the
+> > [exercise](../exercises/05-arrays/exercise1.f90) in the [episode on
+> > arrays]({{ page.root }}{% link _episodes/05-arrays.md %}).
+> > 
+> > You should be able to observe that with `kind(1.d0)` the value of pi
+> > converges after only three iterations. You also can have the code exit the
+> > loop and halt iteration by storing the previous estimate of pi `if` the
+> > difference between the old and new values is less than the desired
+> > tolerance.
+> > 
+> {: .solution}
+{: .challenge}
 
-For [exercise1.f90](../exercises/04-do-statements/exercise1.f90) which computes
-an approximation to the constant pi using the Gauss-Legendre algorithm,
-introduce an iteration to compute a fixed number of successive improvements. How
-many iterations are required to converge when using `kind(1.d0)`? Can you adjust
-the program to halt the iteration if the approximation is within a given
-tolerance of the true answer?
-
-A simple solution to this problem is used as a template to the
-[exercise](../exercises/05-arrays/exercise1.f90) in the [episode on arrays]({{
-page.root }}{% link _episodes/05-arrays.md %}).
 
 ### Exercise (5 minutes)
 
-[exercise2.f90](../exercises/04-do-statements/exercise2.f90) will need similar
-work. Use a loop to compute a fixed number of terms in the sum over index k (use
-real type `real64` for the sum). Here you should find convergence is much slower
-(you may need about 1000 terms); check by printing out the current value every
-so many terms (say 20).
+> ## Conductance of a channel with loops
+>
+> [exercise2.f90](../exercises/04-do-statements/exercise2.f90) returns to the
+> calculation of the conductance in the narrow channel and will need similar
+> work. Use a loop to compute a fixed number of terms in the sum over index k
+> (use real type `real64` for the sum). Here you should find convergence is much
+> slower (you may need about 1000 terms); check by printing out the current
+> value every so many terms (say 20).
+>
+> Expert question: What happens if you accumulate the sum in the reverse order
+> in this case? Can you think why this happens?
+> 
+> > ## Solution
+> > 
+> > Answer to the expert question: floating point numbers of a given format
+> > (such as `real64`) all have the same _relative error_, no matter how big or
+> > small they are. The _absolute error_ on the other hand is the produce of the
+> > number's value and the relative error; thus, a small `real` has a small
+> > absolute error, and a large `real` has a large absolute error. If the large
+> > numbers are summed first, the sum's absolute error quickly becomes large,
+> > and the smaller numbers are subsumed into it. If the small numbers are
+> > summed first, the sum's absolute error remains small enough that the small
+> > numbers are able to contribute. Consider further how in floating point maths
+> > it is true that `(x + y) + z /= x + (y + z)`, if you are interested look up
+> > [Kahan's
+> > algorithm](https://en.wikipedia.org/wiki/Kahan_summation_algorithm).
+> > 
+> {: .solution}
+{: .challenge}
 
-Expert question: What happens if you accumulate the sum in the reverse
-order in this case? Can you think why this happens?
 
 {% include links.md %}

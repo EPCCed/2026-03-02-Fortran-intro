@@ -42,8 +42,28 @@ in C/C++. However, note there is not (and must not be) a return statement.
 
 ### Exercise (1 minute)
 
-Check now you can compile and run the first example program
-[example1.f90](../exercises/01-hello-world/example1.f90).
+> ## Compile your first program
+>
+> Check now you can compile and run the first example program
+> [example1.f90](../exercises/01-hello-world/example1.f90). What
+> output do you get when you run it?
+>
+> > ## Solution
+> > 
+> > Compile and run the program on ARCHER2 as follows:
+> > ```
+> > ftn example1.f90
+> > ./a.out
+> > ```
+> > {: .source}
+> > which will give the following output:
+> > ```
+> >  Hello world
+> > ```
+> > {: .output}
+> > 
+> {: .solution}
+{: .challenge}
 
 ### Formal description
 
@@ -168,16 +188,43 @@ This course will prefer an all lower-case style.
 
 ### Exercise (2 minutes)
 
-Write a program which prints out the actual values of the symbols
-`output_unit`, `error_unit`, and `input_unit`
-(all from `iso_fortran_env`) to the screen.
-
-If you haven't used the `only` clause in your `use iso_fortran_env`,
-add it now. What happens to the results if you miss out one of the
-symbols referenced from the `only` clause? This behaviour will be
-explained in the following section.
-
-A sample solution is available as
-[exercise1.f90](../exercises/01-hello-world/exercise1.f90).
+> ## Check symbol values
+>
+> Write a program which prints out the actual values of the symbols
+> `output_unit`, `error_unit`, and `input_unit`
+> (all from `iso_fortran_env`) to the screen.
+>
+> If you haven't used the `only` clause in your `use iso_fortran_env`,
+> add it now. What happens to the results if you miss out one of the
+> symbols referenced from the `only` clause? This behaviour will be
+> explained in the following section.
+>
+> Bonus: check the values using both the Cray and GCC compilers. On
+> ARCHER2 both are invoked with the `ftn` compiler wrapper. Which
+> compiler is actually used depends on the `PrgEnv-` module loaded.
+> 
+> > ## Solution
+> > 
+> > Make sure to `use` the module, then use `print *` statements to write the
+> > values of the three symbols to the screen. Sample solution code is available
+> > in [exercise1.f90](../exercises/01-hello-world/solutions/exercise1.f90).
+> > 
+> > Running with the default Cray compiler gives the output:
+> > ```
+> >  output_unit is:  101
+> >  error_unit is:   102
+> >  input_unit is:   100
+> > ```
+> > {: .output}
+> > while using `gfortran` from GCC gives:
+> > ```
+> >  output_unit is:            6
+> >  error_unit is:             0
+> >  input_unit is:             5
+> > ```
+> > {: .output}
+> > 
+> {: .solution}
+{: .challenge}
 
 {% include links.md %}

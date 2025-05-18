@@ -33,13 +33,6 @@ Given a rank 1 array `a(:)`, some valid array sub-objects are:
 If an array subscript is present, it must be valid; if the stride is present
 it may not be zero.
 
-> ## Array style
->
-> It may be a good idea to prefer use of `a(:)` over `a` when referencing the
-> whole array. The former has the appearance of an array, while the latter may
-> incorrectly appear to be a scalar to an unfamiliar reader of the code (or you
-> yourself if it's been a while since you last read it).
-{: .callout}
 
 ## Array expressions and assignments
 
@@ -66,14 +59,61 @@ Given the above declarations, the following would not make sense:
 
 ### Exercise (2 minutes)
 
-A caution. How should we interpret the following assignments?
-```
-  d = 1.0
-  e(:) = 1.0
-```
-Compile the accompanying program
-[example1.f90](../exercises/06-array-expressions/example1.f90), check the
-compilation errors and improve the program.
+> ## Array appearance
+>
+> A caution. How should we interpret the following assignments?
+> ```
+>   d = 1.0
+>   e(:) = 1.0
+> ```
+> Compile the accompanying program
+> [example1.f90](../exercises/06-array-expressions/example1.f90), check the
+> compilation errors and improve the program.
+> 
+> > ## Solution
+> >
+> > The first assignment given above is ambiguous. Is `d` a scalar variable, or
+> > an entire array? The second assignment is clearly on every element of the
+> > rank-1 array `e`.
+> > 
+> > The compiler errors you get when compiling
+> > [example1.f90](../exercises/06-array-expressions/example1.f90) may spell out
+> > exactly what is going wrong. At line 13,
+> > ```
+> > b1 = a1
+> > ```
+> > {: .source}
+> > `b1` is a rank-1 array; the rank-2 array `a1` cannot be used to assign values to it. Change it to
+> > ```
+> > b1(:) = a1(:,1)
+> > ```
+> > {: .source}
+> >
+> > Then, the second issue is the assignment
+> > ```
+> > b1(1:4) = a2(1, 4:4)
+> > ```
+> > {: .source}
+> > as the section `a2(1, 4:4)` is an array of the incorrect size
+> > (note that `a2(1, 4)` would work as it becomes a scalar, but wouldn't set
+> > `b2` to the first half of the first row of `a2`). To correct the error, fix
+> > the start index:
+> > ```
+> > b1(1:4) = a2(1, 1:4)
+> > ```
+> > {: .source}
+> > 
+> {: .solution}
+{: .challenge}
+
+> ## Array style
+>
+> Following this exercise, you hopefullly agree it may be a good idea to prefer
+> use of `a(:)` over `a` when referencing the whole array. The former has the
+> appearance of an array, while the latter may incorrectly appear to be a scalar
+> to an unfamiliar reader of the code (or you yourself if it's been a while
+> since you last read it).
+{: .callout}
 
 ## Elemental intrinsic functions
 
@@ -151,15 +191,29 @@ If array expressions are used, simple ones are best.
 
 ### Exercise (5 minutes)
 
-The template [exercise1.f90](../exercises/06-array-expressions/exercise1.f90)
-re-visits the quadratic equation exercise. Check you can replace the scalars
-where appropriate. See the template for further instructions.
+> ## Quadratic equation
+>
+> The template [exercise1.f90](../exercises/06-array-expressions/exercise1.f90)
+> re-visits the quadratic equation exercise. Check you can replace the scalars
+> where appropriate. See the template for further instructions.
+> 
+{: .challenge}
 
-Additional exercise: write a program to implement the [Sieve of
-Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) algorithm
-which performs a search for prime numbers. See
-[exercise2.f90](../exercises/06-array-expressions/exercise2.f90) for a template
-with some further instructions. How much array syntax can you reasonably
-introduce?
+> ## Sieve of Eratosthenes
+>
+> Here's an additional exercise: write a program to implement the [Sieve of
+> Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) algorithm
+> which performs a search for prime numbers. See
+> [exercise2.f90](../exercises/06-array-expressions/exercise2.f90) for a template
+> with some further instructions. How much array syntax can you reasonably
+> introduce?
+> 
+> > ## Solution
+> > 
+> > A sample solution is provided in [solution.f90](../exercises/06-array-expressions/solutions/solution.f90).
+> > 
+> {: .solution}
+{: .challenge}
+
 
 {% include links.md %}

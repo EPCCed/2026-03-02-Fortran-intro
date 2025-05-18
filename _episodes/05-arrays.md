@@ -122,9 +122,13 @@ where we have used the intrinsic function `reshape()`.
 
 ### Exercise (2 minutes)
 
-Check the accompanying [example1.f90](../exercises/05-arrays/example1.f90) to
-see examples of intrinsic functions available to interrogate array size and
-shape at run time.
+> ## Array sizes and shapes
+>
+> Check the accompanying [example1.f90](../exercises/05-arrays/example1.f90) to
+> see examples of intrinsic functions available to interrogate array size and
+> shape at run time.
+> 
+{: .challenge}
 
 
 ## Allocatable arrays
@@ -169,23 +173,27 @@ status can be interrogated via the intrinsic function `allocated()`.
     ! ... we can do something ...
   end if
 ```
-Attempt to `deallocate` a variable which is not allocated is an error.
+An attempt to `deallocate` a variable which is not allocated is an error.
 
 
 ### Exercise (5 minutes)
 
-Return again to the program to compute the approximation of pi via
-the Gauss-Legendre expansion (last seen in the [previous episode on do loops]({{
-page.root }}{% link _episodes/04-do-statements.md %})). You may use
-your own version or the new template provided in this directory
-(see [exercise1.f90](../exercises/05-arrays/exercise1.f90)).
-
-Introduce array storage for the quantites `a`, `b` and `t`. Use a
-fixed number of terms. Assign appropriate values in a first loop.
-In a second loop, compute the approximation of pi at each iteration.
-
-What might you do if you wanted to store only the number of terms
-taken to reach a converged answer?
+> ## Computing pi with arrays
+>
+> Return again to the program to compute the approximation of pi via
+> the Gauss-Legendre expansion (last seen in the [previous episode on do loops]({{ page.root }}{% link _episodes/04-do-statements.md %})).
+> You may use
+> your own version or the new template provided in this directory
+> (see [exercise1.f90](../exercises/05-arrays/exercise1.f90)).
+>
+> Introduce array storage for the quantites `a`, `b` and `t`. Use a
+> fixed number of terms. Assign appropriate values in a first loop.
+> In a second loop, compute the approximation of pi at each iteration.
+>
+> What might you do if you wanted to store only the number of terms
+> taken to reach a converged answer?
+> 
+{: .challenge}
 
 
 #### Help is available!
