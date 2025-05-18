@@ -1,6 +1,6 @@
 program exercise2
 
-  ! A program to identify prime numbers (<= nmax = 120) via th Sieve
+  ! A program to identify prime numbers (<= nmax = 120) via the Sieve
   ! of Eratosthenses.
 
   ! See, e.g., https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
