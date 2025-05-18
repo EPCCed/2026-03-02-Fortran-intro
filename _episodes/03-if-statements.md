@@ -76,7 +76,7 @@ Conditional statements are provided by the `if` construct, formally:
 ```
 [if-name:]  if (logical-expression) then
               block
-            [ else if (logical-expression)
+            [ else if (logical-expression) then
               block ] ...
             [ else
               block ]
