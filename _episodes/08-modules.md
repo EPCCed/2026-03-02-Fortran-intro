@@ -119,17 +119,61 @@ working directory).
 
 ### Exercise (2 minutes)
 
-If you haven't already done so, compile the accompanying
-[module1.f90](../exercises/08-modules/module1.f90) and
-[program1.f90](../exercises/08-modules/program1.f90). Check the errors which
-occur if you: (1) try to compile the program without the module file via, e.g.,
-```
-$ ftn program1.f90
-```
-and (2), if you try to compile and link the module file alone:
-```
-$ ftn module1.f90
-```
+> ## Compiling modules
+>
+> If you haven't already done so, compile the accompanying
+> [module1.f90](../exercises/08-modules/module1.f90) and
+> [program1.f90](../exercises/08-modules/program1.f90). Check the errors which
+> occur if you: (1) try to compile the program without the module file via,
+> e.g.,
+> ```
+> $ ftn program1.f90
+> ```
+> and (2), if you try to compile and link the module file alone:
+> ```
+> $ ftn module1.f90
+> ```
+> 
+> > ## Solution
+> > 
+> > Compiling the program alone produces (with the Cray compiler) the following error:
+> > ```
+> > 
+> >   use module1
+> >       ^
+> > ftn-292 ftn: ERROR PROGRAM1, File = program1.f90, Line = 3, Column = 7
+> >   "MODULE1" is specified as the module name on a USE statement, but the compiler cannot find it.
+> > 
+> >   real (kind = mykind) :: a
+> >                ^
+> > ftn-113 ftn: ERROR PROGRAM1, File = program1.f90, Line = 6, Column = 16
+> >   IMPLICIT NONE is specified in the local scope, therefore an explicit type must be specified for data object "MYKIND".
+> >                ^
+> > ftn-868 ftn: ERROR PROGRAM1, File = program1.f90, Line = 6, Column = 16
+> >   "MYKIND" is used in a constant expression, therefore it must be a constant.
+> > 
+> > Cray Fortran : Version 15.0.0 (20221026200610_324a8e7de6a18594c06a0ee5d8c0eda2109c6ac6)
+> > Cray Fortran : Compile time:  0.0472 seconds
+> > Cray Fortran : 13 source lines
+> > Cray Fortran : 3 errors, 0 warnings, 0 other messages, 0 ansi
+> > Cray Fortran : "explain ftn-message number" gives more information about each message.
+> > ```
+> > {: .output}
+> > This tells us precisely that the compiler doesn't know what module we're talking about when we `use module1`, and then that
+> > `mykind` (which we have been expecting to get from the module) doesn't exist either.
+> >
+> > Compiling `module1` alone gives the following output from the Cray compiler:
+> > ```
+> > /opt/cray/pe/cce/15.0.0/binutils/x86_64/x86_64-pc-linux-gnu/bin/ld: /usr/lib64//crt1.o: in function `_start':
+> > /home/abuild/rpmbuild/BUILD/glibc-2.31/csu/../sysdeps/x86_64/start.S:104: undefined reference to `main'
+> > ```
+> > {: .output}
+> > This is less immediately meaningful. The second line tells us that there's no function called `main` available.
+> > This is because what we've compiled has no `program ... end program`. There's no program in there to start,
+> > were we able to invoke it on the command line. In other words, a module alone doesn't make a program we can run.
+> > 
+> {: .solution}
+{: .challenge}
 
 
 ## Scope
@@ -187,8 +231,17 @@ including sub-programs.
 
 ### Exercise (1 minute)
 
-Edit the accompanying `module1.f90` to add a `private` statement and
-check the error if you try to compile `program1.f90`.
+> ## Private modules
+>
+> Edit the accompanying [module1.f90]() to add a `private` statement and check the error if you try to compile `program1.f90`.
+> 
+> > ## Solution
+> > 
+> > Making the module `private` hides the `mykind` parameter it provide from the program. On compilation, `mykind` can't be found
+> > in the scope of the program, and the compiler will complain that no such name exists.
+> > 
+> {: .solution}
+{: .challenge}
 
 
 ## Module data and other horrors
@@ -252,37 +305,53 @@ In this way, it acts like `{ .. }` in C.
 
 ### Exercise (5 minutes)
 
-Return to your code for the approximation to pi via the Gauss-Legendre iteration
-(or use the template [exercise1.f90](../exercises/05-arrays/exercise1.f90) from
-the earlier episode on arrays). Using the examples above as a template, write a
-module to contain a function which returns the value so computed. Check you can
-use the new function from a main program.
+> ## Return to Gauss-Legendre
+>
+> Return to your code for the approximation to pi via the Gauss-Legendre iteration
+> (or use the template [exercise1.f90](../exercises/05-arrays/exercise1.f90) from
+> the earlier episode on arrays). Using the examples above as a template, write a
+> module to contain a function which returns the value so computed. Check you can
+> use the new function from a main program.
+> 
+> > ## Solution
+> > 
+> > An example solution is provided in
+> > [solution_program.f90](../exercises/08-modules/solutions/solution_program.f90)
+> > and
+> > [solution_module.f90](../exercises/08-modules/solutions/solution_module.f90).
+> > 
+> {: .solution}
+{: .challenge}
 
-What really needs to be publicly available from the module in this case?
-
-Additional exercise: Can we have the following situation:
-```
-module a
-
-  use b
-  implicit none
-  ! content a ...
-end module a
-```
-and
-```
-module b
-
-  use a
-  implicit none
-  ! content b ...
-end module b
-```
-If not, why not?
-
-Expert exercise: If you wish to express dependencies in a `Makefile` for
-a Fortran program using a module, does compilation of the program source depend
-on the `.mod` module file, the `.o` object file, or both? Do you care?
+> ## Module dependencies
+> 
+> Food for thought: can we have the following situation?
+> ```
+> module a
+> 
+>   use b
+>   implicit none
+>   ! content a ...
+> end module a
+> ```
+> and
+> ```
+> module b
+> 
+>   use a
+>   implicit none
+>   ! content b ...
+> end module b
+> ```
+> If not, why not?
+>
+> > ## Solution
+> > 
+> > This is a circular dependency: `a` depends on `b` depends on `a`. There is
+> > no solvable dependency tree, and this is not allowed.
+> > 
+> {: .solution} 
+{: .challenge}
 
 
 {% include links.md %}

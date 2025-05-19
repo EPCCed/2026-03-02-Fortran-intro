@@ -106,6 +106,29 @@ usual.
 
 ### Exercise (2 minutes)
 
+> ## Exercise name
+>
+> Attempt to compile the accompanying
+> [module1.f90](../exercises/09-functions-subroutines/module1.f90) and associated
+> main program [program1.f90](../exercises/09-functions-subroutines/program1.f90).
+> Check the error message emitted, and sort out the intent of the dummy arguments
+> in [module1.f90](../exercises/09-functions-subroutines/module1.f90).
+> 
+> > ## Solution
+> > 
+> > `assign_x()` should use `intent(out)` for `x` as it doesn't matter what it
+> > was previously; we want to set it to 1 and return it.
+> >
+> > `print_x()` is correct to use `intent(in)` for `x` as it needs to know its
+> > value in order to print it, and it shouldn't change it.
+> >
+> > `increment_x()` should have `intent(inout)` for `x`: the subroutine needs to
+> > know its previous value in order to add to it (hence `in`) and it needs to
+> > be able to pass the new value back out (hence `out`).
+> > 
+> {: .solution}
+{: .challenge}
+
 Attempt to compile the accompanying
 [module1.f90](../exercises/09-functions-subroutines/module1.f90) and associated
 main program [program1.f90](../exercises/09-functions-subroutines/program1.f90).
@@ -210,20 +233,30 @@ passing the procedure as an argument).
 
 ## Exercise (5 minutes)
 
-1. Can your function for the evaluation of pi from the previous episodes safely
-   be declared `pure`? You can also use the accompanying template
-   [exercise_module1.f90](../exercises/09-functions-subroutines/exercise_module1.f90)
-   and
-   [exercise_program1.f90](../exercises/09-functions-subroutines/exercise_program1.f90)
-   to check.
-2. Add a new version of this calculation: a subroutine which takes the number of
-   terms as an argument, and also returns the computed value in the argument
-   list.
-3. Add to the module a recursive function to compute the nth Fibonacci number,
-   and test it in the main code. See, for example the page at
-   [Wikipedia](https://en.wikipedia.org/wiki/Fibonacci_number).
-
-Solutions are available in same directory.
+> ## Gauss and Legendre met Fibonacci
+>
+> 1. Can your function for the evaluation of pi from the previous episodes safely
+>    be declared `pure`? You can also use the accompanying template
+>    [exercise_module1.f90](../exercises/09-functions-subroutines/exercise_module1.f90)
+>    and
+>    [exercise_program1.f90](../exercises/09-functions-subroutines/exercise_program1.f90)
+>    to check.
+> 2. Add a new version of this calculation: a subroutine which takes the number of
+>    terms as an argument, and also returns the computed value in the argument
+>    list.
+> 3. Add to the module a recursive function to compute the nth Fibonacci number,
+>    and test it in the main code. See, for example the page at
+>    [Wikipedia](https://en.wikipedia.org/wiki/Fibonacci_number).
+> 
+> > ## Solution
+> > 
+> > Solutions are available in
+> > [solution_program1.f90](../exercises/09-functions-subroutines/solutions/solution_program1.f90)
+> > and
+> > [solution_module1.f90](../exercises/09-functions-subroutines/solutions/solution_module1.f90).
+> > 
+> {: .solution}
+{: .challenge}
 
 
 {% include links.md %}

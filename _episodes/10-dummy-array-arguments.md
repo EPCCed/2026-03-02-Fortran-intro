@@ -82,12 +82,17 @@ rank or dimension e.g.,
 
 ### Exercise (4 minutes)
 
-Consider the accompanying example in `program1.f90` and `module1.f90`.
-Is the code correct? Add calls to `lbound()` and `ubound()` in the
-subroutine to check.
-
-What do you think was the intention of the programmer? What remedies
-are available?
+> ## Checking array bounds
+>
+> Consider the accompanying example in
+> [program1.f90](../exercises/10-dummy-array-arguments/program1.f90) and
+> [module1.f90](../exercises/10-dummy-array-arguments/module1.f90). Is the code
+> correct? Add calls to `lbound()` and `ubound()` in the subroutine to check.
+>
+> What do you think was the intention of the programmer? What remedies are
+> available?
+> 
+{: .challenge}
 
 
 ### Automatic arrays
@@ -182,31 +187,51 @@ argument `ierr`. The rules are:
 
 ## Exercise (10 minutes)
 
-Consider again the problem of the tri-diagonal matrix.
+> ## Tri-diagonal modules
+>
+> Consider again the problem of the tri-diagonal matrix.
+> 
+> Refactor your existing stand-alone program (or use the template
+> [exercise.f90](../exercises/10-dummy-array-arguments/exercise.f90)) to provide a
+> module subroutine such as
+> ```
+>   subroutine tridiagonal_solve(b, a, c, rhs, x)
+> ```
+> where `b`, `a`, and `c` are arrays of the relevant
+> extent to represent the diagonal elements, the lower diagonal elements
+> and the upper diagonal elements respectively. Use the `size()` intrinsic
+> to determine the current size of the matrix in the subroutine. The extent
+> of the off-diagonal arrays should be one less element. The `rhs` is the
+> vector of right-hand side elements, and `x` should hold the solution on
+> exit. Assume, in the first instance, that all the arrays are of the
+> correct extent on entry.
+> 
+> Check your result by calling the subroutine from a main program with some
+> test values. (You may wish to take two copies of the template `exercise.f90`
+> and use one as the basis of a module, and the other as the basis of the main
+> program.)
+> 
+> What do you need to do if the diagonal `b` and the right-hand side `d` arrays
+> should be declared `intent(in)`?
+> 
+> What checks would be required in a robust implementation of such a routine?
+> 
+> > ## Solution
+> >
+> > In the original implementation, the diagonal and right-hand side are destroyed during
+> > the calculation. To use `intent(in)` with the dummy arguments, we have to leave them
+> > untouched. That means making copies in local automatic arrays and using those instead.
+> >
+> > A robust implementation would need to include checks on the bounds of the dummy arrays
+> > to make sure that they correctly conform to one another.
+> >
+> > Sample solutions are available in the later [episode on derived types]({{ page.root }}{% link _episodes/16-data-structures.md %})
+> > in [exercise_program.f90](../exercises/16-data-structures/exercise_program.f90)
+> > and
+> > [exercise_module.f90](../exercises/16-data-structures/exercise_module.f90).
+> > 
+> {: .solution}
+{: .challenge}
 
-Refactor your existing stand-alone program (or use the template
-[exercise.f90](../exercises/10-dummy-array-arguments/exercise.f90)) to provide a
-module subroutine such as
-```
-  subroutine tridiagonal_solve(b, a, c, rhs, x)
-```
-where `b`, `a`, and `c` are arrays of the relevant
-extent to represent the diagonal elements, the lower diagonal elements
-and the upper diagonal elements respectively. Use the `size()` intrinsic
-to determine the current size of the matrix in the subroutine. The extent
-of the off-diagonal arrays should be one less element. The `rhs` is the
-vector of right-hand side elements, and `x` should hold the solution on
-exit. Assume, in the first instance, that all the arrays are of the
-correct extent on entry.
-
-Check your result by calling the subroutine from a main program with some
-test values. (You may wish to take two copies of the template `exercise.f90`
-and use one as the basis of a module, and the other as the basis of the main
-program.)
-
-What do you need to do if the diagonal and the right-hand side arrays
-should be declared `intent(in)`?
-
-What checks would be required in a robust implementation of such a routine?
 
 {% include links.md %}

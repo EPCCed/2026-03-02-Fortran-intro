@@ -165,19 +165,30 @@ A matching declaration in the caller is required.
 
 ## Exercise (10 minutes)
 
-Write a subroutine which takes an existing string, and adjusts it to
-make sure it is all lower case. That is, any character between "A"
-and "Z" is replaced by the corresponding character between "a" and "z".
+> ## Exercise name
+>
+> Write a subroutine which takes an existing string, and adjusts it to
+> make sure it is all lower case. That is, any character between "A"
+> and "Z" is replaced by the corresponding character between "a" and "z".
+>
+> Write an additional function to return a new string which is all
+> lower case, leaving the original unchanged.
+> 
+> You can use the accompanying templates
+> [exercise_module1.f90](../exercises/11-characters-strings/exercise_module1.f90)
+> and
+> [exercise_program1.f90](../exercises/11-characters-strings/exercise_program1.f90).
+> 
+> > ## Solution
+> > 
+> > A solution to the exercise can be found in
+> > [solution_program1.f90](../exercises/11-characters-strings/solutions/solution_program1.f90)
+> > and
+> > [solution_module1.f90](../exercises/11-characters-strings/solutions/solution_module1.f90).
+> > 
+> {: .solution}
+{: .challenge}
 
-Write an additional function to return a new string which is all
-lower case, leaving the original unchanged.
 
-You can use the accompanying templates
-[exercise_module1.f90](../exercises/11-characters-strings/exercise_module1.f90)
-and
-[exercise_program1.f90](../exercises/11-characters-strings/exercise_program1.f90).
-
-A solution to the exercise can be found in the [solutions](./solutions)
-directory.
 
 {% include links.md %}
