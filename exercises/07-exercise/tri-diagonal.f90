@@ -15,7 +15,8 @@ program tridiagonal
   !   d = [1.0, 4.0, 5.0, 6.0]
   ! which should give a solution approx. x = [-0.195, 0.890, 0.317, 1.42]
 
-  ! 1. Implement the algorithm following the pseudocode.
+  ! 1. Implement the algorithm following the pseudocode. To keep the
+  !    code simple, use the version which destroys b(:) and d(:).
   ! 2. Check the answer
   ! 3. Construct the full matrix and use the intrinsic function
   !    matmul(a, x) to check the answer for a different d. The
