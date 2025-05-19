@@ -129,7 +129,7 @@ _io-list_, but alter the appearance of the output. The most common is
 ```
    print "(i12,x,e12.6)", ivar, avar
 ```
-This will ensure at least on space between the two items in the list.
+This will ensure at least one space between the two items in the list.
 
 If a leading plus sign is wanted, use the `sp` control, e.g.:
 ```
@@ -138,10 +138,49 @@ If a leading plus sign is wanted, use the `sp` control, e.g.:
 
 ### Exercise (2 minutes)
 
-Compile and run the accompanying
-[example1.f90](../exercises/12-read-write/example1.f90) program, which provides
-some specimen formats. Some of the format specifiers have not been allowed a
-large enough width. What's the result? What's the solution?
+> ## Exercise name
+>
+> Compile and run the accompanying
+> [example1.f90](../exercises/12-read-write/example1.f90) program, which provides
+> some specimen formats. Some of the format specifiers have not been allowed a
+> large enough width. What's the result? What's the solution?
+> 
+> > ## Solution
+> > 
+> > Using gfortran produces the following output:
+> > ```
+> > Format i10:            40
+> > Format i10.10: 0000000040
+> > Format l10:             F
+> > Format f10.3:      40.000
+> > Format e10.3:   0.400E+02
+> > Format en10.3: 40.000E+00
+> > Format a10:    Hello
+> > Format i1:     *
+> > Format f10.3:  **********
+> > Format e10.3:   0.180+309
+> > Others:
+> > Format sp,e12.3:   +0.180+309
+> > Format e12.3e4:   0.180E+0309
+> > ```
+> > {: .output}
+> >
+> > Where the format specifiers are too narrow, the output is reduced to
+> > asterisks `*` in the space that has been provided. To fix this, the
+> > specifiers need to be widened. For example, the integer specifier on line
+> > 25 is `i1`, clearly not enough to print `-40.` Making it `i3` allows it to
+> > output.
+> >
+> > The next failed output uses `f10.3`. It's trying to print a `huge()` number,
+> > where it was used to store the largest possible number of the same type as
+> > the original `avar`. As a `real64`, that's approximately `1.80E+308`. The
+> > format specifier provides a width of 10 characters to print a number with
+> > 309 digits (although we only have precision in the first 15 or so). The `f`
+> > format specifier is very definitely unsuitable; one of the `e` types such as
+> > `es24.17` is much more appropriate.
+> > 
+> {: .solution}
+{: .challenge}
 
 
 ## Repeat counts
@@ -198,17 +237,30 @@ when we come to error handling.
 
 ## Exercise (5 minutes)
 
-Using the [example1.f90](../exercises/12-read-write/example1.f90) program, check
-what happens if there is a mismatch between the format specifier and the data
-type in the I/O list. Choose an example, and run the program.
-
-What happens if the number of items in the io-list is larger than
-the number of edit descriptors?
-
-Additional exercise. The `b` edit descriptor can be used to convert integer
-values to their binary representation. For a 32-bit integer type, the
-recommended descriptor would be `b32.32` to ensure the leading zeros are
-visible. You may wish to try this out.
+> ## Experimenting with formats
+>
+> Using the [example1.f90](../exercises/12-read-write/example1.f90) program, check
+> what happens if there is a mismatch between the format specifier and the data
+> type in the I/O list. Choose an example, and run the program.
+>
+> What happens if the number of items in the io-list is larger than
+> the number of edit descriptors?
+> 
+> Additional exercise. The `b` edit descriptor can be used to convert integer
+> values to their binary representation. For a 32-bit integer type, the
+> recommended descriptor would be `b32.32` to ensure the leading zeros are
+> visible. You may wish to try this out.
+> 
+> > ## Solution
+> > 
+> > Using the wrong type variable with a format specifier should still allow the
+> > code to compile, but you will receive a runtime error when it is
+> > encountered.
+> >
+> > Any extra items in the io-list above what the format provides will not be printed.
+> > 
+> {: .solution}
+{: .challenge}
 
 
 {% include links.md %}

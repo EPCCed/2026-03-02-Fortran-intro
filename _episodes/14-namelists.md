@@ -92,17 +92,31 @@ values.
 
 ### Exercise (5 minutes)
 
-Using [namelist-read.f90](../exercises/14-namelists/namelist-read.f90), confirm
-that the runtime values can be specified by changing the contents of the
-namelist in [config.nml](../exercises/14-namelists/config.nml). Modify the
-program to specify a default value for `dt` and confirm that `dt` retains its
-value unless otherwise set in the `namelist`.
+> ## Reading a namelist from file
+>
+> Using [namelist-read.f90](../exercises/14-namelists/namelist-read.f90), confirm
+> that the runtime values can be specified by changing the contents of the
+> namelist in [config.nml](../exercises/14-namelists/config.nml). Modify the
+> program to specify a default value for `dt` and confirm that `dt` retains its
+> value unless otherwise set in the `namelist`.
+> 
+> What happens if the value set is not of the same type as the variable
+> specification in the program?
+> 
+> What happens if you add an unexpected value to the
+> namelist?
+> 
+> > ## Solution
+> > 
+> > If the value in the namelist is not of the same type as the program's variable, you will
+> > receive an error stating that it is mismatched.
+> >
+> > Any unexpected values will also trigger an error stating that the namelist object
+> > cannot be matched to a variable.
+> > 
+> {: .solution}
+{: .challenge}
 
-What happens if the value set is not of the same type as the variable
-specification in the program?
-
-What happens if you add an unexpected value to the
-namelist?
 
 ### Reading multiple namelists
 
@@ -133,13 +147,30 @@ reading is independent of order.
 
 ### Exercise (5 mins)
 
-Extend the example program
-[namelist-read.f90](../exercises/14-namelists/namelist-read.f90) to read the
-numerical `schemes` namelist from
-[config-full.nml](../exercises/14-namelists/config-full.nml).
+> ## Reading multiple namelists
+>
+> Extend the example program
+> [namelist-read.f90](../exercises/14-namelists/namelist-read.f90) to read the
+> numerical `schemes` namelist from
+> [config-full.nml](../exercises/14-namelists/config-full.nml).
+> 
+> (Optional) Ensure that your program can read the `run` configuration and the
+> numerical `schemes` regardless of the order in which they appear.
+> 
+> > ## Solution
+> > 
+> > Add some `character` variables to store the items from the `schemes` namelist,
+> > declare the namelist itself with those variables, then, after reading the `run`
+> > namelist, read `schemes`. To make sure it can read the two schemes in any order,
+> > do a `rewind(nmlunit)` in between them. This way, you read through to the first
+> > namelist, reset position to the start, then read through to the second.
+> >
+> > If they are in the wrong order and you don't do this, you will encounter an
+> > end of file error.
+> > 
+> {: .solution}
+{: .challenge}
 
-(Optional) Ensure that your program can read the `run` configuration and the
-numerical `schemes` regardless of the order in which they appear.
 
 ## Writing a namelist
 
@@ -170,11 +201,22 @@ will output the following to the new file `output.nml`:
 
 ### Exercise (10 minutes)
 
-Write a program to write the simulation parameters as a namelist so that it can
-be read by the previous example program.
+> ## Writing namelists to file
+>
+> Write a program to write the simulation parameters as a namelist so that it can
+> be read by the previous example program.
+>
+> (Optional) If you completed the extension to read the namelists in any order,
+> confirm that this works with your new program when writing in any order.
+> 
+> > ## Solution
+> > 
+> > A solution writing the `run` namelist can be found in
+> > [namelist-write.f90](../exercises/14-namelists/solutions/namelist-write.f90).
+> > 
+> {: .solution}
+{: .challenge}
 
-(Optional) If you completed the extension to read the namelists in any order,
-confirm that this works with your new program when writing in any order.
 
 ## Handling complex data
 
@@ -184,11 +226,18 @@ types. These are handled similarly to the code we have seen so far.
 
 ### Exercise (10 minutes)
 
-An example program
-[namelist-complex.f90](../exercises/14-namelists/namelist-complex.f90) is
-provided to write more complex data structures to a namelist. Try running this
-program and inspecting the output to see how these data structures are
-represented.
+> ## Writing complex data to namelists
+>
+> An example program
+> [namelist-complex.f90](../exercises/14-namelists/namelist-complex.f90) is
+> provided to write more complex data structures to a namelist. Try running this
+> program and inspecting the output to see how these data structures are
+> represented.
+>
+> Modify the program to read the namelist back into data and confirm that the data
+> is correct, for example by testing array elements match their expected values.
+>
+{: .challenge}
 
-Modify the program to read the namelist back into data and confirm that the data
-is correct, for example by testing array elements match their expected values.
+
+{% include links.md %}
