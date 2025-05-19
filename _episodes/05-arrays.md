@@ -100,7 +100,7 @@ that is, the opposite the convention in C.
 > ```
 > do j = 1, 10
 >   do i = 1, 20
->     a(i,j) = ...   ! Do work to calculate the (i,j)th element of a
+>     a(i,j) = ...   ! Do work to calculate the (i,j)th element of an array.
 >   end do
 > end do
 > ```
