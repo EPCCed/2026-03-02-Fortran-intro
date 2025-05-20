@@ -43,7 +43,7 @@ contains a function declaration outside a module scope. E.g.,
 ```
 If we compile a program which includes a reference to this function,
 an error may result. We have not given the compiler any information
-about how the function is meant to be used.
+about how the function is meant to be called.
 
 It is possible to provide the compiler with some limited information
 about the return value of the function with the `external` attribute
@@ -83,27 +83,86 @@ Interface blocks are necessary in other contexts.
 
 ### Exercise (5 minutes)
 
-To illustrate the points made above, a very simple external function is defined
-in the file [external.f90](../exercises/18-further-functions/external.f90), and
-an accompanying program
-[example1.f90](../exercises/18-further-functions/example1.f90) calls the
-function therein.
-
-Compile the two files, e.g.:
-```
-$ ftn external.f90 example1.f90
-```
-(note that there are no modules involved, and no `.mod` files will appear).
-What is the result when you try to run the program?
-
-Try adding the appropriate `external` declaration
-```
-  integer, external :: array_size
-```
-What happens if you try to run the program now?
-
-Finally, remove the `external` declaration and try to introduce the
-correct `interface` block. What happens now?
+> ## Externals and interfaces
+>
+> To illustrate the points made above, a very simple external function is defined
+> in the file [external.f90](../exercises/18-further-functions/external.f90), and
+> an accompanying program
+> [example1.f90](../exercises/18-further-functions/example1.f90) calls the
+> function therein.
+>
+> Try to compile the two files, e.g.:
+> ```
+> $ ftn external.f90 example1.f90
+> ```
+> What happens?
+> 
+> Try adding the appropriate `external` declaration
+> ```
+>   integer, external :: array_size
+> ```
+> What happens if you try to compile the program now? (Note at this point that
+> there are no modules involved, so no `.mod` files will appear).
+>
+> Then try running the program. Is the output what you expect?
+>
+> Finally, remove the `external` declaration and try to introduce the
+> correct `interface` block. What happens now?
+> 
+> > ## Solution
+> > 
+> > Without either the `external` declaration of the function or an interface,
+> > the compilation will simply fail. `gfortran` produces the following:
+> > ```
+> > example1.f90:24:33:
+> > 
+> >    24 |   print *, "The array size is: ", array_size(a), size(a)
+> >       |                                 1
+> > Error: Function 'array_size' at (1) has no IMPLICIT type
+> > ```
+> > {: .output}
+> > 
+> > Adding the `external` declaration allows compilation to succeed, but the
+> > following output is produced on running the program:
+> > ```
+> >  The array size is:            0           6
+> > ```
+> > {: .output}
+> > The function call returns an incorrect value of 0 where the
+> > (3,2) array has an actual size of 6.
+> >
+> > Removing the external declaration and adding an interface matching the function
+> > in `external.f90` as follows will help (and you may have already spotted the issue):
+> > ```
+> >   interface
+> >     function array_size(a) result(isize)
+> >       real, dimension(:), intent(in) :: a
+> >       integer                          :: isize
+> >     end function array_size
+> >   end interface
+> > ```
+> > {: .source}
+> >
+> > Compiling now produces an error again, as reported here by `gfortran`:
+> > ```
+> > example1.f90:23:45:
+> > 
+> >    23 |   print *, "The array size is: ", array_size(a), size(a)
+> >       |                                             1
+> > Error: Rank mismatch in argument 'a' at (1) (rank-1 and rank-2)
+> > ```
+> > {: .output}
+> > In the main program we were attempting call `array_size()` on a rank two array,
+> > while in `external.f90` we implemented it for rank one arrays. Now that we have
+> > an interface, the compiler can see that the way we're calling the function is
+> > incorrect, so it produces the error and fails compilation.
+> >
+> > This is preferable to the `external` declaration by which we essentially asked
+> > the compiler to trust that it can call `array_size()` however we tell it to do so,
+> > even though it was in this case incorrect.
+> > 
+> {: .solution}
+{: .challenge}
 
 
 ## Passing functions or subroutines as arguments
@@ -169,16 +228,43 @@ that is, at least one non-optional dummy argument must be different.
 
 ### Exercise
 
-In the earlier [episode on I/O]({{ page.root }}{% link _episodes/13-IO.md %}),
-we wrote a module to produce a `.pbm` image file. The accompanying module
-[pbm_image.f90](../exercises/18-further-functions/pbm_image.f90) provides two
-implementations of such a routine: one for a logical array, and another for an
-integer array.
-
-Check you can add the appropriate `interface` block with the generic name
-`write_pbm` to allow the program
-[example3.f90](../exercises/18-further-functions/example3.f90) to be compiled
-correctly.
+> ## An interface for polymorphic PBMs
+>
+> In the earlier [episode on I/O]({{ page.root }}{% link _episodes/13-IO.md %}),
+> we wrote a module to produce a `.pbm` image file. The accompanying module
+> [pbm_image.f90](../exercises/18-further-functions/pbm_image.f90) provides two
+> implementations of such a routine: one for a logical array, and another for an
+> integer array.
+>
+> Check you can add the appropriate `interface` block with the generic name
+> `write_pbm` to allow the program
+> [example3.f90](../exercises/18-further-functions/example3.f90) to be compiled
+> correctly.
+> 
+> > ## Solution
+> > 
+> > We need to add an interface to the module specification for `write_pbm`
+> > which allows use of both the `write_logical_pbm` and `write_integer_pbm`
+> > subroutines. You should be able to follow the description above to do so.
+> > The only minor complication is that the module uses `private` by default;
+> > unless we specify `public` for the new generic interface, it will remain
+> > hidden from the main program.
+> >
+> > Putting this together, the following should allow you to compile and run
+> > the program with no errors:
+> > ```
+> >   public :: write_pbm
+> >   interface write_pbm
+> >     module procedure write_logical_pbm
+> >     module procedure write_integer_pbm
+> >   end interface
+> > ```
+> > {: .source}
+> > With this, the internal workings of the module are hidden away and its
+> > use is entirely via `write_pbm`.
+> > 
+> {: .solution}
+{: .challenge}
 
 
 ## Operator overloading
@@ -246,42 +332,94 @@ usually must also be `pure`.
 
 ### Exercise (5 minutes)
 
-In the [pbm_image.f90](../exercises/18-further-functions/pbm_image.f90) module
+> ## Elemental conversion from logical to PBM
+>
+> In the [pbm_image.f90](../exercises/18-further-functions/pbm_image.f90) module
 there is a utility function `logical_to_pbm()` which is used in
 `write_logical_pbm()` to translate the logical array to an integer array.
 Refactor this part of the code to use an elemental function.
+> 
+> > ## Solution
+> > 
+> > The function `logical_to_pbm()` is currently `pure` and takes in
+> > a scalar logical `lvar` to return the scalar integer `ivar`. The function
+> > is currently `pure`. Everything is already in place to convert the function to
+> > `elemental`:
+> > ```
+> >   elemental function logical_to_pbm(lvar) result (ivar)
+> > 
+> >     ! Utility to return 0 or 1 for .false. and .true.
+> > 
+> >     logical, intent(in) :: lvar
+> >     integer             :: ivar
+> > 
+> >     ivar = 0
+> >     if (lvar) ivar = 1
+> > 
+> >   end function logical_to_pb
+> > ```
+> > {: .source}
+> >
+> > All that remains is to have `write_logical_pbm()` call this new `elemental`
+> > version. Further down in that function you will see the old nested loop to
+> > move through the `map` array and from it use `logical_to_pbm()` to fill the
+> > `imap` array:
+> > ```
+> >     do j = 1, size(map, dim = 2)
+> >        do i = 1, size(map, dim = 1)
+> >           imap(i,j) = logical_to_pbm(map(i,j))
+> >        end do
+> >     end do
+> > ```
+> > {: .source}
+> > With the new `elemental` version of `logical_to_pbm()`, we can replace this
+> > entire structure with the single line:
+> > ```
+> > imap(:,:) = logical_to_pbm(map(:,:))
+> > ```
+> > {: .source}
+> > 
+> {: .solution}
+{: .challenge}
 
 
 ## Exercise (20 minutes)
 
-Write a module/program to perform a very simple numerical integration
-of a simple one-dimensional function _f(x)_. We can use a
-trapezoidal rule: for lower and upper limits _a_ and _b_, the
-integral can be approximated by
-```
-  (b - a)*(f(a) + f(b))/2.0
-```
-We can go further and split the interval between `a` and `b` into small sections
-of size `h = (b - a)/n`. In a similar manner, approximating the integral of each
-small section with a trapezium allows us to estimate the total integral to be
-```
-  h*(f(a) + sum + f(b))/2.0
-```
-with the sum
-```
-  sum = 0.0
-  do k = 1, n-1
-    sum = sum + 2.0*f(a+k*h)
-  end do
-```
-Write a procedure that will take the limits `a` and `b`, the integer number
-of steps `n`, and the function, and returns a result.
-
-To check, you can evaluate the function `cos(x) sin(x)` between `a = 0`
-and `b = pi/2` (the answer should be 1/2). Check your answer gets better
-for value of `n = 10, 100, 1000`.
-
-A sample solution is provided in [integral_program.f90](../exercises/18-further-functions/solutions/integral_program.f90) and
-[integral_program.f90](../exercises/18-further-functions/solutions/integral_module.f90).
+> ## Exercise name
+>
+> Write a module/program to perform a very simple numerical integration
+> of a simple one-dimensional function _f(x)_. We can use a
+> trapezoidal rule: for lower and upper limits _a_ and _b_, the
+> integral can be approximated by
+> ```
+>   (b - a)*(f(a) + f(b))/2.0
+> ```
+> We can go further and split the interval between `a` and `b` into small sections
+> of size `h = (b - a)/n`. In a similar manner, approximating the integral of each
+> small section with a trapezium allows us to estimate the total integral to be
+> ```
+>   h*(f(a) + sum + f(b))/2.0
+> ```
+> with the sum
+> ```
+>   sum = 0.0
+>   do k = 1, n-1
+>     sum = sum + 2.0*f(a+k*h)
+>   end do
+> ```
+> Write a procedure that will take the limits `a` and `b`, the integer number
+> of steps `n`, and the function, and returns a result.
+> 
+> To check, you can evaluate the function `cos(x) sin(x)` between `a = 0`
+> and `b = pi/2` (the answer should be 1/2). Check your answer gets better
+> for value of `n = 10, 100, 1000`.
+> 
+> > ## Solution
+> > 
+> > A sample solution is provided in [integral_program.f90](../exercises/18-further-functions/solutions/integral_program.f90) and
+> > [integral_module.f90](../exercises/18-further-functions/solutions/integral_module.f90).
+> > 
+> {: .solution}
+{: .challenge}
 
 {% include links.md %}

@@ -88,13 +88,33 @@ associated with a specific target, e.g.,
 
 ### Exercise (2 minutes)
 
-Try to compile the accompanying
-[example1.f90](../exercises/17-pointers/example1.f90), which is an erroneous
-version of the code above. See what compiler message you get (if any). Fix the
-problem.
-
-Check you can use the `associated()` function to print out the status of `p`
-before and after the pointer assignment.
+> ## Associating a pointer
+>
+> Try to compile the accompanying
+> [example1.f90](../exercises/17-pointers/example1.f90), which is an erroneous
+> version of the code above. See what compiler message you get (if any). Fix the
+> problem.
+> 
+> Check you can use the `associated()` function to print out the status of `p`
+> before and after the pointer assignment.
+> 
+> > ## Solution
+> > 
+> > The `p` pointer can't be associated with `datum` as the latter doesn't have
+> > the `target` attribute; the compilation should fail with an error. If you
+> > add the attribute, it should compile and run:
+> > ```
+> >   integer, target  :: datum = 1
+> > ```
+> > {: .source}
+> > Check the `associated()` status of `p` along these lines:
+> > ```
+> >   print *, "p associated?", associated(p)
+> > ```
+> > {: .source}
+> > 
+> {: .solution}
+{: .challenge}
 
 
 ### Pointers as aliases
@@ -113,10 +133,30 @@ Note that there is no requirement here to have the `target` attribute in the
 original declaration (and there's no explicit declaration of `p`). Any update to
 `p` in the associate block will be reflected in the target on exit.
 
+Multiple associations can be made in the same block; simply provide a comma separated
+list in the parentheses. Also of note is that the _selector_ on the
+right hand side of the association can be either a variable or an expression.
+
 ### Exercise (2 minutes)
 
-Compile, and check the output of the accompanying
-[example2.f90](../exercises/17-pointers/example2.f90).
+> ## Using an `associate` construct
+>
+> Compile, and check the output of the accompanying code in
+> [example2.f90](../exercises/17-pointers/example2.f90).
+> 
+> > ## Solution
+> > 
+> > You should see that the association is made to a strided section
+> > of the array `r1`:
+> > ```
+> > associate(p => r1(2::2))
+> > ```
+> > {: .source}
+> > Within the `associate` block `p` acts to point to the second, fourth
+> > and sixth elements of `r1`. 
+> > 
+> {: .solution}
+{: .challenge}
 
 
 ## Pointers to establish storage
@@ -190,14 +230,42 @@ then wish to increase the size of it.
 This minimises the number of copies involved in re-assigning the original
 storage.
 
+> ## `move_alloc()` efficiency
+>
+> A thought exercise. How many copies would be required if `move_alloc()` was not
+> available when enlarging the size of an existing allocatable array?
+> 
+> > ## Solution
+> > 
+> > If `move_alloc()` were not available, we would need to make two copies rather
+> > than one. Analogously to the above example, we would have to perform the following
+> > to double the storage in `iorig`:
+> > ```
+> >   integer :: nold
+> >   integer, dimension(:), allocatable :: itmp
+> >
+> >   nold = size(iorig)
+> >   allocate(itmp(nold))             ! allocate temporary storage for original data
+> >   itmp(:) = iorig(:)               ! first copy from original storage into the temporary
+> >   deallocate(iorig)                ! deallocate the original array
+> >   allocate(iorig(2*ndold))         ! and then reallocate at twice the size
+> >   iorig(1:nold) = itmp(:)          ! second copy from the temporary into the new storage
+> >   deallocate(itmp)                 ! deallocate the temporary
+> > ```
+> > {: .source}
+> > 
+> {: .solution}
+{: .challenge}
+
+
 ### Arrays of pointers
 
 A small trick is required to arrange an array of pointers. Recall that
 ```
   real, dimension(:), pointer :: a
 ```
-is a pointer to a rank one array. If one wanted an array of such objects, it can
-be achieved by wrapping it in a type:
+is a pointer to a rank one array, and _not_ a rank one array of pointers. If one
+did want an array of such objects, it can be achieved by wrapping it in a type:
 ```
   type :: pointer_rr1
     real, dimension(:), pointer :: p => null()
@@ -207,12 +275,8 @@ be achieved by wrapping it in a type:
 
   a(1)%p => null()
 ```
-So `a` is a rank one array of the new type, the target of each of which should
-be a rank one array section of type `real`.
+So `a` is a rank one array of the new type, each element having
+the component `p` which is a pointer to a real rank one type.
 
-## Exercise (2 minutes)
-
-A thought exercise. How many copies would be required if `move_alloc()` was not
-available when enlarging the size of an existing allocatable array?
 
 {% include links.md %}

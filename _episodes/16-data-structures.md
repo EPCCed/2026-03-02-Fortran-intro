@@ -145,26 +145,76 @@ components. The appropriate expression in the constructor is `null()`.
 
 ### Exercise (5 minutes)
 
-The accompanying example
-([module1.f90](../exercises/16-data-structures/module1.f90) and
-[program1.f90](../exercises/16-data-structures/program1.f90)) provides an
-implementation of a very simple pseudo-random number generator. This is a
-so-called [linear congruential
-generator](https://en.wikipedia.org/wiki/Linear_congruential_generator).
-
-The module provides derived type to aggregate the multiplier `a`, the seed or
-state `s`, the increment `c` and the modulus `m`. These have some default
-values. Practical implementations often choose `c = 0`.
-
-Compile the program, and check the first few numbers returned in the sequence.
-The key to obtaining acceptable statistics is to identify some appropriate
-values of `a` and `m` (e.g., those given in the default).
-
-Check you can introduce some new values of `a` and `m` using the structure
-constructor (a spectacularly bad choice is suggested in the code).
-
-What happens if you make the components of the type `private`? What would you
-then have to provide to allow initialisation?
+> ## A type to store a random number generator
+>
+> The accompanying example
+> ([module1.f90](../exercises/16-data-structures/module1.f90) and
+> [program1.f90](../exercises/16-data-structures/program1.f90)) provides an
+> implementation of a very simple pseudo-random number generator. This is a
+> so-called [linear congruential
+> generator](https://en.wikipedia.org/wiki/Linear_congruential_generator).
+> 
+> The module provides a derived type to aggregate the multiplier `a`, the seed or
+> state `s`, the increment `c` and the modulus `m`. These have some default
+> values. Practical implementations often choose `c = 0`.
+> 
+> Compile the program, and check the first few numbers returned in the sequence.
+> The key to obtaining acceptable statistics is to identify some appropriate
+> values of `a` and `m` (e.g., those given in the default).
+> 
+> Check you can introduce some new values of `a` and `m` using the structure
+> constructor (a spectacularly bad choice is suggested in the code).
+> 
+> What happens if you make the components of the type `private`? What would you
+> then have to provide to allow initialisation?
+> 
+> > ## Solution
+> > 
+> > Running the code as provided gives the following output:
+> > ```
+> >  Step  1,  45991
+> >  Step  2,  2115172081
+> >  Step  3,  17451818
+> >  Step  4,  1615161307
+> >  Step  5,  1424320507
+> >  Step  6,  1230752996
+> > ```
+> > {: .output}
+> >
+> > Changing to use the suggested bad RNG values means doing
+> > ```
+> > type (my_rng) :: rng = my_rng(1, 1, 0, 2147483647)
+> > ```
+> > {: .source}
+> > and this produces the following output (note Cray Fortran being helpful with the first line)
+> > ```
+> >  Step  2*1
+> >  Step  2,  1
+> >  Step  3,  1
+> >  Step  4,  1
+> >  Step  5,  1
+> >  Step  6,  1
+> > ```
+> > {: .output}
+> >
+> > Making the RNG type's components private means doing:
+> > ```
+> >   type, public :: my_rng
+> >     private
+> >     integer (int64) :: a = 45991
+> >     integer (int32) :: s = 1
+> >     integer (int64) :: c = 0
+> >     integer (int64) :: m = 2147483647
+> >   end type my_rng
+> > ```
+> > {: .source}
+> > Trying to compile the program while setting the `a` etc. values will cause a compiler error;
+> > those components are no longer public, and the compiler knows it shouldn't touch them. If we
+> > wanted to change those values while `my_rng` opaque, we'd need to write another module procedure
+> > to do so.
+> > 
+> {: .solution}
+{: .challenge}
 
 
 ## Default input/output for derived types
@@ -228,50 +278,74 @@ The following module subroutine should then be provided:
 
 ### Exercise (15 minutes)
 
-In the earlier [material on using arrays as dummy arguments]({{ page.root }}{%
-link _episodes/10-dummy-array-arguments.md %}) we implemented the tri-diagonal
-solver as a module procedure. Implement a derived type to hold the relevant data
-for the tri-diagonal matrix, ie., at least the three diagonals.
+> ## A tri-diagonal structure
+>
+> In the earlier [material on using arrays as dummy arguments]({{ page.root }}{% link _episodes/10-dummy-array-arguments.md %})
+> we implemented the tri-diagonal
+> solver as a module procedure. Implement a derived type to hold the relevant data
+> for the tri-diagonal matrix, ie., at least the three diagonals.
+>
+> Define a function which returns a fully initialised matrix type based on arrays
+> holding the three diagonals. Refactor the solver routine to use the new matrix
+> type.
+>
+> Additional exercise: A very simple tridiagonal matrix may have all diagonal
+> elements the same, and all off-diagonal elements the same. Write an additional
+> function to initialise such a matrix from two scalar values.
+> 
+> A template for the exercise can be found in
+> [exercise_program.f90](../exercises/16-data-structures/exercise_program.f90) and
+> [exercise_module.f90](../exercises/16-data-structures/exercise_module.f90); or
+> you can use your own version that you have been developing to this point.
+> 
+> > ## Solution
+> >
+> > Your new tri-diagonal matrix type should look something like this:
+> > ```
+> >   type, public :: tri_matrix
+> >     integer :: nmax
+> >     real (mykind), dimension(:), allocatable :: a     ! lower (2:nmax)
+> >     real (mykind), dimension(:), allocatable :: b     ! diag (1:nmax)
+> >     real (mykind), dimension(:), allocatable :: c     ! upper (1:nmax-1)
+> >   end type tri_matrix
+> > ```
+> > {: .source}
+> > Implementations of the solution are available in
+> > [solution_program.f90](../exercises/16-data-structures/solutions-1/solution_program.f90)
+> > and
+> > [solution_module.f90](../exercises/16-data-structures/solutions-1/solution_module.f90).
+> > 
+> > 
+> {: .solution}
+{: .challenge}
 
-Define a function which returns a fully initialised matrix type based on arrays
-holding the three diagonals. Refactor the solver routine to use the new matrix
-type.
-
-Additional exercise: A very simple tridiagonal matrix may have all diagonal
-elements the same, and all off-diagonal elements the same. Write an additional
-function to initialise such a matrix from two scalar values.
-
-Additional exercise: if we are conscientious about the memory management for such a
-structure, what should we also provide?
-
-A template for the exercise can be found in
-[exercise_program.f90](../exercises/16-data-structures/exercise_program.f90) and
-[exercise_module.f90](../exercises/16-data-structures/exercise_module.f90); or
-you can use your own version that you have been developing to this point.
-
-Solutions are available in
-[solution_program.f90](../exercises/16-data-structures/solutions-1/solution_program.f90)
-and
-[solution_module.f90](../exercises/16-data-structures/solutions-1/solution_module.f90).
 
 ### Exercise (optional)
 
-Try implementing the generic `write(formatted)` function for the following
-type:
-```
-  type, public :: my_date
-    integer :: day = 1        ! day 1-31
-    integer :: month = 1      ! month 1-12
-    integer :: year = 1900    ! year
-  end type my_date
-```
-The format we would like is `dd/mm/yyyy` e.g, `01/12/1999` for 1st December 1999
-for list directed I/O. Then try the `dt` edit descriptor to allow some more
-flexibility.
+> ## Formats for derived types
+>
+> Try implementing the generic `write(formatted)` function for the following
+> type:
+> ```
+>   type, public :: my_date
+>     integer :: day = 1        ! day 1-31
+>     integer :: month = 1      ! month 1-12
+>     integer :: year = 1900    ! year
+>   end type my_date
+> ```
+> The format we would like is `dd/mm/yyyy` e.g, `01/12/1999` for 1st December 1999
+> for list directed I/O. Then try the `dt` edit descriptor to allow some more
+> flexibility.
+> 
+> > ## Solution
+> > 
+> > A suggested implementation of the solution is available in
+> > [date_program.f90](../exercises/16-data-structures/solutions-2/date_program.f90)
+> > and
+> > [date_module.f90](../exercises/16-data-structures/solutions-2/date_module.f90).
+> > 
+> {: .solution}
+{: .challenge}
 
-A suggested implementation of the solution is available in
-[date_program.f90](../exercises/16-data-structures/solutions-2/date_program.f90)
-and
-[date_module.f90](../exercises/16-data-structures/solutions-2/date_module.f90).
 
 {% include links.md %}
