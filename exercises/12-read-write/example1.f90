@@ -22,12 +22,12 @@ program example1
   ivar = -40
   avar = huge(avar)
 
-  print "('Format i1:     ',    i 2)", ivar
+  print "('Format i1:     ',     i1)", ivar
   print "('Format f10.3:  ',  f10.3)", avar
   print "('Format e10.3:  ',  e10.3)", avar
 
   print "('Others:')"
-  print "('Format sp,e12.3: ', sp,e12.4)", avar
+  print "('Format sp,e12.3: ', sp,e12.3)", avar
   print "('Format e12.3e4:  ',  e12.3e4)", avar
 
 end program example1
