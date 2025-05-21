@@ -66,7 +66,7 @@ it explicit, the `interface` construct is available:
     interface
       function my_mapping(i) result(imap)
         integer, intent(in) :: i
-	      integer             :: imap
+        integer             :: imap
       end function my_mapping
     end interface
 
@@ -137,7 +137,7 @@ Interface blocks are necessary in other contexts.
 > >   interface
 > >     function array_size(a) result(isize)
 > >       real, dimension(:), intent(in) :: a
-> >       integer                          :: isize
+> >       integer                        :: isize
 > >     end function array_size
 > >   end interface
 > > ```
@@ -182,7 +182,7 @@ calling procedure the function that is the dummy argument. E.g.,
     interface
       function afunc(x) result(y)
         real, intent(in) :: x
-	      real                y
+        real             :: y
       end function afunc
     end interface
     ...
