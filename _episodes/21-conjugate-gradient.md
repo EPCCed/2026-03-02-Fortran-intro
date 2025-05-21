@@ -55,10 +55,10 @@ which should put everything you've learnt to the test.
 > 
 > > ## Solution
 > > 
-> > You can check a suggested solution in
-> > [cg_test_solution.f90](../exercises/21-conjugate-gradient/solutions-1/cg_test_solution.f90)
+> > You can check a suggested solution with
+> > [cg_test.f90](../exercises/21-conjugate-gradient/solutions-1/cg_test.f90)
 > > and
-> > [cgradient_solution.f90](../exercises/21-conjugate-gradient/solutions-1/cgradient_solution.f90).
+> > [cgradient_solution.f90](../exercises/21-conjugate-gradient/solutions-1/cgradient.f90).
 > > 
 > {: .solution}
 {: .challenge}
