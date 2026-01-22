@@ -6,11 +6,11 @@ address:
 country: "UK"
 language: "English"
 latlng: 
-humandate: "19 to 21 May 2025"
+humandate: "2 to 4 March 2026"
 humantime: 
-startdate: 2025-05-19
-enddate: 2025-05-21
-instructor: ["Paul Bartholomew", "William Lucas"]
+startdate: 2026-03-02
+enddate: 2026-03-04
+instructor: ["William Lucas"]
 helper: []
 email: ["w.lucas@epcc.ed.ac.uk"]
 collaborative_notes: 
