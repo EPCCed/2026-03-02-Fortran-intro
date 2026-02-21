@@ -10,7 +10,7 @@
 # incubator: The Carpentries Incubator
 # Note that you can also use a custom carpentry type. For more info,
 # see the documentation: https://carpentries.github.io/sandpaper-docs/editing.html
-carpentry: 'epcc'
+carpentry: 'archer2'
 
 # Custom carpentry description
 # This will be used as the alt text for the logo
@@ -20,10 +20,10 @@ carpentry: 'epcc'
 title: 'Introduction to Modern Fortran'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
-created: 2025-05-05
+created: 2026-02-21
 
 # Comma-separated list of keywords for the lesson
-keywords: 'software, data, lesson, The Carpentries'
+keywords: 'software, fortran, hpc'
 
 # Life cycle stage of the lesson
 # possible values: pre-alpha, alpha, beta, stable
@@ -113,6 +113,6 @@ profiles:
 # sandpaper and varnish versions) should live
 
 
-carpentry_description: "EPCC, University of Edinburgh"
+carpentry_description: "ARCHER2"
 
 varnish: EPCCed/varnish

@@ -5,12 +5,11 @@ address: ~
 country: UK
 language: English
 latlng: ~
-humandate: 19 to 21 May 2025
+humandate: 2 to 4 March 2026
 humantime: ~
-startdate: '2026-02-18'
-enddate: '2026-02-20'
+startdate: '2026-03-02'
+enddate: '2026-03-04'
 instructor:
-- Paul Bartholomew
 - William Lucas
 helper: []
 email: w.lucas@epcc.ed.ac.uk
