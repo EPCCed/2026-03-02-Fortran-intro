@@ -258,7 +258,7 @@ in which each component appears in order, schematically:
 
 or one can apply a specific format to correspond to the known type components.
 
-### Non-default output
+<!-- ### Non-default output
 
 Fortran does have a facility to allow the programmer to override the default
 behaviour of the formatting when a derived type appears in an io-list.
@@ -310,7 +310,7 @@ The following module subroutine should then be provided:
     ! iostat and iomsg should be set if there is an error
 
   end subroutine my_type_write_formatted
-```
+``` -->
 
 ### Exercise (15 minutes)
 
@@ -358,7 +358,7 @@ and
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-### Exercise (optional)
+<!-- ### Exercise (optional)
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -388,7 +388,7 @@ and
 
 :::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::: -->
 
 
 
