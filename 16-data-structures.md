@@ -1,0 +1,404 @@
+---
+title: 'Structures: derived types'
+teaching: 10
+exercises: 15
+start: yes
+---
+
+::::::::::::::::::::::::::::::::::::::: objectives
+
+- Understand what a derived type is.
+- Learn how to define a derived type.
+- Learn the different ways of initialising a derived type variable.
+- Get a glimpse of more advanced object oriented methodology.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::: questions
+
+- How can I group together variables to make more complex structures?
+- How are these derived types defined and then initialised?
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Derived types
+
+We have seen intrinsic types, such as `integer` and `character`. However, in
+many cases it can be useful to create structured types combining multiple types
+together in some way of our choosing. We call these *derived types*.
+
+## Type definitions
+
+A derived type with two *components* would be declared, *e.g.*,
+
+```fortran
+  type :: my_type
+    integer                         :: nmax
+    real, dimension(:), allocatable :: data
+  end type my_type
+```
+
+Components may be intrinsic data types (all declared in the usual way), or
+derived types.
+
+A variable of this type is declared
+
+```fortran
+  type (my_type) :: var
+```
+
+and individual components are referenced with the component selector `%`, *e.g.*,
+
+```fortran
+  var%nmax = 10
+  ...
+  print *, "Values are ", var%data(1:3)
+```
+
+The component selector is the same as we have seen earlier for the complex
+intrinsic type -- recall that the real and imaginary components of a complex
+variable `z` are accessed with `z%re` and `z%im` respectively.
+
+An array of types is defined in the usual way, and the component selector is
+applied to individual elements, *e.g.*,
+
+```fortran
+  type (my_type), dimension(10) :: var
+  ...
+  var(1)%nmax = 100
+```
+
+Dummy arguments to procedures are declared in the same way as for intrinsic
+types with the appropriate attribute list, including intent.
+
+### Put type definitions in a module
+
+If a type definition is placed in the specification part of a module, it can be
+made available consistently elsewhere via use association.
+
+Some derived type features *require* that the definition be in a module.
+
+### Scope of components
+
+Formally, we have
+
+```fortran
+  type [ [, attribute-list] :: ] type-name
+    [private]
+    component-part
+  [ contains
+    procedure-part ]
+  end type [ type-name ]
+```
+
+The default situation is for both the type and its components to be public. This
+may be made explicit by
+
+```fortran
+  type, public :: my_type
+    ...
+  end type my_type
+```
+
+If one wants a public type with private components (an opaque type), use
+
+```fortran
+  type, public :: my_opaque_type
+    private
+    ...
+  end type my_opaque_type
+```
+
+Externally, other program units will be able to reference this opaque type, but
+will not be allowed to access the components (a compiler error).
+
+If a type is only for use within the module in which it is defined, then it can
+be declared `private` in the attribute list.
+
+### Type constructors
+
+For types with public components, it is possible to use a structure constructor
+to provide initialisation, *e.g.*:
+
+```fortran
+  type, public :: my_type
+     integer :: ia
+     real    :: b
+     complex :: z
+  end type my_type
+
+  ...
+  type (my_type) :: a
+
+  a = my_type(3, 2.0, (0.0, 1.0))
+```
+
+Values or expressions can be used, but must appear in the order specified in the
+definition of the components. An allocatable or pointer (next episode) component
+must appear as `null()` in a constructor expression list.
+
+### Default initialisation
+
+A type may be defined with default initial values. One notable exception is that
+allocatable components do not have an initialisation. *E.g.*:
+
+```fortran
+  type :: my_type
+    integer                            :: nmax = 10
+    real                               :: a0 = 1.0
+    integer, dimension(:), allocatable :: ndata
+  end type
+```
+
+A default initialisation can be applied by using an empty constructor:
+
+```fortran
+  type (my_type) :: a
+
+  a = my_type()
+```
+
+For an allocatable component, the result is a component with a not allocated
+status.
+
+Warning: some compilers can't manage an empty constructor for allocatable
+components. The appropriate expression in the constructor is `null()`.
+
+### Exercise (5 minutes)
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## A type to store a random number generator
+
+The accompanying example
+([module1.f90](files/exercises/16-data-structures/module1.f90) and
+[program1.f90](files/exercises/16-data-structures/program1.f90)) provides an
+implementation of a very simple pseudo-random number generator. This is a
+so-called [linear congruential
+generator](https://en.wikipedia.org/wiki/Linear_congruential_generator).
+
+The module provides a derived type to aggregate the multiplier `a`, the seed or
+state `s`, the increment `c` and the modulus `m`. These have some default
+values. Practical implementations often choose `c = 0`.
+
+Compile the program, and check the first few numbers returned in the sequence.
+The key to obtaining acceptable statistics is to identify some appropriate
+values of `a` and `m` (e.g., those given in the default).
+
+Check you can introduce some new values of `a` and `m` using the structure
+constructor (a spectacularly bad choice is suggested in the code).
+
+What happens if you make the components of the type `private`? What would you
+then have to provide to allow initialisation?
+
+:::::::::::::::  solution
+
+## Solution
+
+Running the code as provided gives the following output:
+
+```output
+ Step  1,  45991
+ Step  2,  2115172081
+ Step  3,  17451818
+ Step  4,  1615161307
+ Step  5,  1424320507
+ Step  6,  1230752996
+```
+
+Changing to use the suggested bad RNG values means doing
+
+```fortran
+type (my_rng) :: rng = my_rng(1, 1, 0, 2147483647)
+```
+
+and this produces the following output (note Cray Fortran being helpful with the first line)
+
+```output
+ Step  2*1
+ Step  2,  1
+ Step  3,  1
+ Step  4,  1
+ Step  5,  1
+ Step  6,  1
+```
+
+Making the RNG type's components private means doing:
+
+```fortran
+  type, public :: my_rng
+    private
+    integer (int64) :: a = 45991
+    integer (int32) :: s = 1
+    integer (int64) :: c = 0
+    integer (int64) :: m = 2147483647
+  end type my_rng
+```
+
+Trying to compile the program while setting the `a` etc. values will cause a compiler error;
+those components are no longer public, and the compiler knows it shouldn't touch them. If we
+wanted to change those values while `my_rng` is opaque, we'd need to write another module procedure
+to do so.
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Default input/output for derived types
+
+List-directed output for derived types can be used to provide a default output
+in which each component appears in order, schematically:
+
+```fortran
+  type (my_type) :: a
+  ...
+  write (*, fmt = *) a
+  write (*, fmt = *) a%component1, a%component2, ...
+```
+
+or one can apply a specific format to correspond to the known type components.
+
+<!-- ### Non-default output
+
+Fortran does have a facility to allow the programmer to override the default
+behaviour of the formatting when a derived type appears in an io-list.
+
+A special `dt` editor descriptor exists, of the form:
+
+```fortran
+  dt[iodesc-string][(v-list)]
+```
+
+For example we may have
+
+```fortran
+  dt" my-type: "(2,14)
+```
+
+The *iodesc-string* and *v-list* will re-appear as arguments to a special
+function which must be provided by the programmer. Information on this function
+is provided as part of the *procedure-part* of the type definition:
+
+```fortran
+type, public :: my_type
+  integer :: n
+  complex :: z
+contains
+  procedure :: my_type_write_formatted
+  generic   :: write(formatted) => my_type_write_formatted
+end type my_type
+```
+
+The following module subroutine should then be provided:
+
+```fortran
+  subroutine my_type_write_formatted(self, unit, iotype, vlist, iostat, iomsg)
+
+    class (my_type),     intent(in)    :: self
+    integer,             intent(in)    :: unit
+    character (len = *), intent(in)    :: iotype       ! "DT my-type: "
+    integer,             intent(in)    :: vlist(:)     ! (2,14)
+    integer,             intent(out)   :: iostat
+    character (len = *), intent(inout) :: iomsg
+
+    ! ... process arguments to give required output to unit number ...
+    ! iotype is "LISTDIRECTED" for list directed io
+    ! iotype is "DTdesc-string" for dt edit descriptor
+    ! ...
+    ! ... write (unit = unit, fmt = ...)  self%n, self%z
+
+    ! iostat and iomsg should be set if there is an error
+
+  end subroutine my_type_write_formatted
+``` -->
+
+### Exercise (15 minutes)
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## A tri-diagonal structure
+
+In the earlier [material on using arrays as dummy arguments](10-dummy-array-arguments.md)
+we implemented the tri-diagonal
+solver as a module procedure. Implement a derived type to hold the relevant data
+for the tri-diagonal matrix, ie., at least the three diagonals.
+
+Define a function which returns a fully initialised matrix type based on arrays
+holding the three diagonals. Refactor the solver routine to use the new matrix
+type.
+
+Additional exercise: A very simple tridiagonal matrix may have all diagonal
+elements the same, and all off-diagonal elements the same. Write an additional
+function to initialise such a matrix from two scalar values.
+
+A template for the exercise can be found in
+[exercise\_program.f90](files/exercises/16-data-structures/exercise_program.f90) and
+[exercise\_module.f90](files/exercises/16-data-structures/exercise_module.f90); or
+you can use your own version that you have been developing to this point.
+
+:::::::::::::::  solution
+
+Your new tri-diagonal matrix type should look something like this:
+
+```fortran
+  type, public :: tri_matrix
+    integer :: nmax
+    real (mykind), dimension(:), allocatable :: a     ! lower (2:nmax)
+    real (mykind), dimension(:), allocatable :: b     ! diag (1:nmax)
+    real (mykind), dimension(:), allocatable :: c     ! upper (1:nmax-1)
+  end type tri_matrix
+```
+
+Implementations of the solution are available in
+[solution\_program.f90](files/exercises/16-data-structures/solutions-1/solution_program.f90)
+and
+[solution\_module.f90](files/exercises/16-data-structures/solutions-1/solution_module.f90).
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+<!-- ### Exercise (optional)
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Formats for derived types
+
+Try implementing the generic `write(formatted)` function for the following
+type:
+
+```fortran
+  type, public :: my_date
+    integer :: day = 1        ! day 1-31
+    integer :: month = 1      ! month 1-12
+    integer :: year = 1900    ! year
+  end type my_date
+```
+
+The format we would like is `dd/mm/yyyy` e.g, `01/12/1999` for 1st December 1999
+for list directed I/O. Then try the `dt` edit descriptor to allow some more
+flexibility.
+
+:::::::::::::::  solution
+
+A suggested implementation of the solution is available in
+[date\_program.f90](files/exercises/16-data-structures/solutions-2/date_program.f90)
+and
+[date\_module.f90](files/exercises/16-data-structures/solutions-2/date_module.f90).
+
+:::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::::::: -->
+
+
+
+:::::::::::::::::::::::::::::::::::::::: keypoints
+
+- The ability to aggregate related data in a structure is important.
+- Fortran offers the `_derived type_` in addition to intrinsic types.
+- In its simplest form, one may think of this as the analogue to a C `struct`.
+- Derived types also form the basis of aggregation of data and related operations or procedures (viz. object-oriented programming); however, this introductory course will only touch on this feature.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
