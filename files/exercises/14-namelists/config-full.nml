@@ -1,0 +1,12 @@
+&run
+ name   = "TGV"       ! Case name
+ nsteps = 100         ! Number of timesteps
+ dt     = 0.100000001 ! Timestep
+ /
+
+&schemes
+ advection = "upwind"  ! Advection scheme
+ diffusion = "central" ! Diffusion scheme
+ transient = "RK3"     ! Timestepping scheme
+ /
+ 
