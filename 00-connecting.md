@@ -78,8 +78,8 @@ For details of how to log into an ARCHER2 account, see <https://docs.archer2.ac.
 Check out the git repository to your laptop or ARCHER2 account.
 
 ```bash
-$ git clone https://github.com/EPCCed/2026-02-18-MO-Fortran-intro.git
-$ cd 2026-02-18-MO-Fortran-intro
+$ git clone https://github.com/EPCCed/2026-03-02-Fortran-intro.git
+$ cd 2026-03-02-Fortran-intro
 ```
 
 Within the repository, the code we will use is located in the `episodes/files/exercises`
