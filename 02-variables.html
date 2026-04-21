@@ -232,7 +232,7 @@
       </button>
     </div><!--/div.accordion-header-->
 
-    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#numeric-variables-of-intrinsic-type">Numeric variables of intrinsic type</a></li>
         </ul></div><!--/div.accordion-body-->
@@ -595,15 +595,15 @@ intrinsic numeric types, and provides an initial value in each case.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="kw">program</span> example1</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>   <span class="kw">implicit</span> <span class="kw">none</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>   <span class="dt">integer</span> <span class="dt">::</span> i <span class="kw">=</span> <span class="dv">1</span>            <span class="co">! A default integer kind</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>   <span class="dt">real</span>    <span class="dt">::</span> a <span class="kw">=</span> <span class="fl">2.0</span>          <span class="co">! A default floating point kind</span></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>   <span class="dt">complex</span> <span class="dt">::</span> z <span class="kw">=</span> (<span class="fl">0.0</span>, <span class="fl">1.0</span>)   <span class="co">! A complex kind with (real-part, imag-part)</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="kw">end program</span> example1</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="kw">program</span> example1</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a>   <span class="kw">implicit</span> <span class="kw">none</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1" aria-label="code-block-1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1" aria-label="code-block-1-5"></a>   <span class="dt">integer</span> <span class="dt">::</span> i <span class="kw">=</span> <span class="dv">1</span>            <span class="co">! A default integer kind</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1" aria-label="code-block-1-6"></a>   <span class="dt">real</span>    <span class="dt">::</span> a <span class="kw">=</span> <span class="fl">2.0</span>          <span class="co">! A default floating point kind</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1" aria-label="code-block-1-7"></a>   <span class="dt">complex</span> <span class="dt">::</span> z <span class="kw">=</span> (<span class="fl">0.0</span>, <span class="fl">1.0</span>)   <span class="co">! A complex kind with (real-part, imag-part)</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1" aria-label="code-block-1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1" aria-label="code-block-1-9"></a><span class="kw">end program</span> example1</span></code></pre>
 </div>
 <p>Initial values are optional. If a declaration does not specify an
 initial value, the variable is said to be <em>undefined</em>.</p>
@@ -694,7 +694,7 @@ by</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>  <span class="kw">implicit</span> <span class="dt">integer (i-n)</span>, <span class="dt">real (a-h, o-z)</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a>  <span class="kw">implicit</span> <span class="dt">integer (i-n)</span>, <span class="dt">real (a-h, o-z)</span></span></code></pre>
 </div>
 <p>that is, variables with names beginning with letters <code>i-n</code>
 are implicitly of type <code>integer</code>, while anything else is of
@@ -706,7 +706,7 @@ via</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="kw">implicit</span> <span class="kw">none</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="kw">implicit</span> <span class="kw">none</span></span></code></pre>
 </div>
 <p>In this case, all variable names must be declared explicitly before
 they are referenced.</p>
@@ -762,15 +762,15 @@ creates it as a new <code>integer</code>.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="kw">program</span> exercise1</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="kw">implicit</span> <span class="kw">none</span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="dt">integer</span> <span class="dt">::</span> ll <span class="kw">=</span> <span class="dv">1</span></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>  <span class="fu">print</span> <span class="kw">*</span>, <span class="st">"The value of ll is: "</span>, l1</span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="kw">end program</span> exercise1</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="kw">program</span> exercise1</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a>  <span class="kw">implicit</span> <span class="kw">none</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a>  <span class="dt">integer</span> <span class="dt">::</span> ll <span class="kw">=</span> <span class="dv">1</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1" aria-label="code-block-4-6"></a></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1" aria-label="code-block-4-7"></a>  <span class="fu">print</span> <span class="kw">*</span>, <span class="st">"The value of ll is: "</span>, l1</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1" aria-label="code-block-4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1" aria-label="code-block-4-9"></a><span class="kw">end program</span> exercise1</span></code></pre>
 </div>
 <p>which then produces an error at compile time, e.g. with the Cray
 compiler:</p>
@@ -804,12 +804,12 @@ provided. For example (see <code>example2.f90</code>),</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>  <span class="kw">use</span> iso_fortran_env, <span class="kw">only</span> : int64, real64</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="kw">implicit</span> <span class="kw">none</span></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="dt">integer (kind = int64)</span>   <span class="dt">::</span> i <span class="kw">=</span> <span class="dv">100</span></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="dt">real    (kind = real64)</span>  <span class="dt">::</span> a <span class="kw">=</span> <span class="fl">1.0</span></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  <span class="dt">complex (kind = real64)</span>  <span class="dt">::</span> z <span class="kw">=</span> (<span class="fl">0.0</span>, <span class="fl">1.0</span>)</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a>  <span class="kw">use</span> iso_fortran_env, <span class="kw">only</span> : int64, real64</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a>  <span class="kw">implicit</span> <span class="kw">none</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1" aria-label="code-block-6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1" aria-label="code-block-6-4"></a>  <span class="dt">integer (kind = int64)</span>   <span class="dt">::</span> i <span class="kw">=</span> <span class="dv">100</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1" aria-label="code-block-6-5"></a>  <span class="dt">real    (kind = real64)</span>  <span class="dt">::</span> a <span class="kw">=</span> <span class="fl">1.0</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1" aria-label="code-block-6-6"></a>  <span class="dt">complex (kind = real64)</span>  <span class="dt">::</span> z <span class="kw">=</span> (<span class="fl">0.0</span>, <span class="fl">1.0</span>)</span></code></pre>
 </div>
 <p>Here we use <em>kind type parameters</em> <code>int64</code> and
 <code>real64</code> to specify that we require 64-bit integers and
@@ -826,7 +826,7 @@ referenced as <code>double precision</code>).</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>  numeric<span class="kw">-</span><span class="dt">type</span><span class="kw">-</span>spec <span class="kw">[</span><span class="fu">kind</span><span class="kw">-</span>selector<span class="kw">]</span> ...</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a>  numeric<span class="kw">-</span><span class="dt">type</span><span class="kw">-</span>spec <span class="kw">[</span><span class="fu">kind</span><span class="kw">-</span>selector<span class="kw">]</span> ...</span></code></pre>
 </div>
 <p>where the <code>numeric-type-spec</code> is one of
 <code>integer</code>, <code>real</code>, or <code>complex</code>. The
@@ -834,7 +834,7 @@ optional <em>kind selector</em> is</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>  (<span class="kw">[</span><span class="fu">kind</span> <span class="kw">=</span> <span class="kw">]</span> scalar<span class="kw">-</span><span class="dt">integer</span><span class="kw">-</span>initialisation<span class="kw">-</span>expr)</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a>  (<span class="kw">[</span><span class="fu">kind</span> <span class="kw">=</span> <span class="kw">]</span> scalar<span class="kw">-</span><span class="dt">integer</span><span class="kw">-</span>initialisation<span class="kw">-</span>expr)</span></code></pre>
 </div>
 <p>The upshot of this is that the syntax of declarations is quite
 elastic, and you may see a number of different styles. A reasonable form
@@ -842,9 +842,9 @@ of concise declaration with an explicit kind type parameter is:</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>  <span class="dt">integer (int32)</span>  <span class="dt">::</span> i</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="dt">real    (real32)</span> <span class="dt">::</span> a</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="dt">complex (real32)</span> <span class="dt">::</span> z</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb9-1"><a href="#cb9-1" tabindex="-1" aria-label="code-block-9-1"></a>  <span class="dt">integer (int32)</span>  <span class="dt">::</span> i</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1" aria-label="code-block-9-2"></a>  <span class="dt">real    (real32)</span> <span class="dt">::</span> a</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1" aria-label="code-block-9-3"></a>  <span class="dt">complex (real32)</span> <span class="dt">::</span> z</span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -861,30 +861,30 @@ e.g.:</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="dv">123</span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="kw">+</span><span class="dv">123</span></span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="kw">-</span><span class="dv">123</span></span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="dv">12345678910_int64</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb10-1"><a href="#cb10-1" tabindex="-1" aria-label="code-block-10-1"></a><span class="dv">123</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1" aria-label="code-block-10-2"></a><span class="kw">+</span><span class="dv">123</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1" aria-label="code-block-10-3"></a><span class="kw">-</span><span class="dv">123</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1" aria-label="code-block-10-4"></a><span class="dv">12345678910_int64</span></span></code></pre>
 </div>
 <p>Floating point literal constants can take a number of forms. Examples
 are:</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="kw">-</span><span class="fl">3.14</span></span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="fl">.314</span></span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="fl">1.0e0</span>             <span class="co">! default precision</span></span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="fl">1.0d0</span>             <span class="co">! extended (double) precision</span></span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="fl">3.14_real128</span>      <span class="co">! may be available</span></span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="fl">3.14e-1</span>           <span class="co">! Scientific notation</span></span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="fl">3.14d+1</span>           <span class="co">! Scientific notation extended precision</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb11-1"><a href="#cb11-1" tabindex="-1" aria-label="code-block-11-1"></a><span class="kw">-</span><span class="fl">3.14</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1" aria-label="code-block-11-2"></a><span class="fl">.314</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1" aria-label="code-block-11-3"></a><span class="fl">1.0e0</span>             <span class="co">! default precision</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1" aria-label="code-block-11-4"></a><span class="fl">1.0d0</span>             <span class="co">! extended (double) precision</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1" aria-label="code-block-11-5"></a><span class="fl">3.14_real128</span>      <span class="co">! may be available</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1" aria-label="code-block-11-6"></a><span class="fl">3.14e-1</span>           <span class="co">! Scientific notation</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1" aria-label="code-block-11-7"></a><span class="fl">3.14d+1</span>           <span class="co">! Scientific notation extended precision</span></span></code></pre>
 </div>
 <p>Complex literals are constructed with real and imaginary parts, with
 each part real.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>(<span class="fl">0.0</span>, <span class="fl">1.0</span>)        <span class="co">! square root of -1</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb12-1"><a href="#cb12-1" tabindex="-1" aria-label="code-block-12-1"></a>(<span class="fl">0.0</span>, <span class="fl">1.0</span>)        <span class="co">! square root of -1</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -894,19 +894,19 @@ throughout the code. Consider:</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="kw">program</span> example3</span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="kw">implicit</span> <span class="kw">none</span></span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>  <span class="dt">integer</span>, <span class="dt">parameter</span> <span class="dt">::</span> my_e_k <span class="kw">=</span> <span class="fu">kind</span>(<span class="fl">1.e0</span>)</span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>  <span class="dt">integer</span>, <span class="dt">parameter</span> <span class="dt">::</span> my_d_k <span class="kw">=</span> <span class="fu">kind</span>(<span class="fl">1.d0</span>)</span>
-<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a></span>
-<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>  <span class="dt">real (my_e_k)</span> <span class="dt">::</span> a</span>
-<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>  <span class="dt">real (my_d_k)</span> <span class="dt">::</span> b</span>
-<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a>  <span class="co">! ...</span></span>
-<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a></span>
-<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="kw">end program</span> example3</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb13-1"><a href="#cb13-1" tabindex="-1" aria-label="code-block-13-1"></a><span class="kw">program</span> example3</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1" aria-label="code-block-13-2"></a></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1" aria-label="code-block-13-3"></a>  <span class="kw">implicit</span> <span class="kw">none</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1" aria-label="code-block-13-4"></a></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1" aria-label="code-block-13-5"></a>  <span class="dt">integer</span>, <span class="dt">parameter</span> <span class="dt">::</span> my_e_k <span class="kw">=</span> <span class="fu">kind</span>(<span class="fl">1.e0</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1" aria-label="code-block-13-6"></a>  <span class="dt">integer</span>, <span class="dt">parameter</span> <span class="dt">::</span> my_d_k <span class="kw">=</span> <span class="fu">kind</span>(<span class="fl">1.d0</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1" aria-label="code-block-13-7"></a></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1" aria-label="code-block-13-8"></a>  <span class="dt">real (my_e_k)</span> <span class="dt">::</span> a</span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1" aria-label="code-block-13-9"></a>  <span class="dt">real (my_d_k)</span> <span class="dt">::</span> b</span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1" aria-label="code-block-13-10"></a></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1" aria-label="code-block-13-11"></a>  <span class="co">! ...</span></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1" aria-label="code-block-13-12"></a></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1" aria-label="code-block-13-13"></a><span class="kw">end program</span> example3</span></code></pre>
 </div>
 <p>Here we have introduced an <code>integer</code> with the
 <code>parameter</code> <em>attribute</em>. This is an instruction to the
@@ -927,9 +927,9 @@ type. Other examples might include:</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>  <span class="dt">integer</span>, <span class="dt">parameter</span> <span class="dt">::</span> nmax <span class="kw">=</span> <span class="dv">32</span>              <span class="co">! A constant</span></span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>  <span class="dt">real</span>,    <span class="dt">parameter</span> <span class="dt">::</span> pi <span class="kw">=</span> <span class="fl">4.0</span><span class="kw">*</span><span class="bu">atan</span>(<span class="fl">1.e0</span>)    <span class="co">! A well-known constant</span></span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>  <span class="dt">complex</span>, <span class="dt">parameter</span> <span class="dt">::</span> zi <span class="kw">=</span> (<span class="fl">0.0</span>, <span class="fl">1.0</span>)        <span class="co">! square root of -1</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb14-1"><a href="#cb14-1" tabindex="-1" aria-label="code-block-14-1"></a>  <span class="dt">integer</span>, <span class="dt">parameter</span> <span class="dt">::</span> nmax <span class="kw">=</span> <span class="dv">32</span>              <span class="co">! A constant</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1" aria-label="code-block-14-2"></a>  <span class="dt">real</span>,    <span class="dt">parameter</span> <span class="dt">::</span> pi <span class="kw">=</span> <span class="fl">4.0</span><span class="kw">*</span><span class="bu">atan</span>(<span class="fl">1.e0</span>)    <span class="co">! A well-known constant</span></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1" aria-label="code-block-14-3"></a>  <span class="dt">complex</span>, <span class="dt">parameter</span> <span class="dt">::</span> zi <span class="kw">=</span> (<span class="fl">0.0</span>, <span class="fl">1.0</span>)        <span class="co">! square root of -1</span></span></code></pre>
 </div>
 <p>The intrinsic function <code>atan()</code> returns the inverse
 tangent (as a value in radians) of the argument.</p>
@@ -954,8 +954,8 @@ a program declaring, e.g.:</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>  <span class="dt">integer (4)</span> <span class="dt">::</span> i32</span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>  <span class="dt">integer (8)</span> <span class="dt">::</span> i64</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb15-1"><a href="#cb15-1" tabindex="-1" aria-label="code-block-15-1"></a>  <span class="dt">integer (4)</span> <span class="dt">::</span> i32</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1" aria-label="code-block-15-2"></a>  <span class="dt">integer (8)</span> <span class="dt">::</span> i64</span></code></pre>
 </div>
 </div>
 </div>
@@ -989,7 +989,7 @@ on an attempt is made to assign a new value of 33.</p>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>nmax <span class="kw">=</span> <span class="dv">33</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb16-1"><a href="#cb16-1" tabindex="-1" aria-label="code-block-16-1"></a>nmax <span class="kw">=</span> <span class="dv">33</span></span></code></pre>
 </div>
 <p>to resolve the issue.</p>
 </div>
@@ -1009,8 +1009,8 @@ exponents (<code>**</code>) and negation (<code>-</code>).</p>
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>   a <span class="kw">=</span> b<span class="kw">*</span>c<span class="kw">**</span><span class="dv">2</span>    <span class="co">! is evaluated as b*(c**2)</span></span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>   a <span class="kw">=</span> b<span class="kw">*</span>c<span class="kw">*</span>d     <span class="co">! evaluated left-to-right (b*c)*d</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb17-1"><a href="#cb17-1" tabindex="-1" aria-label="code-block-17-1"></a>   a <span class="kw">=</span> b<span class="kw">*</span>c<span class="kw">**</span><span class="dv">2</span>    <span class="co">! is evaluated as b*(c**2)</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1" aria-label="code-block-17-2"></a>   a <span class="kw">=</span> b<span class="kw">*</span>c<span class="kw">*</span>d     <span class="co">! evaluated left-to-right (b*c)*d</span></span></code></pre>
 </div>
 <p>Use parentheses to avoid ambiguity if necessary.</p>
 <p>A large number of intrinsic functions exist for basic mathematical
@@ -1024,16 +1024,16 @@ via intrinsic functions, e.g.,</p>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>   <span class="dt">integer</span>          <span class="dt">::</span> i <span class="kw">=</span> <span class="dv">1</span></span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>   <span class="dt">complex (real64)</span> <span class="dt">::</span> z <span class="kw">=</span> (<span class="fl">1.0</span>, <span class="fl">1.0</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>   <span class="dt">real    (real64)</span> <span class="dt">::</span> a, b</span>
-<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>   a <span class="kw">=</span> <span class="dt">real(i, real64)</span>          <span class="co">! a should be 1.d0</span></span>
-<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>   a <span class="kw">=</span> <span class="dt">real(z, real64)</span>          <span class="co">! imaginary part is ignored</span></span>
-<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a>   b <span class="kw">=</span> <span class="dt">real(i)</span>                  <span class="co">! return default real kind</span></span>
-<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a>   z <span class="kw">=</span> <span class="bu">cmplx</span>(a, b)              <span class="co">! (sic) Form complex number from two reals</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb18-1"><a href="#cb18-1" tabindex="-1" aria-label="code-block-18-1"></a>   <span class="dt">integer</span>          <span class="dt">::</span> i <span class="kw">=</span> <span class="dv">1</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1" aria-label="code-block-18-2"></a>   <span class="dt">complex (real64)</span> <span class="dt">::</span> z <span class="kw">=</span> (<span class="fl">1.0</span>, <span class="fl">1.0</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1" aria-label="code-block-18-3"></a>   <span class="dt">real    (real64)</span> <span class="dt">::</span> a, b</span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1" aria-label="code-block-18-4"></a></span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1" aria-label="code-block-18-5"></a>   a <span class="kw">=</span> <span class="dt">real(i, real64)</span>          <span class="co">! a should be 1.d0</span></span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1" aria-label="code-block-18-6"></a>   a <span class="kw">=</span> <span class="dt">real(z, real64)</span>          <span class="co">! imaginary part is ignored</span></span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1" aria-label="code-block-18-7"></a></span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1" aria-label="code-block-18-8"></a>   b <span class="kw">=</span> <span class="dt">real(i)</span>                  <span class="co">! return default real kind</span></span>
+<span id="cb18-9"><a href="#cb18-9" tabindex="-1" aria-label="code-block-18-9"></a></span>
+<span id="cb18-10"><a href="#cb18-10" tabindex="-1" aria-label="code-block-18-10"></a>   z <span class="kw">=</span> <span class="bu">cmplx</span>(a, b)              <span class="co">! (sic) Form complex number from two reals</span></span></code></pre>
 </div>
 <p>The second argument of the <code>real()</code> function is optional,
 and specifies the kind type parameter of the desired result. If the
@@ -1052,10 +1052,10 @@ accessed</p>
 <div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>  <span class="dt">complex</span> <span class="dt">::</span> z</span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>  z<span class="op">%</span>re <span class="kw">=</span> <span class="fl">0.0</span>     <span class="co">! real part</span></span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>  z<span class="op">%</span>im <span class="kw">=</span> <span class="fl">1.0</span>     <span class="co">! imaginary part</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb19-1"><a href="#cb19-1" tabindex="-1" aria-label="code-block-19-1"></a>  <span class="dt">complex</span> <span class="dt">::</span> z</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1" aria-label="code-block-19-2"></a></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1" aria-label="code-block-19-3"></a>  z<span class="op">%</span>re <span class="kw">=</span> <span class="fl">0.0</span>     <span class="co">! real part</span></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1" aria-label="code-block-19-4"></a>  z<span class="op">%</span>im <span class="kw">=</span> <span class="fl">1.0</span>     <span class="co">! imaginary part</span></span></code></pre>
 </div>
 <p>where the <code>%</code> symbol is referred to as the component
 selector. The real and imaginary parts are also available via the
@@ -1228,7 +1228,7 @@ associated with the name constant.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -1251,7 +1251,7 @@ associated with the name constant.</li>
   "identifier": "https://welucas2.github.io/2026-02-18-MO-Fortran-intro/02-variables.html",
   "dateCreated": "2026-02-21",
   "dateModified": "2026-02-21",
-  "datePublished": "2026-04-14"
+  "datePublished": "2026-04-21"
 }
 
   </script><script>

@@ -466,7 +466,7 @@
       </button>
     </div><!--/div.accordion-header-->
 
-    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#exercises">Exercises</a></li>
         </ul></div><!--/div.accordion-body-->
@@ -620,7 +620,7 @@ done with:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>  residual <span class="kw">=</span> <span class="fu">sum</span>(r(:)<span class="kw">*</span>r(:))</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a>  residual <span class="kw">=</span> <span class="fu">sum</span>(r(:)<span class="kw">*</span>r(:))</span></code></pre>
 </div>
 <p>All the operations in the algorithm can be composed of these, as well
 as vector additions and multiplications by a scalar.</p>
@@ -639,7 +639,7 @@ right-hand side <span class="math inline">\(b\)</span>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>You can check a suggested solution with <a href="../files/exercises/21-conjugate-gradient/solutions-1/cg_test.f90">cg_test.f90</a>
 and <a href="../files/exercises/21-conjugate-gradient/solutions-1/cgradient.f90">cgradient_solution.f90</a>.</p>
@@ -679,8 +679,8 @@ column index, and the value of the matrix element itself.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">$</span> wget https://math.nist.gov/pub/MatrixMarket2/Harwell-Boeing/laplace/gr_30_30.mtx.gz</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">$</span> gunzip gr_30_30.mtx</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="ex">$</span> wget https://math.nist.gov/pub/MatrixMarket2/Harwell-Boeing/laplace/gr_30_30.mtx.gz</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a><span class="ex">$</span> gunzip gr_30_30.mtx</span></code></pre>
 </div>
 <p>If you look at the first few line of this example, you should see</p>
 <div class="codewrapper">
@@ -711,7 +711,7 @@ correctly.</p></li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>A suggested solution in provided in <a href="../files/exercises/21-conjugate-gradient/solutions-2/mm_test.f90">mmtest.f90</a>
 and <a href="../files/exercises/21-conjugate-gradient/solutions-2/mmarket.f90">mmarket.f90</a>.</p>
@@ -769,7 +769,7 @@ solution of intense problems.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -792,7 +792,7 @@ solution of intense problems.</li>
   "identifier": "https://welucas2.github.io/2026-02-18-MO-Fortran-intro/instructor/21-conjugate-gradient.html",
   "dateCreated": "2026-02-21",
   "dateModified": "2026-02-21",
-  "datePublished": "2026-04-14"
+  "datePublished": "2026-04-21"
 }
 
   </script><script>

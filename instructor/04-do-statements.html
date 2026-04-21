@@ -259,7 +259,7 @@
       </button>
     </div><!--/div.accordion-header-->
 
-    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#uncontrolled-do-construct">Uncontrolled <code>do</code> construct</a></li>
 <li><a href="#loop-control">Loop control</a></li>
@@ -599,36 +599,36 @@ example, …</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>  <span class="kw">do</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>    <span class="co">! ... go around for ever ...</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="kw">end do</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a>  <span class="kw">do</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a>    <span class="co">! ... go around for ever ...</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a>  <span class="kw">end do</span></span></code></pre>
 </div>
 <p>A slightly more useful version requires some control (see <a href="../files/exercises/04-do-statements/example1.f90">example1.f90</a>):</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>   <span class="dt">integer</span> <span class="dt">::</span> i <span class="kw">=</span> <span class="dv">0</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>   <span class="kw">do</span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="bu">     i</span> <span class="kw">=</span> i <span class="kw">+</span> <span class="dv">1</span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="bu">     i</span>f (<span class="bu">mod</span>(i, <span class="dv">2</span>) <span class="op">==</span> <span class="dv">0</span>) <span class="kw">cycle</span>    <span class="co">! go to the next iteration</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="bu">     i</span>f (i <span class="op">&gt;=</span> <span class="dv">10</span>) <span class="kw">exit</span>            <span class="co">! exit loop completely</span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="bu">     !</span> ... some computation ...</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>   <span class="kw">end do</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>   <span class="co">! ... control continues here after exit ...</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a>   <span class="dt">integer</span> <span class="dt">::</span> i <span class="kw">=</span> <span class="dv">0</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a>   <span class="kw">do</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1" aria-label="code-block-2-3"></a><span class="bu">     i</span> <span class="kw">=</span> i <span class="kw">+</span> <span class="dv">1</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1" aria-label="code-block-2-4"></a><span class="bu">     i</span>f (<span class="bu">mod</span>(i, <span class="dv">2</span>) <span class="op">==</span> <span class="dv">0</span>) <span class="kw">cycle</span>    <span class="co">! go to the next iteration</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1" aria-label="code-block-2-5"></a><span class="bu">     i</span>f (i <span class="op">&gt;=</span> <span class="dv">10</span>) <span class="kw">exit</span>            <span class="co">! exit loop completely</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1" aria-label="code-block-2-6"></a><span class="bu">     !</span> ... some computation ...</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1" aria-label="code-block-2-7"></a>   <span class="kw">end do</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1" aria-label="code-block-2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1" aria-label="code-block-2-9"></a>   <span class="co">! ... control continues here after exit ...</span></span></code></pre>
 </div>
 <p>Loop constructs may be nested, and may also be named (see <a href="../files/exercises/04-do-statements/example2.f90">example2.f90</a>):</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>  some_outer_loop: <span class="kw">&amp;</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="kw">do</span></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>    some_inner_loop: <span class="kw">&amp;</span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>    <span class="kw">do</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>      <span class="kw">if</span> (i <span class="op">&gt;=</span> <span class="dv">10</span>) <span class="kw">exit</span> some_outer_loop  <span class="co">! exit belongs to outer loop</span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>      <span class="co">! ... continues ...</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>    <span class="kw">end do</span> some_inner_loop</span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>  <span class="kw">end do</span> some_outer_loop</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a>  some_outer_loop: <span class="kw">&amp;</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a>  <span class="kw">do</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a>    some_inner_loop: <span class="kw">&amp;</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1" aria-label="code-block-3-4"></a>    <span class="kw">do</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1" aria-label="code-block-3-5"></a>      <span class="kw">if</span> (i <span class="op">&gt;=</span> <span class="dv">10</span>) <span class="kw">exit</span> some_outer_loop  <span class="co">! exit belongs to outer loop</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1" aria-label="code-block-3-6"></a>      <span class="co">! ... continues ...</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1" aria-label="code-block-3-7"></a>    <span class="kw">end do</span> some_inner_loop</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1" aria-label="code-block-3-8"></a>  <span class="kw">end do</span> some_outer_loop</span></code></pre>
 </div>
 <p>If the control statements <code>cycle</code> or <code>exit</code> do
 not have a label, they belong to the innermost construct in which they
@@ -639,30 +639,30 @@ appear.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>  <span class="dt">integer</span> <span class="dt">::</span> i</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="kw">do</span> i <span class="kw">=</span> <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">2</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>    <span class="co">! ... perform some computation ...</span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="kw">end do</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a>  <span class="dt">integer</span> <span class="dt">::</span> i</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a>  <span class="kw">do</span> i <span class="kw">=</span> <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">2</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a>    <span class="co">! ... perform some computation ...</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a>  <span class="kw">end do</span></span></code></pre>
 </div>
 <p>Formally, we have</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="kw">[do-</span>name:<span class="kw">]</span> <span class="kw">do</span> <span class="kw">[</span>loop<span class="kw">-</span>control<span class="kw">]</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>             <span class="kw">do-</span>block</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>	   <span class="kw">end do</span> <span class="kw">[do-</span>name<span class="kw">]</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a><span class="kw">[do-</span>name:<span class="kw">]</span> <span class="kw">do</span> <span class="kw">[</span>loop<span class="kw">-</span>control<span class="kw">]</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a>             <span class="kw">do-</span>block</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1" aria-label="code-block-5-3"></a>	   <span class="kw">end do</span> <span class="kw">[do-</span>name<span class="kw">]</span></span></code></pre>
 </div>
 <p>with <em>loop-control</em> of the form:</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>  <span class="kw">do-</span>variable <span class="kw">=</span> <span class="bu">int</span><span class="kw">-</span>expr<span class="kw">-</span>lower, <span class="bu">int</span><span class="kw">-</span>expr<span class="kw">-</span>upper <span class="kw">[</span>, <span class="bu">int</span><span class="kw">-</span>expr<span class="kw">-</span>stride<span class="kw">]</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a>  <span class="kw">do-</span>variable <span class="kw">=</span> <span class="bu">int</span><span class="kw">-</span>expr<span class="kw">-</span>lower, <span class="bu">int</span><span class="kw">-</span>expr<span class="kw">-</span>upper <span class="kw">[</span>, <span class="bu">int</span><span class="kw">-</span>expr<span class="kw">-</span>stride<span class="kw">]</span></span></code></pre>
 </div>
 <p>and where the number of iterations will be</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>  <span class="bu">max</span>(<span class="dv">0</span>, (<span class="bu">int</span><span class="kw">-</span>expr<span class="kw">-</span>upper <span class="kw">-</span> <span class="bu">int</span><span class="kw">-</span>expr<span class="kw">-</span>lower <span class="kw">+</span> <span class="bu">int</span><span class="kw">-</span>expr<span class="kw">-</span>stride)<span class="kw">/</span><span class="bu">int</span><span class="kw">-</span>expr<span class="kw">-</span>stride)</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a>  <span class="bu">max</span>(<span class="dv">0</span>, (<span class="bu">int</span><span class="kw">-</span>expr<span class="kw">-</span>upper <span class="kw">-</span> <span class="bu">int</span><span class="kw">-</span>expr<span class="kw">-</span>lower <span class="kw">+</span> <span class="bu">int</span><span class="kw">-</span>expr<span class="kw">-</span>stride)<span class="kw">/</span><span class="bu">int</span><span class="kw">-</span>expr<span class="kw">-</span>stride)</span></code></pre>
 </div>
 <p>in the absence of any subsequent control. The number of iterations
 may be zero. Any of the expressions may be negative. If the stride is
@@ -682,17 +682,17 @@ be zero.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>   <span class="kw">do</span> i <span class="kw">=</span> <span class="dv">1</span>, <span class="dv">10</span></span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="bu">     p</span>rint <span class="kw">*</span>, <span class="st">"i is  "</span>, i</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>   <span class="kw">end do</span></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>   <span class="kw">do</span> i <span class="kw">=</span> <span class="dv">1</span>, <span class="dv">10</span>, <span class="kw">-</span><span class="dv">2</span></span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="bu">     p</span>rint <span class="kw">*</span>, <span class="st">"i is "</span>, i</span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>   <span class="kw">end do</span></span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>   <span class="kw">do</span> i <span class="kw">=</span> <span class="dv">10</span>, <span class="dv">1</span>, <span class="kw">-</span><span class="dv">2</span></span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="bu">     p</span>rint <span class="kw">*</span>, <span class="st">"i is "</span>, i</span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>   <span class="kw">end do</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a>   <span class="kw">do</span> i <span class="kw">=</span> <span class="dv">1</span>, <span class="dv">10</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1" aria-label="code-block-8-2"></a><span class="bu">     p</span>rint <span class="kw">*</span>, <span class="st">"i is  "</span>, i</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1" aria-label="code-block-8-3"></a>   <span class="kw">end do</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1" aria-label="code-block-8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1" aria-label="code-block-8-5"></a>   <span class="kw">do</span> i <span class="kw">=</span> <span class="dv">1</span>, <span class="dv">10</span>, <span class="kw">-</span><span class="dv">2</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1" aria-label="code-block-8-6"></a><span class="bu">     p</span>rint <span class="kw">*</span>, <span class="st">"i is "</span>, i</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1" aria-label="code-block-8-7"></a>   <span class="kw">end do</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1" aria-label="code-block-8-8"></a></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1" aria-label="code-block-8-9"></a>   <span class="kw">do</span> i <span class="kw">=</span> <span class="dv">10</span>, <span class="dv">1</span>, <span class="kw">-</span><span class="dv">2</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1" aria-label="code-block-8-10"></a><span class="bu">     p</span>rint <span class="kw">*</span>, <span class="st">"i is "</span>, i</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1" aria-label="code-block-8-11"></a>   <span class="kw">end do</span></span></code></pre>
 </div>
 <p>You can confirm your answers by running <a href="../files/exercises/04-do-statements/example3.f90">example3.f90</a>.
 Note there is no way (cf. C <code>for</code>) to limit the scope of the
@@ -891,7 +891,7 @@ encountered.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -914,7 +914,7 @@ encountered.</li>
   "identifier": "https://welucas2.github.io/2026-02-18-MO-Fortran-intro/instructor/04-do-statements.html",
   "dateCreated": "2026-02-21",
   "dateModified": "2026-02-21",
-  "datePublished": "2026-04-14"
+  "datePublished": "2026-04-21"
 }
 
   </script><script>

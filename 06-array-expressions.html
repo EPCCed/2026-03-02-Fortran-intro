@@ -277,7 +277,7 @@
       </button>
     </div><!--/div.accordion-header-->
 
-    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#array-sections">Array sections</a></li>
 <li><a href="#array-expressions-and-assignments">Array expressions and assignments</a></li>
@@ -599,18 +599,18 @@ stride:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>  <span class="kw">[</span>subscript<span class="kw">]</span> : <span class="kw">[</span>subscript<span class="kw">]</span> <span class="kw">[</span>: stride<span class="kw">]</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a>  <span class="kw">[</span>subscript<span class="kw">]</span> : <span class="kw">[</span>subscript<span class="kw">]</span> <span class="kw">[</span>: stride<span class="kw">]</span></span></code></pre>
 </div>
 <p>Given a rank 1 array <code>a(:)</code>, some valid array sub-objects
 are:</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>  a         <span class="co">! the whole array</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  a(:)      <span class="co">! the whole array again</span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  a(<span class="dv">1</span>:<span class="dv">4</span>)    <span class="co">! array section [ a(1), a(2), a(3), a(4) ]</span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  a(:<span class="dv">4</span>)     <span class="co">! all elements up to and including a(4)</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  a(<span class="dv">2</span><span class="dt">::</span><span class="dv">2</span>)   <span class="co">! elements a(2), a(4), a(6), ...</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a>  a         <span class="co">! the whole array</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a>  a(:)      <span class="co">! the whole array again</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1" aria-label="code-block-2-3"></a>  a(<span class="dv">1</span>:<span class="dv">4</span>)    <span class="co">! array section [ a(1), a(2), a(3), a(4) ]</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1" aria-label="code-block-2-4"></a>  a(:<span class="dv">4</span>)     <span class="co">! all elements up to and including a(4)</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1" aria-label="code-block-2-5"></a>  a(<span class="dv">2</span><span class="dt">::</span><span class="dv">2</span>)   <span class="co">! elements a(2), a(4), a(6), ...</span></span></code></pre>
 </div>
 <p>If an array subscript is present, it must be valid; if the stride is
 present it may not be zero.</p>
@@ -620,14 +620,14 @@ arrays. For example:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>  <span class="dt">integer</span>, <span class="dt">dimension(4, 8)</span> <span class="dt">::</span> a1, a2</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="dt">integer</span>, <span class="dt">dimension(4)</span>    <span class="dt">::</span> b1</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  a1 <span class="kw">=</span> <span class="dv">0</span>                      <span class="co">! initialise all elements to zero</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  a2 <span class="kw">=</span> a1 <span class="kw">+</span> <span class="dv">1</span>                 <span class="co">! all elements of a2(:,:)</span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  a1 <span class="kw">=</span> <span class="dv">2</span><span class="kw">*</span>a1                   <span class="co">! multiplied element-wise</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>  b1 <span class="kw">=</span> a1(:, <span class="dv">1</span>)               <span class="co">! b1 set to first column of a1</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a>  <span class="dt">integer</span>, <span class="dt">dimension(4, 8)</span> <span class="dt">::</span> a1, a2</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a>  <span class="dt">integer</span>, <span class="dt">dimension(4)</span>    <span class="dt">::</span> b1</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1" aria-label="code-block-3-4"></a>  a1 <span class="kw">=</span> <span class="dv">0</span>                      <span class="co">! initialise all elements to zero</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1" aria-label="code-block-3-5"></a>  a2 <span class="kw">=</span> a1 <span class="kw">+</span> <span class="dv">1</span>                 <span class="co">! all elements of a2(:,:)</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1" aria-label="code-block-3-6"></a>  a1 <span class="kw">=</span> <span class="dv">2</span><span class="kw">*</span>a1                   <span class="co">! multiplied element-wise</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1" aria-label="code-block-3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1" aria-label="code-block-3-8"></a>  b1 <span class="kw">=</span> a1(:, <span class="dv">1</span>)               <span class="co">! b1 set to first column of a1</span></span></code></pre>
 </div>
 <p>Such expressions and assignments must take place between entities
 with the same shape (they are said to <em>conform</em>). A scalar
@@ -636,7 +636,7 @@ conforms with an array of any shape.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>  b1 <span class="kw">=</span> a1</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a>  b1 <span class="kw">=</span> a1</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="exercise-2-minutes">Exercise (2 minutes)<a class="anchor" aria-label="anchor" href="#exercise-2-minutes"></a></h3>
@@ -652,8 +652,8 @@ conforms with an array of any shape.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>  d <span class="kw">=</span> <span class="fl">1.0</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  e(:) <span class="kw">=</span> <span class="fl">1.0</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a>  d <span class="kw">=</span> <span class="fl">1.0</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a>  e(:) <span class="kw">=</span> <span class="fl">1.0</span></span></code></pre>
 </div>
 <p>Compile the accompanying program <a href="files/exercises/06-array-expressions/example1.f90">example1.f90</a>,
 check the compilation errors and improve the program.</p>
@@ -675,20 +675,20 @@ may spell out exactly what is going wrong. At line 13,</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>b1 <span class="kw">=</span> a1</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a>b1 <span class="kw">=</span> a1</span></code></pre>
 </div>
 <p><code>b1</code> is a rank-1 array; the rank-2 array <code>a1</code>
 cannot be used to assign values to it. Change it to</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>b1(:) <span class="kw">=</span> a1(:,<span class="dv">1</span>)</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a>b1(:) <span class="kw">=</span> a1(:,<span class="dv">1</span>)</span></code></pre>
 </div>
 <p>Then, the second issue is the assignment</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>b1(<span class="dv">1</span>:<span class="dv">4</span>) <span class="kw">=</span> a2(<span class="dv">1</span>, <span class="dv">4</span>:<span class="dv">4</span>)</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a>b1(<span class="dv">1</span>:<span class="dv">4</span>) <span class="kw">=</span> a2(<span class="dv">1</span>, <span class="dv">4</span>:<span class="dv">4</span>)</span></code></pre>
 </div>
 <p>as the section <code>a2(1, 4:4)</code> is an array of the incorrect
 size (note that <code>a2(1, 4)</code> would work as it becomes a scalar,
@@ -697,7 +697,7 @@ but wouldn’t set <code>b2</code> to the first half of the first row of
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>b1(<span class="dv">1</span>:<span class="dv">4</span>) <span class="kw">=</span> a2(<span class="dv">1</span>, <span class="dv">1</span>:<span class="dv">4</span>)</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb9-1"><a href="#cb9-1" tabindex="-1" aria-label="code-block-9-1"></a>b1(<span class="dv">1</span>:<span class="dv">4</span>) <span class="kw">=</span> a2(<span class="dv">1</span>, <span class="dv">1</span>:<span class="dv">4</span>)</span></code></pre>
 </div>
 </div>
 </div>
@@ -729,9 +729,9 @@ individual element of the argument. For example,</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>   <span class="dt">real</span>, <span class="dt">dimension(4)</span> <span class="dt">::</span> a, b</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>   ...</span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>   b(<span class="dv">1</span>:<span class="dv">4</span>) <span class="kw">=</span> <span class="bu">cos</span>(a(<span class="dv">1</span>:<span class="dv">4</span>))</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb10-1"><a href="#cb10-1" tabindex="-1" aria-label="code-block-10-1"></a>   <span class="dt">real</span>, <span class="dt">dimension(4)</span> <span class="dt">::</span> a, b</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1" aria-label="code-block-10-2"></a>   ...</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1" aria-label="code-block-10-3"></a>   b(<span class="dv">1</span>:<span class="dv">4</span>) <span class="kw">=</span> <span class="bu">cos</span>(a(<span class="dv">1</span>:<span class="dv">4</span>))</span></code></pre>
 </div>
 <p>will fill each element of <code>b</code> with the cosine of the
 corresponding element in <code>a</code>.</p>
@@ -741,9 +741,9 @@ on arrays, and usually return a scalar. Common reductions are</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>   a <span class="kw">=</span> <span class="fu">minval</span>( <span class="kw">[</span><span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span><span class="kw">]</span> )  <span class="co">! the minimum value from the array</span></span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>   b <span class="kw">=</span> <span class="fu">maxval</span>( <span class="kw">[</span><span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span><span class="kw">]</span> )  <span class="co">! the maximum value from the array</span></span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>   c <span class="kw">=</span> <span class="fu">sum</span>(array(:))              <span class="co">! the sum of all values in the array</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb11-1"><a href="#cb11-1" tabindex="-1" aria-label="code-block-11-1"></a>   a <span class="kw">=</span> <span class="fu">minval</span>( <span class="kw">[</span><span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span><span class="kw">]</span> )  <span class="co">! the minimum value from the array</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1" aria-label="code-block-11-2"></a>   b <span class="kw">=</span> <span class="fu">maxval</span>( <span class="kw">[</span><span class="fl">1.0</span>, <span class="fl">2.0</span>, <span class="fl">3.0</span><span class="kw">]</span> )  <span class="co">! the maximum value from the array</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1" aria-label="code-block-11-3"></a>   c <span class="kw">=</span> <span class="fu">sum</span>(array(:))              <span class="co">! the sum of all values in the array</span></span></code></pre>
 </div>
 </section><section><h2 class="section-heading" id="logical-expressions-and-masks">Logical expressions and masks<a class="anchor" aria-label="anchor" href="#logical-expressions-and-masks"></a></h2>
 <hr class="half-width"><p>There is an array equivalent of the <code>if</code> construct called
@@ -751,19 +751,19 @@ on arrays, and usually return a scalar. Common reductions are</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>  <span class="dt">real</span>, <span class="dt">dimension(20)</span> <span class="dt">::</span> a</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  ...</span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="kw">where</span> (a(:) <span class="op">&gt;=</span> <span class="fl">0.0</span>)</span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>    a(:) <span class="kw">=</span> <span class="bu">sqrt</span>(a(:))</span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>  <span class="kw">end where</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb12-1"><a href="#cb12-1" tabindex="-1" aria-label="code-block-12-1"></a>  <span class="dt">real</span>, <span class="dt">dimension(20)</span> <span class="dt">::</span> a</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1" aria-label="code-block-12-2"></a>  ...</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1" aria-label="code-block-12-3"></a>  <span class="kw">where</span> (a(:) <span class="op">&gt;=</span> <span class="fl">0.0</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1" aria-label="code-block-12-4"></a>    a(:) <span class="kw">=</span> <span class="bu">sqrt</span>(a(:))</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1" aria-label="code-block-12-5"></a>  <span class="kw">end where</span></span></code></pre>
 </div>
 <p>which performs the appropriate operations element-wise. Formally,</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>  <span class="kw">where</span> (array<span class="kw">-</span><span class="dt">logical</span><span class="kw">-</span>expr)</span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>    array<span class="kw">-</span>assignments</span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="kw">end where</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb13-1"><a href="#cb13-1" tabindex="-1" aria-label="code-block-13-1"></a>  <span class="kw">where</span> (array<span class="kw">-</span><span class="dt">logical</span><span class="kw">-</span>expr)</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1" aria-label="code-block-13-2"></a>    array<span class="kw">-</span>assignments</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1" aria-label="code-block-13-3"></a>  <span class="kw">end where</span></span></code></pre>
 </div>
 <p>in which all the <em>array-logical-expr</em> and
 <em>array-assignments</em> must have the same shape.</p>
@@ -774,20 +774,20 @@ statement:</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>   <span class="kw">if</span> (<span class="fu">any</span>(a(:) <span class="op">&lt;</span> <span class="fl">0.0</span>)) <span class="kw">then</span></span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="bu">     !</span> <span class="kw">do</span> something <span class="kw">if</span> at least one element of a(:) is negative</span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>   <span class="kw">end if</span></span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>   <span class="kw">if</span> (<span class="fu">all</span>(a(:) <span class="op">&lt;</span> <span class="fl">0.0</span>)) <span class="kw">then</span></span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="bu">     !</span> <span class="kw">do</span> something <span class="kw">if</span> every element of a(:) is negative</span>
-<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>   <span class="kw">end if</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb14-1"><a href="#cb14-1" tabindex="-1" aria-label="code-block-14-1"></a>   <span class="kw">if</span> (<span class="fu">any</span>(a(:) <span class="op">&lt;</span> <span class="fl">0.0</span>)) <span class="kw">then</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1" aria-label="code-block-14-2"></a><span class="bu">     !</span> <span class="kw">do</span> something <span class="kw">if</span> at least one element of a(:) is negative</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1" aria-label="code-block-14-3"></a>   <span class="kw">end if</span></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1" aria-label="code-block-14-4"></a>   <span class="kw">if</span> (<span class="fu">all</span>(a(:) <span class="op">&lt;</span> <span class="fl">0.0</span>)) <span class="kw">then</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1" aria-label="code-block-14-5"></a><span class="bu">     !</span> <span class="kw">do</span> something <span class="kw">if</span> every element of a(:) is negative</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1" aria-label="code-block-14-6"></a>   <span class="kw">end if</span></span></code></pre>
 </div>
 <p>Some intrinsic functions have an optional mask argument which can be
 used to restrict the operations to certain elements, e.g.,</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>  b <span class="kw">=</span> <span class="bu">min</span>(array(:), mask <span class="kw">=</span> (array(:) <span class="op">&gt;</span> <span class="fl">0.0</span>))     <span class="co">! minimum of positive value</span></span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>  n <span class="kw">=</span> <span class="fu">count</span>(array(:), mask <span class="kw">=</span> (array(:) <span class="op">&gt;</span> <span class="fl">0.0</span>))   <span class="co">! count the number of positive values</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb15-1"><a href="#cb15-1" tabindex="-1" aria-label="code-block-15-1"></a>  b <span class="kw">=</span> <span class="bu">min</span>(array(:), mask <span class="kw">=</span> (array(:) <span class="op">&gt;</span> <span class="fl">0.0</span>))     <span class="co">! minimum of positive value</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1" aria-label="code-block-15-2"></a>  n <span class="kw">=</span> <span class="fu">count</span>(array(:), mask <span class="kw">=</span> (array(:) <span class="op">&gt;</span> <span class="fl">0.0</span>))   <span class="co">! count the number of positive values</span></span></code></pre>
 </div>
 <p>These may be useful in certain situations.</p>
 <div class="section level3">
@@ -901,7 +901,7 @@ be useful in directing the logical flow of a program.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -924,7 +924,7 @@ be useful in directing the logical flow of a program.</li>
   "identifier": "https://welucas2.github.io/2026-02-18-MO-Fortran-intro/06-array-expressions.html",
   "dateCreated": "2026-02-21",
   "dateModified": "2026-02-21",
-  "datePublished": "2026-04-14"
+  "datePublished": "2026-04-21"
 }
 
   </script><script>

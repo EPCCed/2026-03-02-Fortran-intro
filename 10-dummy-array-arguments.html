@@ -322,7 +322,7 @@
       </button>
     </div><!--/div.accordion-header-->
 
-    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#array-dummy-arguments">Array dummy arguments</a></li>
 <li><a href="#optional-arguments">Optional arguments</a></li>
@@ -606,11 +606,11 @@ definition, e.g.,</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>  <span class="kw">subroutine</span> array_action1(nmax, a)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>    <span class="dt">integer</span>, <span class="dt">intent(in)</span>                    <span class="dt">::</span> nmax</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>    <span class="dt">real</span>, <span class="dt">dimension(1:nmax)</span>, <span class="dt">intent(inout)</span> <span class="dt">::</span> a</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>    ...</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="kw">end subroutine</span> array_action1</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a>  <span class="kw">subroutine</span> array_action1(nmax, a)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a>    <span class="dt">integer</span>, <span class="dt">intent(in)</span>                    <span class="dt">::</span> nmax</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a>    <span class="dt">real</span>, <span class="dt">dimension(1:nmax)</span>, <span class="dt">intent(inout)</span> <span class="dt">::</span> a</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1" aria-label="code-block-1-4"></a>    ...</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1" aria-label="code-block-1-5"></a>  <span class="kw">end subroutine</span> array_action1</span></code></pre>
 </div>
 <p>and similarly for arrays of higher rank. As before, if the lower
 bound of the array is unspecified, it takes on the default value of
@@ -623,11 +623,11 @@ in the array itself, e.g.,</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>  <span class="kw">subroutine</span> array_action2(a, b)</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>    <span class="dt">real</span>, <span class="dt">dimension(:,:)</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> a</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>    <span class="dt">real</span>, <span class="dt">dimension(:,:)</span>, <span class="dt">intent(inout)</span> <span class="dt">::</span> b</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>    ...</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="kw">end subroutine</span> array_action2</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a>  <span class="kw">subroutine</span> array_action2(a, b)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a>    <span class="dt">real</span>, <span class="dt">dimension(:,:)</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> a</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1" aria-label="code-block-2-3"></a>    <span class="dt">real</span>, <span class="dt">dimension(:,:)</span>, <span class="dt">intent(inout)</span> <span class="dt">::</span> b</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1" aria-label="code-block-2-4"></a>    ...</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1" aria-label="code-block-2-5"></a>  <span class="kw">end subroutine</span> array_action2</span></code></pre>
 </div>
 <p>Note that the rank is always explicit.</p>
 <p>There are pros and cons to this: it is slightly more concise and
@@ -663,11 +663,11 @@ the corresponding rank or dimension e.g.,</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>  <span class="dt">real</span>, <span class="dt">dimension(:,:)</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> a</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="dt">integer</span> <span class="dt">::</span> lb1, lb2</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  lb1 <span class="kw">=</span> <span class="fu">lbound</span>(a, <span class="bu">dim</span> <span class="kw">=</span> <span class="dv">1</span>)  <span class="co">! lower bound in first dimension</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  lb2 <span class="kw">=</span> <span class="fu">ubound</span>(a, <span class="bu">dim</span> <span class="kw">=</span> <span class="dv">2</span>)  <span class="co">! upper bound in second dimension</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a>  <span class="dt">real</span>, <span class="dt">dimension(:,:)</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> a</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a>  <span class="dt">integer</span> <span class="dt">::</span> lb1, lb2</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1" aria-label="code-block-3-4"></a>  lb1 <span class="kw">=</span> <span class="fu">lbound</span>(a, <span class="bu">dim</span> <span class="kw">=</span> <span class="dv">1</span>)  <span class="co">! lower bound in first dimension</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1" aria-label="code-block-3-5"></a>  lb2 <span class="kw">=</span> <span class="fu">ubound</span>(a, <span class="bu">dim</span> <span class="kw">=</span> <span class="dv">2</span>)  <span class="co">! upper bound in second dimension</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -697,14 +697,14 @@ stack. These are usually related to temporary workspace, e.g.,</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="kw">subroutine</span> array_swap1(a, b)</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="dt">integer</span>, <span class="dt">dimension(:)</span>, <span class="dt">intent(inout)</span> <span class="dt">::</span> a, b</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="dt">integer</span>, <span class="dt">dimension(size(a))</span>          <span class="dt">::</span> tmp</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  tmp(:) <span class="kw">=</span> a(:)</span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  a(:)   <span class="kw">=</span> b(:)</span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>  b(:)   <span class="kw">=</span> tmp(:)</span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="kw">end subroutine</span> array_swap1</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="kw">subroutine</span> array_swap1(a, b)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a>  <span class="dt">integer</span>, <span class="dt">dimension(:)</span>, <span class="dt">intent(inout)</span> <span class="dt">::</span> a, b</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a>  <span class="dt">integer</span>, <span class="dt">dimension(size(a))</span>          <span class="dt">::</span> tmp</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a>  tmp(:) <span class="kw">=</span> a(:)</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1" aria-label="code-block-4-6"></a>  a(:)   <span class="kw">=</span> b(:)</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1" aria-label="code-block-4-7"></a>  b(:)   <span class="kw">=</span> tmp(:)</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1" aria-label="code-block-4-8"></a><span class="kw">end subroutine</span> array_swap1</span></code></pre>
 </div>
 <p>In this example, the same effect could have been achieved using a
 loop and a temporary scalar.</p>
@@ -716,14 +716,14 @@ an intent and <code>allocatable</code> attribute.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>  <span class="kw">subroutine</span> my_storage(lb, ub, a)</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    <span class="dt">integer</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> lb, ub</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>    <span class="dt">integer</span>, <span class="dt">dimension(:)</span>, <span class="dt">allocatable</span>, <span class="dt">intent(out)</span> <span class="dt">::</span> a</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>    <span class="kw">allocate</span>(a(lb:ub))</span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>  <span class="kw">end subroutine</span> my_storage</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a>  <span class="kw">subroutine</span> my_storage(lb, ub, a)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1" aria-label="code-block-5-3"></a>    <span class="dt">integer</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> lb, ub</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1" aria-label="code-block-5-4"></a>    <span class="dt">integer</span>, <span class="dt">dimension(:)</span>, <span class="dt">allocatable</span>, <span class="dt">intent(out)</span> <span class="dt">::</span> a</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1" aria-label="code-block-5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1" aria-label="code-block-5-6"></a>    <span class="kw">allocate</span>(a(lb:ub))</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1" aria-label="code-block-5-7"></a></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1" aria-label="code-block-5-8"></a>  <span class="kw">end subroutine</span> my_storage</span></code></pre>
 </div>
 <p>There are a number of conditions to such usage.</p>
 <ol style="list-style-type: decimal"><li>The corresponding actual argument must also be allocatable (and have
@@ -746,12 +746,12 @@ dummy arguments. Such procedures may be constructed with the
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>  <span class="kw">subroutine</span> do_something(a, flag, ierr)</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>    <span class="dt">integer</span>, <span class="dt">intent(in)</span>            <span class="dt">::</span> a</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>    <span class="dt">logical</span>, <span class="dt">intent(in)</span>,  <span class="dt">optional</span> <span class="dt">::</span> flag</span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>    <span class="dt">integer</span>, <span class="dt">intent(out)</span>, <span class="dt">optional</span> <span class="dt">::</span> ierr</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  <span class="kw">end subroutine</span> do_something</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a>  <span class="kw">subroutine</span> do_something(a, flag, ierr)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a>    <span class="dt">integer</span>, <span class="dt">intent(in)</span>            <span class="dt">::</span> a</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1" aria-label="code-block-6-3"></a>    <span class="dt">logical</span>, <span class="dt">intent(in)</span>,  <span class="dt">optional</span> <span class="dt">::</span> flag</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1" aria-label="code-block-6-4"></a>    <span class="dt">integer</span>, <span class="dt">intent(out)</span>, <span class="dt">optional</span> <span class="dt">::</span> ierr</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1" aria-label="code-block-6-5"></a></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1" aria-label="code-block-6-6"></a>  <span class="kw">end subroutine</span> do_something</span></code></pre>
 </div>
 <p>Any operations on such optional arguments should guard against the
 possibility that the corresponding actual argument was not present using
@@ -759,8 +759,8 @@ the intrinsic function <code>present()</code>. E.g.,</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>  local_flag <span class="kw">=</span> some_default_value</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="kw">if</span> (<span class="fu">present</span>(flag)) local_flag <span class="kw">=</span> flag</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a>  local_flag <span class="kw">=</span> some_default_value</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1" aria-label="code-block-7-2"></a>  <span class="kw">if</span> (<span class="fu">present</span>(flag)) local_flag <span class="kw">=</span> flag</span></code></pre>
 </div>
 <p>Any attempt to reference a missing optional argument will generate an
 error.</p>
@@ -776,7 +776,7 @@ using the subroutine defined above:,</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>  <span class="kw">call</span> do_something(a, ierr <span class="kw">=</span> my_error_var)</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a>  <span class="kw">call</span> do_something(a, ierr <span class="kw">=</span> my_error_var)</span></code></pre>
 </div>
 <p>Here, <code>a</code> is appearing as a conventional positional
 argument, while a keyword argument is used to select the appropriate
@@ -801,7 +801,7 @@ to provide a module subroutine such as</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>  <span class="kw">subroutine</span> tridiagonal_solve(b, a, c, rhs, x)</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb9-1"><a href="#cb9-1" tabindex="-1" aria-label="code-block-9-1"></a>  <span class="kw">subroutine</span> tridiagonal_solve(b, a, c, rhs, x)</span></code></pre>
 </div>
 <p>where <code>b</code>, <code>a</code>, and <code>c</code> are arrays
 of the relevant extent to represent the diagonal elements, the lower
@@ -902,7 +902,7 @@ keyword argument.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -925,7 +925,7 @@ keyword argument.</li>
   "identifier": "https://welucas2.github.io/2026-02-18-MO-Fortran-intro/10-dummy-array-arguments.html",
   "dateCreated": "2026-02-21",
   "dateModified": "2026-02-21",
-  "datePublished": "2026-04-14"
+  "datePublished": "2026-04-21"
 }
 
   </script><script>

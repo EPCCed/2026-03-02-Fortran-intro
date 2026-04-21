@@ -241,7 +241,7 @@
       </button>
     </div><!--/div.accordion-header-->
 
-    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#logical-variables">Logical variables</a></li>
 <li><a href="#logic-and-flow-of-control">Logic and flow of control</a></li>
@@ -602,8 +602,8 @@ there are two relevant literal values, illustrated here:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>  <span class="dt">logical</span> <span class="dt">::</span> switch0 <span class="kw">=</span> <span class="cn">.false.</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="dt">logical</span> <span class="dt">::</span> switch1 <span class="kw">=</span> <span class="cn">.true.</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a>  <span class="dt">logical</span> <span class="dt">::</span> switch0 <span class="kw">=</span> <span class="cn">.false.</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a>  <span class="dt">logical</span> <span class="dt">::</span> switch1 <span class="kw">=</span> <span class="cn">.true.</span></span></code></pre>
 </div>
 <p>It is possible to specify a kind type parameter for logical kinds,
 but you don’t see it very often. The default <code>logical</code> kind
@@ -616,7 +616,7 @@ e.g.,</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>  q <span class="kw">=</span> i <span class="op">.or.</span> j <span class="op">.and.</span> <span class="op">.not.</span> k    <span class="co">! evaluated as i .or. (j .and. (.not. k))</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a>  q <span class="kw">=</span> i <span class="op">.or.</span> j <span class="op">.and.</span> <span class="op">.not.</span> k    <span class="co">! evaluated as i .or. (j .and. (.not. k))</span></span></code></pre>
 </div>
 <p>Again, use parentheses to avoid ambiguity, or to add clarity.</p>
 <p>Remember that <code>.or.</code> evaluates to <code>.true.</code> if
@@ -689,13 +689,13 @@ formally:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="kw">[if-</span>name:<span class="kw">]</span>  <span class="kw">if</span> (<span class="dt">logical</span><span class="kw">-</span>expression) <span class="kw">then</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>              block</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>            <span class="kw">[</span> <span class="kw">else if</span> (<span class="dt">logical</span><span class="kw">-</span>expression) <span class="kw">then</span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>              block <span class="kw">]</span> ...</span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>            <span class="kw">[</span> <span class="kw">else</span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>              block <span class="kw">]</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>            <span class="kw">end if</span> <span class="kw">[if-</span>name<span class="kw">]</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="kw">[if-</span>name:<span class="kw">]</span>  <span class="kw">if</span> (<span class="dt">logical</span><span class="kw">-</span>expression) <span class="kw">then</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a>              block</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a>            <span class="kw">[</span> <span class="kw">else if</span> (<span class="dt">logical</span><span class="kw">-</span>expression) <span class="kw">then</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1" aria-label="code-block-3-4"></a>              block <span class="kw">]</span> ...</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1" aria-label="code-block-3-5"></a>            <span class="kw">[</span> <span class="kw">else</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1" aria-label="code-block-3-6"></a>              block <span class="kw">]</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1" aria-label="code-block-3-7"></a>            <span class="kw">end if</span> <span class="kw">[if-</span>name<span class="kw">]</span></span></code></pre>
 </div>
 <p>There may be zero or more <code>else if</code> blocks, but at most
 one <code>else</code> block. At most one block is executed. For
@@ -703,20 +703,20 @@ example:</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>  <span class="kw">if</span> (i <span class="op">&lt;</span> j) <span class="kw">then</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>    <span class="fu">print</span> <span class="kw">*</span>, <span class="st">"The smaller is: i "</span>, i</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="kw">else if</span> (i <span class="op">&gt;</span> j) <span class="kw">then</span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>    <span class="fu">print</span> <span class="kw">*</span>, <span class="st">"The larger is:  i "</span>, i</span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="kw">else</span></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>    <span class="fu">print</span> <span class="kw">*</span>, <span class="st">"i,j are the same: "</span>, i</span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>  <span class="kw">end if</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a>  <span class="kw">if</span> (i <span class="op">&lt;</span> j) <span class="kw">then</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a>    <span class="fu">print</span> <span class="kw">*</span>, <span class="st">"The smaller is: i "</span>, i</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a>  <span class="kw">else if</span> (i <span class="op">&gt;</span> j) <span class="kw">then</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a>    <span class="fu">print</span> <span class="kw">*</span>, <span class="st">"The larger is:  i "</span>, i</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a>  <span class="kw">else</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1" aria-label="code-block-4-6"></a>    <span class="fu">print</span> <span class="kw">*</span>, <span class="st">"i,j are the same: "</span>, i</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1" aria-label="code-block-4-7"></a>  <span class="kw">end if</span></span></code></pre>
 </div>
 <p>A single clause <code>if</code> statement is also available, for
 example:</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>  <span class="kw">if</span> (a <span class="op">&gt;=</span> <span class="fl">0.0</span>) b <span class="kw">=</span> <span class="bu">sqrt</span>(a)</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a>  <span class="kw">if</span> (a <span class="op">&gt;=</span> <span class="fl">0.0</span>) b <span class="kw">=</span> <span class="bu">sqrt</span>(a)</span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -741,7 +741,7 @@ table above?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>You should be able to compile the code and run it to obtain the
 output:</p>
@@ -756,8 +756,8 @@ output:</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>  condition1 <span class="kw">=</span> (i <span class="op">.lt.</span> j)</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  condition2 <span class="kw">=</span> (i <span class="op">.gt.</span> j)</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a>  condition1 <span class="kw">=</span> (i <span class="op">.lt.</span> j)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1" aria-label="code-block-7-2"></a>  condition2 <span class="kw">=</span> (i <span class="op">.gt.</span> j)</span></code></pre>
 </div>
 </div>
 </div>
@@ -776,9 +776,9 @@ with the <code>end if</code>.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>highly_nested_if_construct: <span class="kw">if</span> (a <span class="op">&lt;</span> b) <span class="kw">then</span></span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>                              <span class="co">! ... structured block ...</span></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>                            <span class="kw">end if</span> highly_nested_if_construct</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a>highly_nested_if_construct: <span class="kw">if</span> (a <span class="op">&lt;</span> b) <span class="kw">then</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1" aria-label="code-block-8-2"></a>                              <span class="co">! ... structured block ...</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1" aria-label="code-block-8-3"></a>                            <span class="kw">end if</span> highly_nested_if_construct</span></code></pre>
 </div>
 <p>As a matter of style, a leading name can be obtrusive, so one can put
 it on a separate line using the continuation character
@@ -786,10 +786,10 @@ it on a separate line using the continuation character
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>outer_if: <span class="kw">&amp;</span></span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="kw">if</span> (a <span class="op">&lt;</span> b) <span class="kw">then</span></span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="bu">     !</span> ... structured block ...</span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="kw">endif</span> outer_if</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb9-1"><a href="#cb9-1" tabindex="-1" aria-label="code-block-9-1"></a>outer_if: <span class="kw">&amp;</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1" aria-label="code-block-9-2"></a>  <span class="kw">if</span> (a <span class="op">&lt;</span> b) <span class="kw">then</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1" aria-label="code-block-9-3"></a><span class="bu">     !</span> ... structured block ...</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1" aria-label="code-block-9-4"></a>  <span class="kw">endif</span> outer_if</span></code></pre>
 </div>
 <p>The standard maximum line length in Fortran is 132 characters. Longer
 lines can be broken with the continuation character <code>&amp;</code>
@@ -807,12 +807,12 @@ actions conditional on a range or set of distinct values. Formally,</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="kw">[case-</span>name:<span class="kw">]</span>  <span class="kw">select case</span> (<span class="kw">case-</span>expression)</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>                <span class="kw">[</span> <span class="kw">case</span> (<span class="kw">case-</span>value<span class="kw">-</span><span class="fu">range</span><span class="kw">-</span>list)</span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>		    block <span class="kw">]</span> ...</span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>		<span class="kw">[</span> <span class="kw">case default</span></span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>		    block <span class="kw">]</span></span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>              <span class="kw">end select</span> <span class="kw">[case-</span>name<span class="kw">]</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb10-1"><a href="#cb10-1" tabindex="-1" aria-label="code-block-10-1"></a><span class="kw">[case-</span>name:<span class="kw">]</span>  <span class="kw">select case</span> (<span class="kw">case-</span>expression)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1" aria-label="code-block-10-2"></a>                <span class="kw">[</span> <span class="kw">case</span> (<span class="kw">case-</span>value<span class="kw">-</span><span class="fu">range</span><span class="kw">-</span>list)</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1" aria-label="code-block-10-3"></a>		    block <span class="kw">]</span> ...</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1" aria-label="code-block-10-4"></a>		<span class="kw">[</span> <span class="kw">case default</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1" aria-label="code-block-10-5"></a>		    block <span class="kw">]</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1" aria-label="code-block-10-6"></a>              <span class="kw">end select</span> <span class="kw">[case-</span>name<span class="kw">]</span></span></code></pre>
 </div>
 <p>The <em>case-expression</em> must be a scalar integer, logical, or
 character expression. The <em>case-value-range-list</em> is a
@@ -821,18 +821,18 @@ comma-separated list of either individual values, or ranges.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>   <span class="dt">integer</span> <span class="dt">::</span> mycard <span class="kw">=</span> <span class="dv">1</span>         <span class="co">! Playing cards 1--13</span></span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>   <span class="kw">select case</span> (mycard)</span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="bu">     c</span>ase (<span class="dv">1</span>)</span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>       <span class="co">! Action for ace ...</span></span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="bu">     c</span>ase (<span class="dv">2</span>:<span class="dv">10</span>)</span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>       <span class="co">! Action for other card ...</span></span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="bu">     c</span>ase (<span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>)</span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>       <span class="co">! Court card ...</span></span>
-<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="bu">     c</span>ase default</span>
-<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a>       <span class="co">! error...?</span></span>
-<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>   <span class="kw">end select</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb11-1"><a href="#cb11-1" tabindex="-1" aria-label="code-block-11-1"></a>   <span class="dt">integer</span> <span class="dt">::</span> mycard <span class="kw">=</span> <span class="dv">1</span>         <span class="co">! Playing cards 1--13</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1" aria-label="code-block-11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1" aria-label="code-block-11-3"></a>   <span class="kw">select case</span> (mycard)</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1" aria-label="code-block-11-4"></a><span class="bu">     c</span>ase (<span class="dv">1</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1" aria-label="code-block-11-5"></a>       <span class="co">! Action for ace ...</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1" aria-label="code-block-11-6"></a><span class="bu">     c</span>ase (<span class="dv">2</span>:<span class="dv">10</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1" aria-label="code-block-11-7"></a>       <span class="co">! Action for other card ...</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1" aria-label="code-block-11-8"></a><span class="bu">     c</span>ase (<span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1" aria-label="code-block-11-9"></a>       <span class="co">! Court card ...</span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1" aria-label="code-block-11-10"></a><span class="bu">     c</span>ase default</span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1" aria-label="code-block-11-11"></a>       <span class="co">! error...?</span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1" aria-label="code-block-11-12"></a>   <span class="kw">end select</span></span></code></pre>
 </div>
 <p>A range may be open-ended (e.g., <code>2:</code> or
 <code>:10</code>). Note there is no break-like statement as in the C
@@ -844,14 +844,14 @@ are:</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="kw">program</span> example2</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="kw">implicit</span> <span class="kw">none</span></span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>  <span class="dt">character (len = *)</span>, <span class="dt">parameter</span> <span class="dt">::</span> string1 <span class="kw">=</span> <span class="st">"don't"</span>   <span class="co">! 5 characters</span></span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>  <span class="dt">character (len = 5)</span>            <span class="dt">::</span> string2 <span class="kw">=</span> <span class="st">"Don""t"</span>  <span class="co">! 5 characters</span></span>
-<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>  <span class="dt">character (len = 6)</span>            <span class="dt">::</span> string3 <span class="kw">=</span> <span class="st">'don''t'</span>  <span class="co">! 5 characters + blank</span></span>
-<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a></span>
-<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="kw">end program</span> example2</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb12-1"><a href="#cb12-1" tabindex="-1" aria-label="code-block-12-1"></a><span class="kw">program</span> example2</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1" aria-label="code-block-12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1" aria-label="code-block-12-3"></a>  <span class="kw">implicit</span> <span class="kw">none</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1" aria-label="code-block-12-4"></a>  <span class="dt">character (len = *)</span>, <span class="dt">parameter</span> <span class="dt">::</span> string1 <span class="kw">=</span> <span class="st">"don't"</span>   <span class="co">! 5 characters</span></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1" aria-label="code-block-12-5"></a>  <span class="dt">character (len = 5)</span>            <span class="dt">::</span> string2 <span class="kw">=</span> <span class="st">"Don""t"</span>  <span class="co">! 5 characters</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1" aria-label="code-block-12-6"></a>  <span class="dt">character (len = 6)</span>            <span class="dt">::</span> string3 <span class="kw">=</span> <span class="st">'don''t'</span>  <span class="co">! 5 characters + blank</span></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1" aria-label="code-block-12-7"></a></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1" aria-label="code-block-12-8"></a><span class="kw">end program</span> example2</span></code></pre>
 </div>
 <p>The implementation must provide at least one type of character
 storage, with the default kind being <code>kind('A')</code>. In
@@ -886,7 +886,7 @@ the <code>len</code> specifications to be too short?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>Without modifications, the code should produce the following
 output:</p>
@@ -904,7 +904,7 @@ output:</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>  <span class="dt">character (len = 2)</span>            <span class="dt">::</span> string3 <span class="kw">=</span> <span class="st">'don''t'</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb14-1"><a href="#cb14-1" tabindex="-1" aria-label="code-block-14-1"></a>  <span class="dt">character (len = 2)</span>            <span class="dt">::</span> string3 <span class="kw">=</span> <span class="st">'don''t'</span></span></code></pre>
 </div>
 <p>then the variable will truncate at that length:</p>
 <div class="codewrapper">
@@ -945,7 +945,7 @@ provides some instructions.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>A solution to this exercise appears as a template for the <a href="files/exercises/06-array-expressions/exercise1.f90">first
 exercise</a> in the <a href="06-array-expressions.html">episode on array
@@ -1007,7 +1007,7 @@ operations used in conjunction with <code>if</code> and
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -1030,7 +1030,7 @@ operations used in conjunction with <code>if</code> and
   "identifier": "https://welucas2.github.io/2026-02-18-MO-Fortran-intro/03-if-statements.html",
   "dateCreated": "2026-02-21",
   "dateModified": "2026-02-21",
-  "datePublished": "2026-04-14"
+  "datePublished": "2026-04-21"
 }
 
   </script><script>

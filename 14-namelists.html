@@ -376,7 +376,7 @@
       </button>
     </div><!--/div.accordion-header-->
 
-    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#fortran-namelists">Fortran namelists</a></li>
 <li><a href="#the-namelist-specification">The namelist specification</a></li>
@@ -603,7 +603,7 @@ form</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>  <span class="kw">namelist</span> <span class="kw">/namelist-</span>group<span class="kw">-</span>name<span class="kw">/</span> variable<span class="kw">-</span>name<span class="kw">-</span>list</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a>  <span class="kw">namelist</span> <span class="kw">/namelist-</span>group<span class="kw">-</span>name<span class="kw">/</span> variable<span class="kw">-</span>name<span class="kw">-</span>list</span></code></pre>
 </div>
 <p>where the <code>namelist-group-name</code> is surrounded by forward
 slashes <code>/</code> and the <code>variable-name-list</code> is a
@@ -611,8 +611,8 @@ comma separated list of variables, e.g.:</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>  <span class="dt">integer</span> <span class="dt">::</span> a, b, c</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="kw">namelist</span> <span class="kw">/</span>ints<span class="kw">/</span> a, b, c</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a>  <span class="dt">integer</span> <span class="dt">::</span> a, b, c</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a>  <span class="kw">namelist</span> <span class="kw">/</span>ints<span class="kw">/</span> a, b, c</span></code></pre>
 </div>
 </section><section><h2 class="section-heading" id="namelists-in-a-file">Namelists in a file<a class="anchor" aria-label="anchor" href="#namelists-in-a-file"></a></h2>
 <hr class="half-width"><p>A namelist file is plain text and may contain one or more namelists.
@@ -622,22 +622,22 @@ body of the <code>namelist</code>, e.g. the file may contain</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="kw">&amp;</span>ints</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>a <span class="kw">=</span> <span class="dv">1</span></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>b <span class="kw">=</span> <span class="dv">2</span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">c = 3</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="kw">/</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="kw">&amp;</span>ints</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a>a <span class="kw">=</span> <span class="dv">1</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a>b <span class="kw">=</span> <span class="dv">2</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1" aria-label="code-block-3-4"></a><span class="co">c = 3</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1" aria-label="code-block-3-5"></a><span class="kw">/</span></span></code></pre>
 </div>
 <p>The ordering of variables in the namelist does not matter, so the
 previous example could also have been written as</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="kw">&amp;</span>ints</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">c = 3</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>a <span class="kw">=</span> <span class="dv">1</span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>b <span class="kw">=</span> <span class="dv">2</span></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="kw">/</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="kw">&amp;</span>ints</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a><span class="co">c = 3</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a>a <span class="kw">=</span> <span class="dv">1</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a>b <span class="kw">=</span> <span class="dv">2</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a><span class="kw">/</span></span></code></pre>
 </div>
 </section><section><h2 class="section-heading" id="reading-a-namelist">Reading a namelist<a class="anchor" aria-label="anchor" href="#reading-a-namelist"></a></h2>
 <hr class="half-width"><p>A common usecase for namelists is to specify parameters for a program
@@ -646,11 +646,11 @@ from a namelist called <code>run</code> as follows:</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="kw">&amp;</span>run</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>name <span class="kw">=</span> <span class="st">"TGV"</span> <span class="co">! Case name</span></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>nsteps <span class="kw">=</span> <span class="dv">100</span> <span class="co">! Number of timesteps</span></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>dt <span class="kw">=</span> <span class="fl">0.1</span>     <span class="co">! Timestep</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="kw">/</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a><span class="kw">&amp;</span>run</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a>name <span class="kw">=</span> <span class="st">"TGV"</span> <span class="co">! Case name</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1" aria-label="code-block-5-3"></a>nsteps <span class="kw">=</span> <span class="dv">100</span> <span class="co">! Number of timesteps</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1" aria-label="code-block-5-4"></a>dt <span class="kw">=</span> <span class="fl">0.1</span>     <span class="co">! Timestep</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1" aria-label="code-block-5-5"></a><span class="kw">/</span></span></code></pre>
 </div>
 <p>As you can see, an extra nice feature of namelists is their support
 for comments using the same <code>!</code> character as in Fortran
@@ -662,16 +662,16 @@ we might do the following:</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>  <span class="dt">integer</span> <span class="dt">::</span> myunit</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="dt">character(len=:)</span> <span class="dt">::</span> name</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="dt">integer</span> <span class="dt">::</span> nsteps</span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="dt">real</span> <span class="dt">::</span> dt</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  <span class="kw">namelist</span> <span class="kw">/</span>run<span class="kw">/</span> name, nsteps, dt</span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>  <span class="fu">open(</span>newunit <span class="kw">=</span> myunit, <span class="fu">file</span> <span class="kw">=</span> <span class="st">'config'</span>, <span class="fu">action</span> <span class="kw">=</span> <span class="st">'read'</span>, <span class="fu">status</span> <span class="kw">=</span> <span class="st">'old'</span><span class="fu">)</span></span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>  <span class="fu">read(</span>myunit, run<span class="fu">)</span></span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>  <span class="fu">close(</span>myunit<span class="fu">)</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a>  <span class="dt">integer</span> <span class="dt">::</span> myunit</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a>  <span class="dt">character(len=:)</span> <span class="dt">::</span> name</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1" aria-label="code-block-6-3"></a>  <span class="dt">integer</span> <span class="dt">::</span> nsteps</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1" aria-label="code-block-6-4"></a>  <span class="dt">real</span> <span class="dt">::</span> dt</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1" aria-label="code-block-6-5"></a></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1" aria-label="code-block-6-6"></a>  <span class="kw">namelist</span> <span class="kw">/</span>run<span class="kw">/</span> name, nsteps, dt</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1" aria-label="code-block-6-7"></a></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1" aria-label="code-block-6-8"></a>  <span class="fu">open(</span>newunit <span class="kw">=</span> myunit, <span class="fu">file</span> <span class="kw">=</span> <span class="st">'config'</span>, <span class="fu">action</span> <span class="kw">=</span> <span class="st">'read'</span>, <span class="fu">status</span> <span class="kw">=</span> <span class="st">'old'</span><span class="fu">)</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1" aria-label="code-block-6-9"></a>  <span class="fu">read(</span>myunit, run<span class="fu">)</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1" aria-label="code-block-6-10"></a>  <span class="fu">close(</span>myunit<span class="fu">)</span></span></code></pre>
 </div>
 <p>Note that any variables not set in the <code>namelist</code> file
 will retain their initial values.</p>
@@ -722,17 +722,17 @@ to specify some numerical schemes for the simulation, e.g. adding the
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="kw">&amp;</span>run</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>name <span class="kw">=</span> <span class="st">"TGV"</span> <span class="co">! Case name</span></span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>nsteps <span class="kw">=</span> <span class="dv">100</span> <span class="co">! Number of timesteps</span></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>dt <span class="kw">=</span> <span class="fl">0.1</span>     <span class="co">! Timestep</span></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="kw">/</span></span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="kw">&amp;</span>schemes</span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>advection <span class="kw">=</span> <span class="st">"upwind"</span>  <span class="co">! Advection scheme</span></span>
-<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>diffusion <span class="kw">=</span> <span class="st">"central"</span> <span class="co">! Diffusion scheme</span></span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>transient <span class="kw">=</span> <span class="st">"RK3"</span>     <span class="co">! Timestepping scheme</span></span>
-<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="kw">/</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a><span class="kw">&amp;</span>run</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1" aria-label="code-block-7-2"></a>name <span class="kw">=</span> <span class="st">"TGV"</span> <span class="co">! Case name</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1" aria-label="code-block-7-3"></a>nsteps <span class="kw">=</span> <span class="dv">100</span> <span class="co">! Number of timesteps</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1" aria-label="code-block-7-4"></a>dt <span class="kw">=</span> <span class="fl">0.1</span>     <span class="co">! Timestep</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1" aria-label="code-block-7-5"></a><span class="kw">/</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1" aria-label="code-block-7-6"></a></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1" aria-label="code-block-7-7"></a><span class="kw">&amp;</span>schemes</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1" aria-label="code-block-7-8"></a>advection <span class="kw">=</span> <span class="st">"upwind"</span>  <span class="co">! Advection scheme</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1" aria-label="code-block-7-9"></a>diffusion <span class="kw">=</span> <span class="st">"central"</span> <span class="co">! Diffusion scheme</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1" aria-label="code-block-7-10"></a>transient <span class="kw">=</span> <span class="st">"RK3"</span>     <span class="co">! Timestepping scheme</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1" aria-label="code-block-7-11"></a><span class="kw">/</span></span></code></pre>
 </div>
 <p>We can read the values for each of these namelists as outlined
 previously, but note, however that the order of the namelists themselves
@@ -789,28 +789,28 @@ or other output device, passing the namelist as the argument to
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>  <span class="dt">integer</span> <span class="dt">::</span> myunit</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="dt">integer</span> <span class="dt">::</span> a, b, c</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="kw">namelist</span> <span class="kw">/</span>ints<span class="kw">/</span> a, b, c</span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  a <span class="kw">=</span> <span class="dv">1</span></span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>  b <span class="kw">=</span> <span class="dv">2</span></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  c <span class="kw">=</span> <span class="dv">3</span></span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>  <span class="fu">open(</span>newunit <span class="kw">=</span> myunit, <span class="fu">file</span> <span class="kw">=</span> <span class="st">'output.nml'</span>, <span class="fu">action</span> <span class="kw">=</span> <span class="st">'write'</span>, <span class="fu">status</span> <span class="kw">=</span> <span class="st">'new'</span><span class="fu">)</span></span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>  <span class="fu">write(</span>myunit, ints<span class="fu">)</span></span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>  <span class="fu">close(</span>myunit<span class="fu">)</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a>  <span class="dt">integer</span> <span class="dt">::</span> myunit</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1" aria-label="code-block-8-2"></a>  <span class="dt">integer</span> <span class="dt">::</span> a, b, c</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1" aria-label="code-block-8-3"></a>  <span class="kw">namelist</span> <span class="kw">/</span>ints<span class="kw">/</span> a, b, c</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1" aria-label="code-block-8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1" aria-label="code-block-8-5"></a>  a <span class="kw">=</span> <span class="dv">1</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1" aria-label="code-block-8-6"></a>  b <span class="kw">=</span> <span class="dv">2</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1" aria-label="code-block-8-7"></a>  c <span class="kw">=</span> <span class="dv">3</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1" aria-label="code-block-8-8"></a></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1" aria-label="code-block-8-9"></a>  <span class="fu">open(</span>newunit <span class="kw">=</span> myunit, <span class="fu">file</span> <span class="kw">=</span> <span class="st">'output.nml'</span>, <span class="fu">action</span> <span class="kw">=</span> <span class="st">'write'</span>, <span class="fu">status</span> <span class="kw">=</span> <span class="st">'new'</span><span class="fu">)</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1" aria-label="code-block-8-10"></a>  <span class="fu">write(</span>myunit, ints<span class="fu">)</span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1" aria-label="code-block-8-11"></a>  <span class="fu">close(</span>myunit<span class="fu">)</span></span></code></pre>
 </div>
 <p>will output the following to the new file
 <code>output.nml</code>:</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="kw">&amp;</span>INTS</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a> A<span class="kw">=</span><span class="dv">1</span>          ,</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a> B<span class="kw">=</span><span class="dv">2</span>          ,</span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a> C<span class="kw">=</span><span class="dv">3</span>          ,</span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a> <span class="kw">/</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb9-1"><a href="#cb9-1" tabindex="-1" aria-label="code-block-9-1"></a><span class="kw">&amp;</span>INTS</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1" aria-label="code-block-9-2"></a> A<span class="kw">=</span><span class="dv">1</span>          ,</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1" aria-label="code-block-9-3"></a> B<span class="kw">=</span><span class="dv">2</span>          ,</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1" aria-label="code-block-9-4"></a> C<span class="kw">=</span><span class="dv">3</span>          ,</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1" aria-label="code-block-9-5"></a> <span class="kw">/</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="exercise-10-minutes">Exercise (10 minutes)<a class="anchor" aria-label="anchor" href="#exercise-10-minutes"></a></h3>
@@ -924,7 +924,7 @@ without first moving backwards through the file.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -947,7 +947,7 @@ without first moving backwards through the file.</li>
   "identifier": "https://welucas2.github.io/2026-02-18-MO-Fortran-intro/14-namelists.html",
   "dateCreated": "2026-02-21",
   "dateModified": "2026-02-21",
-  "datePublished": "2026-04-14"
+  "datePublished": "2026-04-21"
 }
 
   </script><script>

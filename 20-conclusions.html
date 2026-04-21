@@ -457,7 +457,7 @@
       </button>
     </div><!--/div.accordion-header-->
 
-    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#not-covered-in-this-course">Not covered in this course</a></li>
 <li><a href="#things-you-may-see">Things you may see</a></li>
@@ -624,9 +624,9 @@ conditional compilation, and other preprocessor features.
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ot">#ifdef HAVE_SOME_FEATURE</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  ...</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="ot">#endif</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="ot">#ifdef HAVE_SOME_FEATURE</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a>  ...</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a><span class="ot">#endif</span></span></code></pre>
 </div>
 <p>As the Fortran preprocessor is not standardised, some care may be
 required to ensure portability. For example, stringification of macro
@@ -657,21 +657,21 @@ required via</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>  <span class="kw">use</span> mpi_f08</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a>  <span class="kw">use</span> mpi_f08</span></code></pre>
 </div>
 <p>which uses derived types for data types (which are often opaque).</p>
 <p>Earlier versions might use</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>  <span class="kw">use</span> mpi</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a>  <span class="kw">use</span> mpi</span></code></pre>
 </div>
 <p>where the opaque types are integer handles.</p>
 <p>Older codes may even use</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ot">#include 'mpif.h'</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="ot">#include 'mpif.h'</span></span></code></pre>
 </div>
 <p>to make the necessary handles and macros available.</p>
 </div>
@@ -682,8 +682,8 @@ routines often have prototypes of the form:</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>  <span class="bu">int</span> MPI_Send(const void <span class="kw">*</span> buf, <span class="bu">int</span> ount, MPI_Datatype dt, <span class="bu">int</span> dest, <span class="bu">int</span> tag,</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>               MPI_Comm comm);</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a>  <span class="bu">int</span> MPI_Send(const void <span class="kw">*</span> buf, <span class="bu">int</span> ount, MPI_Datatype dt, <span class="bu">int</span> dest, <span class="bu">int</span> tag,</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a>               MPI_Comm comm);</span></code></pre>
 </div>
 <p>The data to be sent is identified here using <code>void * buf</code>.
 A return code provides an error status.</p>
@@ -704,7 +704,7 @@ integer arguments.</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>  <span class="kw">use</span> omp_lib</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a>  <span class="kw">use</span> omp_lib</span></code></pre>
 </div>
 <p>to provide OpenMP functions and kind type parameters.</p>
 <p>OpenMP is largely based around compiler directives, which are
@@ -714,9 +714,9 @@ switched on via a compiler option, usually <code>-fopenmp</code>.</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>  <span class="co">!$omp ...</span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  ...</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="co">!$omp end ...</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a>  <span class="co">!$omp ...</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1" aria-label="code-block-7-2"></a>  ...</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1" aria-label="code-block-7-3"></a>  <span class="co">!$omp end ...</span></span></code></pre>
 </div>
 <p>which is ignored as a comment if no OpenMP is required
 (cf. <code>#pragma omp ... { }</code> in C).</p>
@@ -801,7 +801,7 @@ parallel.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -824,7 +824,7 @@ parallel.</li>
   "identifier": "https://welucas2.github.io/2026-02-18-MO-Fortran-intro/20-conclusions.html",
   "dateCreated": "2026-02-21",
   "dateModified": "2026-02-21",
-  "datePublished": "2026-04-14"
+  "datePublished": "2026-04-21"
 }
 
   </script><script>

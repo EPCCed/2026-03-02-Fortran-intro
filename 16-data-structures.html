@@ -403,7 +403,7 @@
       </button>
     </div><!--/div.accordion-header-->
 
-    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#derived-types">Derived types</a></li>
 <li><a href="#type-definitions">Type definitions</a></li>
@@ -603,10 +603,10 @@ our choosing. We call these <em>derived types</em>.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>  <span class="dt">type</span> <span class="dt">::</span> my_type</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>    <span class="dt">integer</span>                         <span class="dt">::</span> nmax</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>    <span class="dt">real</span>, <span class="dt">dimension(:)</span>, <span class="dt">allocatable</span> <span class="dt">::</span> data</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="dt">end type</span> my_type</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a>  <span class="dt">type</span> <span class="dt">::</span> my_type</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a>    <span class="dt">integer</span>                         <span class="dt">::</span> nmax</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a>    <span class="dt">real</span>, <span class="dt">dimension(:)</span>, <span class="dt">allocatable</span> <span class="dt">::</span> data</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1" aria-label="code-block-1-4"></a>  <span class="dt">end type</span> my_type</span></code></pre>
 </div>
 <p>Components may be intrinsic data types (all declared in the usual
 way), or derived types.</p>
@@ -614,16 +614,16 @@ way), or derived types.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>  <span class="dt">type (my_type)</span> <span class="dt">::</span> var</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a>  <span class="dt">type (my_type)</span> <span class="dt">::</span> var</span></code></pre>
 </div>
 <p>and individual components are referenced with the component selector
 <code>%</code>, <em>e.g.</em>,</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>  var<span class="op">%</span>nmax <span class="kw">=</span> <span class="dv">10</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  ...</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="fu">print</span> <span class="kw">*</span>, <span class="st">"Values are "</span>, var<span class="op">%</span>data(<span class="dv">1</span>:<span class="dv">3</span>)</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a>  var<span class="op">%</span>nmax <span class="kw">=</span> <span class="dv">10</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a>  ...</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a>  <span class="fu">print</span> <span class="kw">*</span>, <span class="st">"Values are "</span>, var<span class="op">%</span>data(<span class="dv">1</span>:<span class="dv">3</span>)</span></code></pre>
 </div>
 <p>The component selector is the same as we have seen earlier for the
 complex intrinsic type – recall that the real and imaginary components
@@ -634,9 +634,9 @@ selector is applied to individual elements, <em>e.g.</em>,</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>  <span class="dt">type (my_type)</span>, <span class="dt">dimension(10)</span> <span class="dt">::</span> var</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  ...</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  var(<span class="dv">1</span>)<span class="op">%</span>nmax <span class="kw">=</span> <span class="dv">100</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a>  <span class="dt">type (my_type)</span>, <span class="dt">dimension(10)</span> <span class="dt">::</span> var</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a>  ...</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a>  var(<span class="dv">1</span>)<span class="op">%</span>nmax <span class="kw">=</span> <span class="dv">100</span></span></code></pre>
 </div>
 <p>Dummy arguments to procedures are declared in the same way as for
 intrinsic types with the appropriate attribute list, including
@@ -654,31 +654,31 @@ a module.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>  <span class="dt">type</span> <span class="kw">[</span> <span class="kw">[</span>, attribute<span class="kw">-</span>list<span class="kw">]</span> <span class="dt">::</span> <span class="kw">]</span> <span class="dt">type</span><span class="kw">-</span>name</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>    <span class="kw">[</span><span class="dt">private</span><span class="kw">]</span></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    component<span class="kw">-</span>part</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="kw">[</span> <span class="kw">contains</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>    <span class="kw">procedure-</span>part <span class="kw">]</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  <span class="dt">end type</span> <span class="kw">[</span> <span class="dt">type</span><span class="kw">-</span>name <span class="kw">]</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a>  <span class="dt">type</span> <span class="kw">[</span> <span class="kw">[</span>, attribute<span class="kw">-</span>list<span class="kw">]</span> <span class="dt">::</span> <span class="kw">]</span> <span class="dt">type</span><span class="kw">-</span>name</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a>    <span class="kw">[</span><span class="dt">private</span><span class="kw">]</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1" aria-label="code-block-5-3"></a>    component<span class="kw">-</span>part</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1" aria-label="code-block-5-4"></a>  <span class="kw">[</span> <span class="kw">contains</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1" aria-label="code-block-5-5"></a>    <span class="kw">procedure-</span>part <span class="kw">]</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1" aria-label="code-block-5-6"></a>  <span class="dt">end type</span> <span class="kw">[</span> <span class="dt">type</span><span class="kw">-</span>name <span class="kw">]</span></span></code></pre>
 </div>
 <p>The default situation is for both the type and its components to be
 public. This may be made explicit by</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>  <span class="dt">type</span>, <span class="dt">public</span> <span class="dt">::</span> my_type</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>    ...</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="dt">end type</span> my_type</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a>  <span class="dt">type</span>, <span class="dt">public</span> <span class="dt">::</span> my_type</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a>    ...</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1" aria-label="code-block-6-3"></a>  <span class="dt">end type</span> my_type</span></code></pre>
 </div>
 <p>If one wants a public type with private components (an opaque type),
 use</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>  <span class="dt">type</span>, <span class="dt">public</span> <span class="dt">::</span> my_opaque_type</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>    <span class="dt">private</span></span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>    ...</span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="dt">end type</span> my_opaque_type</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a>  <span class="dt">type</span>, <span class="dt">public</span> <span class="dt">::</span> my_opaque_type</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1" aria-label="code-block-7-2"></a>    <span class="dt">private</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1" aria-label="code-block-7-3"></a>    ...</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1" aria-label="code-block-7-4"></a>  <span class="dt">end type</span> my_opaque_type</span></code></pre>
 </div>
 <p>Externally, other program units will be able to reference this opaque
 type, but will not be allowed to access the components (a compiler
@@ -693,16 +693,16 @@ constructor to provide initialisation, <em>e.g.</em>:</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>  <span class="dt">type</span>, <span class="dt">public</span> <span class="dt">::</span> my_type</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="bu">     i</span>nteger <span class="dt">::</span> ia</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="bu">     r</span>eal    <span class="dt">::</span> b</span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="bu">     c</span>omplex <span class="dt">::</span> z</span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="dt">end type</span> my_type</span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  ...</span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>  <span class="dt">type (my_type)</span> <span class="dt">::</span> a</span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>  a <span class="kw">=</span> my_type(<span class="dv">3</span>, <span class="fl">2.0</span>, (<span class="fl">0.0</span>, <span class="fl">1.0</span>))</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a>  <span class="dt">type</span>, <span class="dt">public</span> <span class="dt">::</span> my_type</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1" aria-label="code-block-8-2"></a><span class="bu">     i</span>nteger <span class="dt">::</span> ia</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1" aria-label="code-block-8-3"></a><span class="bu">     r</span>eal    <span class="dt">::</span> b</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1" aria-label="code-block-8-4"></a><span class="bu">     c</span>omplex <span class="dt">::</span> z</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1" aria-label="code-block-8-5"></a>  <span class="dt">end type</span> my_type</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1" aria-label="code-block-8-6"></a></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1" aria-label="code-block-8-7"></a>  ...</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1" aria-label="code-block-8-8"></a>  <span class="dt">type (my_type)</span> <span class="dt">::</span> a</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1" aria-label="code-block-8-9"></a></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1" aria-label="code-block-8-10"></a>  a <span class="kw">=</span> my_type(<span class="dv">3</span>, <span class="fl">2.0</span>, (<span class="fl">0.0</span>, <span class="fl">1.0</span>))</span></code></pre>
 </div>
 <p>Values or expressions can be used, but must appear in the order
 specified in the definition of the components. An allocatable or pointer
@@ -717,20 +717,20 @@ exception is that allocatable components do not have an initialisation.
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>  <span class="dt">type</span> <span class="dt">::</span> my_type</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>    <span class="dt">integer</span>                            <span class="dt">::</span> nmax <span class="kw">=</span> <span class="dv">10</span></span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>    <span class="dt">real</span>                               <span class="dt">::</span> a0 <span class="kw">=</span> <span class="fl">1.0</span></span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>    <span class="dt">integer</span>, <span class="dt">dimension(:)</span>, <span class="dt">allocatable</span> <span class="dt">::</span> ndata</span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="dt">end type</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb9-1"><a href="#cb9-1" tabindex="-1" aria-label="code-block-9-1"></a>  <span class="dt">type</span> <span class="dt">::</span> my_type</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1" aria-label="code-block-9-2"></a>    <span class="dt">integer</span>                            <span class="dt">::</span> nmax <span class="kw">=</span> <span class="dv">10</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1" aria-label="code-block-9-3"></a>    <span class="dt">real</span>                               <span class="dt">::</span> a0 <span class="kw">=</span> <span class="fl">1.0</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1" aria-label="code-block-9-4"></a>    <span class="dt">integer</span>, <span class="dt">dimension(:)</span>, <span class="dt">allocatable</span> <span class="dt">::</span> ndata</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1" aria-label="code-block-9-5"></a>  <span class="dt">end type</span></span></code></pre>
 </div>
 <p>A default initialisation can be applied by using an empty
 constructor:</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>  <span class="dt">type (my_type)</span> <span class="dt">::</span> a</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  a <span class="kw">=</span> my_type()</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb10-1"><a href="#cb10-1" tabindex="-1" aria-label="code-block-10-1"></a>  <span class="dt">type (my_type)</span> <span class="dt">::</span> a</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1" aria-label="code-block-10-2"></a></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1" aria-label="code-block-10-3"></a>  a <span class="kw">=</span> my_type()</span></code></pre>
 </div>
 <p>For an allocatable component, the result is a component with a not
 allocated status.</p>
@@ -775,7 +775,7 @@ initialisation?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Running the code as provided gives the following output:</p>
 <div class="codewrapper">
@@ -792,7 +792,7 @@ initialisation?</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="dt">type (my_rng)</span> <span class="dt">::</span> rng <span class="kw">=</span> my_rng(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2147483647</span>)</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb12-1"><a href="#cb12-1" tabindex="-1" aria-label="code-block-12-1"></a><span class="dt">type (my_rng)</span> <span class="dt">::</span> rng <span class="kw">=</span> my_rng(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2147483647</span>)</span></code></pre>
 </div>
 <p>and this produces the following output (note Cray Fortran being
 helpful with the first line)</p>
@@ -810,13 +810,13 @@ helpful with the first line)</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>  <span class="dt">type</span>, <span class="dt">public</span> <span class="dt">::</span> my_rng</span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>    <span class="dt">private</span></span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>    <span class="dt">integer (int64)</span> <span class="dt">::</span> a <span class="kw">=</span> <span class="dv">45991</span></span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>    <span class="dt">integer (int32)</span> <span class="dt">::</span> s <span class="kw">=</span> <span class="dv">1</span></span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>    <span class="dt">integer (int64)</span> <span class="dt">::</span> c <span class="kw">=</span> <span class="dv">0</span></span>
-<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>    <span class="dt">integer (int64)</span> <span class="dt">::</span> m <span class="kw">=</span> <span class="dv">2147483647</span></span>
-<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>  <span class="dt">end type</span> my_rng</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb14-1"><a href="#cb14-1" tabindex="-1" aria-label="code-block-14-1"></a>  <span class="dt">type</span>, <span class="dt">public</span> <span class="dt">::</span> my_rng</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1" aria-label="code-block-14-2"></a>    <span class="dt">private</span></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1" aria-label="code-block-14-3"></a>    <span class="dt">integer (int64)</span> <span class="dt">::</span> a <span class="kw">=</span> <span class="dv">45991</span></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1" aria-label="code-block-14-4"></a>    <span class="dt">integer (int32)</span> <span class="dt">::</span> s <span class="kw">=</span> <span class="dv">1</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1" aria-label="code-block-14-5"></a>    <span class="dt">integer (int64)</span> <span class="dt">::</span> c <span class="kw">=</span> <span class="dv">0</span></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1" aria-label="code-block-14-6"></a>    <span class="dt">integer (int64)</span> <span class="dt">::</span> m <span class="kw">=</span> <span class="dv">2147483647</span></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1" aria-label="code-block-14-7"></a>  <span class="dt">end type</span> my_rng</span></code></pre>
 </div>
 <p>Trying to compile the program while setting the <code>a</code> etc.
 values will cause a compiler error; those components are no longer
@@ -835,10 +835,10 @@ schematically:</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>  <span class="dt">type (my_type)</span> <span class="dt">::</span> a</span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>  ...</span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>  <span class="fu">write (*</span>, <span class="fu">fmt</span> <span class="kw">=</span> <span class="fu">*)</span> a</span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>  <span class="fu">write (*</span>, <span class="fu">fmt</span> <span class="kw">=</span> <span class="fu">*)</span> a<span class="op">%</span>component1, a<span class="op">%</span>component2, ...</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb15-1"><a href="#cb15-1" tabindex="-1" aria-label="code-block-15-1"></a>  <span class="dt">type (my_type)</span> <span class="dt">::</span> a</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1" aria-label="code-block-15-2"></a>  ...</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1" aria-label="code-block-15-3"></a>  <span class="fu">write (*</span>, <span class="fu">fmt</span> <span class="kw">=</span> <span class="fu">*)</span> a</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1" aria-label="code-block-15-4"></a>  <span class="fu">write (*</span>, <span class="fu">fmt</span> <span class="kw">=</span> <span class="fu">*)</span> a<span class="op">%</span>component1, a<span class="op">%</span>component2, ...</span></code></pre>
 </div>
 <p>or one can apply a specific format to correspond to the known type
 components.</p>
@@ -929,19 +929,19 @@ point.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Your new tri-diagonal matrix type should look something like
 this:</p>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>  <span class="dt">type</span>, <span class="dt">public</span> <span class="dt">::</span> tri_matrix</span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>    <span class="dt">integer</span> <span class="dt">::</span> nmax</span>
-<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>    <span class="dt">real (mykind)</span>, <span class="dt">dimension(:)</span>, <span class="dt">allocatable</span> <span class="dt">::</span> a     <span class="co">! lower (2:nmax)</span></span>
-<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>    <span class="dt">real (mykind)</span>, <span class="dt">dimension(:)</span>, <span class="dt">allocatable</span> <span class="dt">::</span> b     <span class="co">! diag (1:nmax)</span></span>
-<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>    <span class="dt">real (mykind)</span>, <span class="dt">dimension(:)</span>, <span class="dt">allocatable</span> <span class="dt">::</span> c     <span class="co">! upper (1:nmax-1)</span></span>
-<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>  <span class="dt">end type</span> tri_matrix</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb16-1"><a href="#cb16-1" tabindex="-1" aria-label="code-block-16-1"></a>  <span class="dt">type</span>, <span class="dt">public</span> <span class="dt">::</span> tri_matrix</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1" aria-label="code-block-16-2"></a>    <span class="dt">integer</span> <span class="dt">::</span> nmax</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1" aria-label="code-block-16-3"></a>    <span class="dt">real (mykind)</span>, <span class="dt">dimension(:)</span>, <span class="dt">allocatable</span> <span class="dt">::</span> a     <span class="co">! lower (2:nmax)</span></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1" aria-label="code-block-16-4"></a>    <span class="dt">real (mykind)</span>, <span class="dt">dimension(:)</span>, <span class="dt">allocatable</span> <span class="dt">::</span> b     <span class="co">! diag (1:nmax)</span></span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1" aria-label="code-block-16-5"></a>    <span class="dt">real (mykind)</span>, <span class="dt">dimension(:)</span>, <span class="dt">allocatable</span> <span class="dt">::</span> c     <span class="co">! upper (1:nmax-1)</span></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1" aria-label="code-block-16-6"></a>  <span class="dt">end type</span> tri_matrix</span></code></pre>
 </div>
 <p>Implementations of the solution are available in <a href="files/exercises/16-data-structures/solutions-1/solution_program.f90">solution_program.f90</a>
 and <a href="files/exercises/16-data-structures/solutions-1/solution_module.f90">solution_module.f90</a>.</p>
@@ -1038,7 +1038,7 @@ this introductory course will only touch on this feature.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -1061,7 +1061,7 @@ this introductory course will only touch on this feature.</li>
   "identifier": "https://welucas2.github.io/2026-02-18-MO-Fortran-intro/16-data-structures.html",
   "dateCreated": "2026-02-21",
   "dateModified": "2026-02-21",
-  "datePublished": "2026-04-14"
+  "datePublished": "2026-04-21"
 }
 
   </script><script>

@@ -421,7 +421,7 @@
       </button>
     </div><!--/div.accordion-header-->
 
-    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#an-external-function">An external function</a></li>
 <li><a href="#passing-functions-or-subroutines-as-arguments">Passing functions or subroutines as arguments</a></li>
@@ -621,11 +621,11 @@ which contains a function declaration outside a module scope.
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>  <span class="kw">function</span> my_mapping(i) <span class="kw">result</span>(imap)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>    <span class="dt">integer</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> i</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>    <span class="dt">integer</span>             <span class="dt">::</span> imap</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>    ...</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="kw">end function</span> my_mapping</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a>  <span class="kw">function</span> my_mapping(i) <span class="kw">result</span>(imap)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a>    <span class="dt">integer</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> i</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a>    <span class="dt">integer</span>             <span class="dt">::</span> imap</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1" aria-label="code-block-1-4"></a>    ...</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1" aria-label="code-block-1-5"></a>  <span class="kw">end function</span> my_mapping</span></code></pre>
 </div>
 <p>If we compile a program which includes a reference to this function,
 an error may result. We have not given the compiler any information
@@ -636,11 +636,11 @@ attribute (also available as a statement). <em>E.g.</em>,</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>  <span class="kw">program</span> example</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>    <span class="kw">implicit</span> <span class="kw">none</span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>    <span class="dt">integer</span>, <span class="kw">external</span> <span class="dt">::</span> my_mapping</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>    ...</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a>  <span class="kw">program</span> example</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1" aria-label="code-block-2-3"></a>    <span class="kw">implicit</span> <span class="kw">none</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1" aria-label="code-block-2-4"></a>    <span class="dt">integer</span>, <span class="kw">external</span> <span class="dt">::</span> my_mapping</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1" aria-label="code-block-2-5"></a>    ...</span></code></pre>
 </div>
 <p>However, we have still not given the compiler full information about
 the interface. The interface is said to remain <em>implicit</em>. To
@@ -648,17 +648,17 @@ make it explicit, the <code>interface</code> construct is available:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>  <span class="kw">program</span> example</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>    <span class="kw">implicit</span> <span class="kw">none</span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>    <span class="kw">interface</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>      <span class="kw">function</span> my_mapping(i) <span class="kw">result</span>(imap)</span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>        <span class="dt">integer</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> i</span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>        <span class="dt">integer</span>             <span class="dt">::</span> imap</span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>      <span class="kw">end function</span> my_mapping</span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>    <span class="kw">end interface</span></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>    ...</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a>  <span class="kw">program</span> example</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a>    <span class="kw">implicit</span> <span class="kw">none</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1" aria-label="code-block-3-4"></a>    <span class="kw">interface</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1" aria-label="code-block-3-5"></a>      <span class="kw">function</span> my_mapping(i) <span class="kw">result</span>(imap)</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1" aria-label="code-block-3-6"></a>        <span class="dt">integer</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> i</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1" aria-label="code-block-3-7"></a>        <span class="dt">integer</span>             <span class="dt">::</span> imap</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1" aria-label="code-block-3-8"></a>      <span class="kw">end function</span> my_mapping</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1" aria-label="code-block-3-9"></a>    <span class="kw">end interface</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1" aria-label="code-block-3-10"></a></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1" aria-label="code-block-3-11"></a>    ...</span></code></pre>
 </div>
 <p>This has provided a full, explicit, statement about the interface of
 the function <code>my_mappping()</code>. (Note that the dummy argument
@@ -686,14 +686,14 @@ calls the function therein.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>$ ftn <span class="kw">external</span>.f90 example1.f90</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a>$ ftn <span class="kw">external</span>.f90 example1.f90</span></code></pre>
 </div>
 <p>What happens?</p>
 <p>Try adding the appropriate <code>external</code> declaration</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>  <span class="dt">integer</span>, <span class="kw">external</span> <span class="dt">::</span> array_size</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a>  <span class="dt">integer</span>, <span class="kw">external</span> <span class="dt">::</span> array_size</span></code></pre>
 </div>
 <p>What happens if you try to compile the program now? (Note at this
 point that there are no modules involved, so no <code>.mod</code> files
@@ -740,12 +740,12 @@ may have already spotted the issue):</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>  <span class="kw">interface</span></span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>    <span class="kw">function</span> array_size(a) <span class="kw">result</span>(isize)</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>      <span class="dt">real</span>, <span class="dt">dimension(:)</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> a</span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>      <span class="dt">integer</span>                        <span class="dt">::</span> isize</span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>    <span class="kw">end function</span> array_size</span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>  <span class="kw">end interface</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a>  <span class="kw">interface</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1" aria-label="code-block-8-2"></a>    <span class="kw">function</span> array_size(a) <span class="kw">result</span>(isize)</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1" aria-label="code-block-8-3"></a>      <span class="dt">real</span>, <span class="dt">dimension(:)</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> a</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1" aria-label="code-block-8-4"></a>      <span class="dt">integer</span>                        <span class="dt">::</span> isize</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1" aria-label="code-block-8-5"></a>    <span class="kw">end function</span> array_size</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1" aria-label="code-block-8-6"></a>  <span class="kw">end interface</span></span></code></pre>
 </div>
 <p>Compiling now produces an error again, as reported here by
 <code>gfortran</code>:</p>
@@ -784,16 +784,16 @@ the calling procedure the function that is the dummy argument.
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>  <span class="kw">subroutine</span> my_integral(a, b, afunc, <span class="kw">result</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>    <span class="dt">real</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> a</span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>    <span class="dt">real</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> b</span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>    <span class="kw">interface</span></span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>      <span class="kw">function</span> afunc(x) <span class="kw">result</span>(y)</span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>        <span class="dt">real</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> x</span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>        <span class="dt">real</span>             <span class="dt">::</span> y</span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>      <span class="kw">end function</span> afunc</span>
-<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>    <span class="kw">end interface</span></span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>    ...</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb10-1"><a href="#cb10-1" tabindex="-1" aria-label="code-block-10-1"></a>  <span class="kw">subroutine</span> my_integral(a, b, afunc, <span class="kw">result</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1" aria-label="code-block-10-2"></a>    <span class="dt">real</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> a</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1" aria-label="code-block-10-3"></a>    <span class="dt">real</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> b</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1" aria-label="code-block-10-4"></a>    <span class="kw">interface</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1" aria-label="code-block-10-5"></a>      <span class="kw">function</span> afunc(x) <span class="kw">result</span>(y)</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1" aria-label="code-block-10-6"></a>        <span class="dt">real</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> x</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1" aria-label="code-block-10-7"></a>        <span class="dt">real</span>             <span class="dt">::</span> y</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1" aria-label="code-block-10-8"></a>      <span class="kw">end function</span> afunc</span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1" aria-label="code-block-10-9"></a>    <span class="kw">end interface</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1" aria-label="code-block-10-10"></a>    ...</span></code></pre>
 </div>
 <p>The function dummy argument has no intent. One cannot in general use
 intrinsic procedures as actual arguments.</p>
@@ -809,15 +809,15 @@ schematically:</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>   <span class="kw">subroutine</span> my_specific_int(ia)</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="bu">     i</span>nteger, <span class="dt">intent(inout)</span> <span class="dt">::</span> ia</span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="bu">     .</span>.. <span class="dt">integer</span> implementation ...</span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>   <span class="kw">end subroutine</span> my_specific_int</span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>   <span class="kw">subroutine</span> my_specfic_real(ra)</span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="bu">     r</span>eal, <span class="dt">intent(inout)</span> <span class="dt">::</span> ra</span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="bu">     .</span>.. <span class="dt">real</span> implementation ...</span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>   <span class="kw">end subroutine</span> my_specific_real</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb11-1"><a href="#cb11-1" tabindex="-1" aria-label="code-block-11-1"></a>   <span class="kw">subroutine</span> my_specific_int(ia)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1" aria-label="code-block-11-2"></a><span class="bu">     i</span>nteger, <span class="dt">intent(inout)</span> <span class="dt">::</span> ia</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1" aria-label="code-block-11-3"></a><span class="bu">     .</span>.. <span class="dt">integer</span> implementation ...</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1" aria-label="code-block-11-4"></a>   <span class="kw">end subroutine</span> my_specific_int</span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1" aria-label="code-block-11-5"></a></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1" aria-label="code-block-11-6"></a>   <span class="kw">subroutine</span> my_specfic_real(ra)</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1" aria-label="code-block-11-7"></a><span class="bu">     r</span>eal, <span class="dt">intent(inout)</span> <span class="dt">::</span> ra</span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1" aria-label="code-block-11-8"></a><span class="bu">     .</span>.. <span class="dt">real</span> implementation ...</span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1" aria-label="code-block-11-9"></a>   <span class="kw">end subroutine</span> my_specific_real</span></code></pre>
 </div>
 <p>A mechanism exists to allow the compiler to identify the correct
 routine based on the actual argument when used with a <em>generic
@@ -825,11 +825,11 @@ name</em>. This is:</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>  <span class="kw">interface</span> my_generic_name</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>    <span class="kw">module procedure</span> my_specific_int</span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>    <span class="kw">module procedure</span> my_specific_real</span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>    ...</span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>  <span class="kw">end interface</span> my_generic_name</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb12-1"><a href="#cb12-1" tabindex="-1" aria-label="code-block-12-1"></a>  <span class="kw">interface</span> my_generic_name</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1" aria-label="code-block-12-2"></a>    <span class="kw">module procedure</span> my_specific_int</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1" aria-label="code-block-12-3"></a>    <span class="kw">module procedure</span> my_specific_real</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1" aria-label="code-block-12-4"></a>    ...</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1" aria-label="code-block-12-5"></a>  <span class="kw">end interface</span> my_generic_name</span></code></pre>
 </div>
 <p>This should appear in the specification (upper) part of the relevant
 module. The two specific implementations must be distinguishable by the
@@ -876,11 +876,11 @@ run the program with no errors:</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>  <span class="dt">public</span> <span class="dt">::</span> write_pbm</span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>  <span class="kw">interface</span> write_pbm</span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>    <span class="kw">module procedure</span> write_logical_pbm</span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>    <span class="kw">module procedure</span> write_integer_pbm</span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>  <span class="kw">end interface</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb13-1"><a href="#cb13-1" tabindex="-1" aria-label="code-block-13-1"></a>  <span class="dt">public</span> <span class="dt">::</span> write_pbm</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1" aria-label="code-block-13-2"></a>  <span class="kw">interface</span> write_pbm</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1" aria-label="code-block-13-3"></a>    <span class="kw">module procedure</span> write_logical_pbm</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1" aria-label="code-block-13-4"></a>    <span class="kw">module procedure</span> write_integer_pbm</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1" aria-label="code-block-13-5"></a>  <span class="kw">end interface</span></span></code></pre>
 </div>
 <p>With this, the internal workings of the module are hidden away and
 its use is entirely via <code>write_pbm</code>.</p>
@@ -895,11 +895,11 @@ and arithmetic operators. For example, if we had a date type such as</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>  <span class="dt">type</span> <span class="dt">::</span> my_date</span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>    <span class="dt">integer</span> <span class="dt">::</span> day</span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>    <span class="dt">integer</span> <span class="dt">::</span> month</span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>    <span class="dt">integer</span> <span class="dt">::</span> year</span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>  <span class="dt">end type</span> my_date</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb14-1"><a href="#cb14-1" tabindex="-1" aria-label="code-block-14-1"></a>  <span class="dt">type</span> <span class="dt">::</span> my_date</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1" aria-label="code-block-14-2"></a>    <span class="dt">integer</span> <span class="dt">::</span> day</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1" aria-label="code-block-14-3"></a>    <span class="dt">integer</span> <span class="dt">::</span> month</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1" aria-label="code-block-14-4"></a>    <span class="dt">integer</span> <span class="dt">::</span> year</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1" aria-label="code-block-14-5"></a>  <span class="dt">end type</span> my_date</span></code></pre>
 </div>
 <p>it may be meaningful to ask whether two dates are equal and so on (it
 would not really be meaningful to add one date to another).</p>
@@ -907,21 +907,21 @@ would not really be meaningful to add one date to another).</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>  <span class="kw">function</span> my_dates_equal(date1, date2) <span class="kw">result</span>(equal)</span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>    <span class="dt">type (my_date)</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> date1</span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>    <span class="dt">type (my_date)</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> date2</span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>    <span class="dt">logical</span>                       equal</span>
-<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>    <span class="co">! ...</span></span>
-<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>  <span class="kw">end function</span> my_dates_equal</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb15-1"><a href="#cb15-1" tabindex="-1" aria-label="code-block-15-1"></a>  <span class="kw">function</span> my_dates_equal(date1, date2) <span class="kw">result</span>(equal)</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1" aria-label="code-block-15-2"></a>    <span class="dt">type (my_date)</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> date1</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1" aria-label="code-block-15-3"></a>    <span class="dt">type (my_date)</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> date2</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1" aria-label="code-block-15-4"></a>    <span class="dt">logical</span>                       equal</span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1" aria-label="code-block-15-5"></a>    <span class="co">! ...</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1" aria-label="code-block-15-6"></a>  <span class="kw">end function</span> my_dates_equal</span></code></pre>
 </div>
 <p>As a syntactic convenience, it might be useful to use <code>==</code>
 in a logical expression using dates. This can be arranged via</p>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>  <span class="kw">interface</span> <span class="kw">operator</span>(<span class="op">==</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>    <span class="kw">module procedure</span> my_dates_equal</span>
-<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>  <span class="kw">end interface</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb16-1"><a href="#cb16-1" tabindex="-1" aria-label="code-block-16-1"></a>  <span class="kw">interface</span> <span class="kw">operator</span>(<span class="op">==</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1" aria-label="code-block-16-2"></a>    <span class="kw">module procedure</span> my_dates_equal</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1" aria-label="code-block-16-3"></a>  <span class="kw">end interface</span></span></code></pre>
 </div>
 <p>Again this should appear in the relevant specification part of the
 relevant module. Such overloading is possible for relational operators
@@ -940,17 +940,17 @@ be applied to an array actual argument element by element.</p>
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>  <span class="kw">elemental</span> <span class="kw">function</span> my_function(a) <span class="kw">result</span>(b)</span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>    <span class="dt">integer</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> a</span>
-<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>    <span class="dt">integer</span>             <span class="dt">::</span> b</span>
-<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>    <span class="co">! ...</span></span>
-<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>  <span class="kw">end function</span> my_function</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb17-1"><a href="#cb17-1" tabindex="-1" aria-label="code-block-17-1"></a>  <span class="kw">elemental</span> <span class="kw">function</span> my_function(a) <span class="kw">result</span>(b)</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1" aria-label="code-block-17-2"></a>    <span class="dt">integer</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> a</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1" aria-label="code-block-17-3"></a>    <span class="dt">integer</span>             <span class="dt">::</span> b</span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1" aria-label="code-block-17-4"></a>    <span class="co">! ...</span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1" aria-label="code-block-17-5"></a>  <span class="kw">end function</span> my_function</span></code></pre>
 </div>
 <p>An invocation should be, e.g.:</p>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>   iresult(<span class="dv">1</span>:<span class="dv">4</span>) <span class="kw">=</span> my_function(ival(<span class="dv">1</span>:<span class="dv">4</span>))</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb18-1"><a href="#cb18-1" tabindex="-1" aria-label="code-block-18-1"></a>   iresult(<span class="dv">1</span>:<span class="dv">4</span>) <span class="kw">=</span> my_function(ival(<span class="dv">1</span>:<span class="dv">4</span>))</span></code></pre>
 </div>
 <p>All arguments (and function results) must conform. An elemental
 routine usually must also be <code>pure</code>.</p>
@@ -987,17 +987,17 @@ function to <code>elemental</code>:</p>
 <div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>  <span class="kw">elemental</span> <span class="kw">function</span> logical_to_pbm(lvar) <span class="kw">result</span> (ivar)</span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>    <span class="co">! Utility to return 0 or 1 for .false. and .true.</span></span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>    <span class="dt">logical</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> lvar</span>
-<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>    <span class="dt">integer</span>             <span class="dt">::</span> ivar</span>
-<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a></span>
-<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a>    ivar <span class="kw">=</span> <span class="dv">0</span></span>
-<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a>    <span class="kw">if</span> (lvar) ivar <span class="kw">=</span> <span class="dv">1</span></span>
-<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a></span>
-<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a>  <span class="kw">end function</span> logical_to_pb</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb19-1"><a href="#cb19-1" tabindex="-1" aria-label="code-block-19-1"></a>  <span class="kw">elemental</span> <span class="kw">function</span> logical_to_pbm(lvar) <span class="kw">result</span> (ivar)</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1" aria-label="code-block-19-2"></a></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1" aria-label="code-block-19-3"></a>    <span class="co">! Utility to return 0 or 1 for .false. and .true.</span></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1" aria-label="code-block-19-4"></a></span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1" aria-label="code-block-19-5"></a>    <span class="dt">logical</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> lvar</span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1" aria-label="code-block-19-6"></a>    <span class="dt">integer</span>             <span class="dt">::</span> ivar</span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1" aria-label="code-block-19-7"></a></span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1" aria-label="code-block-19-8"></a>    ivar <span class="kw">=</span> <span class="dv">0</span></span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1" aria-label="code-block-19-9"></a>    <span class="kw">if</span> (lvar) ivar <span class="kw">=</span> <span class="dv">1</span></span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1" aria-label="code-block-19-10"></a></span>
+<span id="cb19-11"><a href="#cb19-11" tabindex="-1" aria-label="code-block-19-11"></a>  <span class="kw">end function</span> logical_to_pb</span></code></pre>
 </div>
 <p>All that remains is to have <code>write_logical_pbm()</code> call
 this new <code>elemental</code> version. Further down in that function
@@ -1007,11 +1007,11 @@ array and from it use <code>logical_to_pbm()</code> to fill the
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>    <span class="kw">do</span> j <span class="kw">=</span> <span class="dv">1</span>, <span class="fu">size</span>(map, <span class="bu">dim</span> <span class="kw">=</span> <span class="dv">2</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>       <span class="kw">do</span> i <span class="kw">=</span> <span class="dv">1</span>, <span class="fu">size</span>(map, <span class="bu">dim</span> <span class="kw">=</span> <span class="dv">1</span>)</span>
-<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>          imap(i,j) <span class="kw">=</span> logical_to_pbm(map(i,j))</span>
-<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>       <span class="kw">end do</span></span>
-<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>    <span class="kw">end do</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb20-1"><a href="#cb20-1" tabindex="-1" aria-label="code-block-20-1"></a>    <span class="kw">do</span> j <span class="kw">=</span> <span class="dv">1</span>, <span class="fu">size</span>(map, <span class="bu">dim</span> <span class="kw">=</span> <span class="dv">2</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1" aria-label="code-block-20-2"></a>       <span class="kw">do</span> i <span class="kw">=</span> <span class="dv">1</span>, <span class="fu">size</span>(map, <span class="bu">dim</span> <span class="kw">=</span> <span class="dv">1</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1" aria-label="code-block-20-3"></a>          imap(i,j) <span class="kw">=</span> logical_to_pbm(map(i,j))</span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1" aria-label="code-block-20-4"></a>       <span class="kw">end do</span></span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1" aria-label="code-block-20-5"></a>    <span class="kw">end do</span></span></code></pre>
 </div>
 <p>With the new <code>elemental</code> version of
 <code>logical_to_pbm()</code>, we can replace this entire structure with
@@ -1019,7 +1019,7 @@ the single line:</p>
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>imap(:,:) <span class="kw">=</span> logical_to_pbm(map(:,:))</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb21-1"><a href="#cb21-1" tabindex="-1" aria-label="code-block-21-1"></a>imap(:,:) <span class="kw">=</span> logical_to_pbm(map(:,:))</span></code></pre>
 </div>
 </div>
 </div>
@@ -1134,7 +1134,7 @@ argument or element-by-element to an array actual argument.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -1157,7 +1157,7 @@ argument or element-by-element to an array actual argument.</li>
   "identifier": "https://welucas2.github.io/2026-02-18-MO-Fortran-intro/instructor/18-further-functions.html",
   "dateCreated": "2026-02-21",
   "dateModified": "2026-02-21",
-  "datePublished": "2026-04-14"
+  "datePublished": "2026-04-21"
 }
 
   </script><script>

@@ -313,7 +313,7 @@
       </button>
     </div><!--/div.accordion-header-->
 
-    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#whats-the-difference">What’s the difference?</a></li>
 <li><a href="#dummy-arguments-and-intent-attribute">Dummy arguments and <code>intent</code> attribute</a></li>
@@ -605,7 +605,7 @@ schematically:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>  value <span class="kw">=</span> my_function(arg1, arg2, ...)</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a>  value <span class="kw">=</span> my_function(arg1, arg2, ...)</span></code></pre>
 </div>
 <p>Unlike C, it is not possible simply to discard a function result. A
 subroutine, by contrast, does not return a result (it may be thought of
@@ -614,7 +614,7 @@ differently:</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>  <span class="kw">call</span> my_subroutine(arg1, arg2, ...)</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a>  <span class="kw">call</span> my_subroutine(arg1, arg2, ...)</span></code></pre>
 </div>
 <p>Subroutines are generally used to express more lengthy
 algorithms.</p>
@@ -636,13 +636,13 @@ example:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>  <span class="kw">subroutine</span> print_x(x)</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>    <span class="dt">real</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> x</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>    <span class="fu">print</span> <span class="kw">*</span>, <span class="st">"The value of x is: "</span>, x</span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>  <span class="kw">end subroutine</span> print_x</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a>  <span class="kw">subroutine</span> print_x(x)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a>    <span class="dt">real</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> x</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1" aria-label="code-block-3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1" aria-label="code-block-3-5"></a>    <span class="fu">print</span> <span class="kw">*</span>, <span class="st">"The value of x is: "</span>, x</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1" aria-label="code-block-3-6"></a></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1" aria-label="code-block-3-7"></a>  <span class="kw">end subroutine</span> print_x</span></code></pre>
 </div>
 <p>Here, dummy argument <code>x</code> has <code>intent(in)</code> which
 tells the compiler that any attempt to modify the value is erroneous (a
@@ -671,26 +671,26 @@ passed to it, unless prevented by having <code>intent(in)</code>.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>  <span class="kw">subroutine</span> increment_x(x)</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>    <span class="dt">real</span>, <span class="dt">intent(inout)</span> <span class="dt">::</span> x</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>    x <span class="kw">=</span> x <span class="kw">+</span> <span class="fl">1.0</span></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>  <span class="kw">end subroutine</span> increment_x</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a>  <span class="kw">subroutine</span> increment_x(x)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a>    <span class="dt">real</span>, <span class="dt">intent(inout)</span> <span class="dt">::</span> x</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a>    x <span class="kw">=</span> x <span class="kw">+</span> <span class="fl">1.0</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1" aria-label="code-block-4-6"></a></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1" aria-label="code-block-4-7"></a>  <span class="kw">end subroutine</span> increment_x</span></code></pre>
 </div>
 <p>If the dummy argument is undefined on entry, or has a value which is
 simply to be overwritten, use <code>intent(out)</code>, e.g.:</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>  <span class="kw">subroutine</span> assign_x(x)</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    <span class="dt">real</span>, <span class="dt">intent(out)</span> <span class="dt">::</span> x</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>    x <span class="kw">=</span> <span class="fl">1.0</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>  <span class="kw">end subroutine</span> assign_x</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a>  <span class="kw">subroutine</span> assign_x(x)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1" aria-label="code-block-5-3"></a>    <span class="dt">real</span>, <span class="dt">intent(out)</span> <span class="dt">::</span> x</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1" aria-label="code-block-5-4"></a></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1" aria-label="code-block-5-5"></a>    x <span class="kw">=</span> <span class="fl">1.0</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1" aria-label="code-block-5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1" aria-label="code-block-5-7"></a>  <span class="kw">end subroutine</span> assign_x</span></code></pre>
 </div>
 <p>The <code>intent</code> attribute, as well as allowing the compiler
 to detect inadvertent errors, provides some useful documentation for the
@@ -740,23 +740,23 @@ new value back out (hence <code>out</code>).</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="kw">function</span> my_mapping(value) <span class="kw">result</span>(a)</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="dt">real</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> value</span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="dt">real</span>             <span class="dt">::</span> a</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  a <span class="kw">=</span> ...</span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="kw">end function</span> my_mapping</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a><span class="kw">function</span> my_mapping(value) <span class="kw">result</span>(a)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1" aria-label="code-block-6-3"></a>  <span class="dt">real</span>, <span class="dt">intent(in)</span> <span class="dt">::</span> value</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1" aria-label="code-block-6-4"></a>  <span class="dt">real</span>             <span class="dt">::</span> a</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1" aria-label="code-block-6-5"></a></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1" aria-label="code-block-6-6"></a>  a <span class="kw">=</span> ...</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1" aria-label="code-block-6-7"></a></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1" aria-label="code-block-6-8"></a><span class="kw">end function</span> my_mapping</span></code></pre>
 </div>
 <p>Formally,</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="kw">[</span>prefix<span class="kw">]</span> <span class="kw">function</span> <span class="kw">function-</span>name (dummy<span class="kw">-</span>arg<span class="kw">-</span>list) <span class="kw">[</span>suffix<span class="kw">]</span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="kw">[</span> specification<span class="kw">-</span>part <span class="kw">]</span></span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="kw">[</span> executable<span class="kw">-</span>part <span class="kw">]</span></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="kw">end</span> <span class="kw">[</span> <span class="kw">function</span> <span class="kw">[function-</span>name<span class="kw">]</span> <span class="kw">]</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a><span class="kw">[</span>prefix<span class="kw">]</span> <span class="kw">function</span> <span class="kw">function-</span>name (dummy<span class="kw">-</span>arg<span class="kw">-</span>list) <span class="kw">[</span>suffix<span class="kw">]</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1" aria-label="code-block-7-2"></a>  <span class="kw">[</span> specification<span class="kw">-</span>part <span class="kw">]</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1" aria-label="code-block-7-3"></a>  <span class="kw">[</span> executable<span class="kw">-</span>part <span class="kw">]</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1" aria-label="code-block-7-4"></a><span class="kw">end</span> <span class="kw">[</span> <span class="kw">function</span> <span class="kw">[function-</span>name<span class="kw">]</span> <span class="kw">]</span></span></code></pre>
 </div>
 <p>As ever, there is some elasticity in the exact form of the
 declarations you may see. In particular, older versions did not have the
@@ -765,10 +765,10 @@ the variable to which the return value was assigned. <em>E.g.</em>,</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="dt">real</span> <span class="kw">function</span> length(area)</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="dt">real</span> area</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  length <span class="kw">=</span> <span class="bu">sqrt</span>(area)</span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="kw">end function</span> length</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a><span class="dt">real</span> <span class="kw">function</span> length(area)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1" aria-label="code-block-8-2"></a>  <span class="dt">real</span> area</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1" aria-label="code-block-8-3"></a>  length <span class="kw">=</span> <span class="bu">sqrt</span>(area)</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1" aria-label="code-block-8-4"></a><span class="kw">end function</span> length</span></code></pre>
 </div>
 <p>The modern form should be preferred; the <code>result()</code> part
 allows the two names to be decoupled.</p>
@@ -798,10 +798,10 @@ variables with <code>save</code> attribute);</li>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="kw">recursive</span> <span class="kw">function</span> fibonacci(n) <span class="kw">result</span>(nf)</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  <span class="co">! ... implementation...</span></span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  nf <span class="kw">=</span> fibonacci(n<span class="kw">-</span><span class="dv">1</span>) <span class="kw">+</span> fibonacci(n<span class="kw">-</span><span class="dv">2</span>)</span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="kw">end function</span> fibonacci</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb10-1"><a href="#cb10-1" tabindex="-1" aria-label="code-block-10-1"></a><span class="kw">recursive</span> <span class="kw">function</span> fibonacci(n) <span class="kw">result</span>(nf)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1" aria-label="code-block-10-2"></a>  <span class="co">! ... implementation...</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1" aria-label="code-block-10-3"></a>  nf <span class="kw">=</span> fibonacci(n<span class="kw">-</span><span class="dv">1</span>) <span class="kw">+</span> fibonacci(n<span class="kw">-</span><span class="dv">2</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1" aria-label="code-block-10-4"></a><span class="kw">end function</span> fibonacci</span></code></pre>
 </div>
 <p>Such a declaration must be included for both types of recursion:
 direct (a procedure calling itself) and indirect (a procedure calling
@@ -813,10 +813,10 @@ no <code>result()</code> suffix specification:</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="kw">[</span>prefix<span class="kw">]</span> <span class="kw">subroutine</span> <span class="kw">subroutine-</span>name (dummy<span class="kw">-</span>arg<span class="kw">-</span>list)</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>  <span class="kw">[</span> specification<span class="kw">-</span>part <span class="kw">]</span></span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>  <span class="kw">[</span> executable<span class="kw">-</span>part <span class="kw">]</span></span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="kw">end</span> <span class="kw">[</span> <span class="kw">subroutine</span> <span class="kw">[subroutine-</span>name<span class="kw">]</span> <span class="kw">]</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb11-1"><a href="#cb11-1" tabindex="-1" aria-label="code-block-11-1"></a><span class="kw">[</span>prefix<span class="kw">]</span> <span class="kw">subroutine</span> <span class="kw">subroutine-</span>name (dummy<span class="kw">-</span>arg<span class="kw">-</span>list)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1" aria-label="code-block-11-2"></a>  <span class="kw">[</span> specification<span class="kw">-</span>part <span class="kw">]</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1" aria-label="code-block-11-3"></a>  <span class="kw">[</span> executable<span class="kw">-</span>part <span class="kw">]</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1" aria-label="code-block-11-4"></a><span class="kw">end</span> <span class="kw">[</span> <span class="kw">subroutine</span> <span class="kw">[subroutine-</span>name<span class="kw">]</span> <span class="kw">]</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="return-statement">
@@ -929,7 +929,7 @@ module file.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -952,7 +952,7 @@ module file.</li>
   "identifier": "https://welucas2.github.io/2026-02-18-MO-Fortran-intro/instructor/09-functions-subroutines.html",
   "dateCreated": "2026-02-21",
   "dateModified": "2026-02-21",
-  "datePublished": "2026-04-14"
+  "datePublished": "2026-04-21"
 }
 
   </script><script>

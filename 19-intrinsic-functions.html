@@ -439,7 +439,7 @@
       </button>
     </div><!--/div.accordion-header-->
 
-    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#interacting-with-the-environment">Interacting with the environment</a></li>
 <li><a href="#timing-pieces-of-code">Timing pieces of code</a></li>
@@ -604,7 +604,7 @@ command line can be retrieved.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co">command_argument_count()</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="co">command_argument_count()</span></span></code></pre>
 </div>
 <p>This returns an <code>integer</code>: zero if the information is not
 available, or the number of arguments <em>not including</em> the
@@ -613,7 +613,7 @@ executable name itself.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>  <span class="kw">call</span> get_command(command <span class="kw">=</span> cmd, length <span class="kw">=</span> <span class="fu">len</span>, status <span class="kw">=</span> stat)</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a>  <span class="kw">call</span> get_command(command <span class="kw">=</span> cmd, length <span class="kw">=</span> <span class="fu">len</span>, status <span class="kw">=</span> stat)</span></code></pre>
 </div>
 <p>This returns the command line as a string (truncated or padded with
 spaces as appropriate), the integer length of the command line string,
@@ -624,11 +624,11 @@ retrieved using the subroutine</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>  <span class="kw">subroutine</span> get_command_argument(position, value, length, status)</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>    <span class="dt">integer</span>,                       <span class="dt">intent(in)</span>  <span class="dt">::</span> position</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>    <span class="dt">character (len = *)</span>, <span class="dt">optional</span>, <span class="dt">intent(out)</span> <span class="dt">::</span> value</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>    <span class="dt">integer</span>,             <span class="dt">optional</span>, <span class="dt">intent(out)</span> <span class="dt">::</span> length</span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>    <span class="dt">integer</span>,             <span class="dt">optional</span>, <span class="dt">intent(out)</span> <span class="dt">::</span> status</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a>  <span class="kw">subroutine</span> get_command_argument(position, value, length, status)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a>    <span class="dt">integer</span>,                       <span class="dt">intent(in)</span>  <span class="dt">::</span> position</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a>    <span class="dt">character (len = *)</span>, <span class="dt">optional</span>, <span class="dt">intent(out)</span> <span class="dt">::</span> value</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1" aria-label="code-block-3-4"></a>    <span class="dt">integer</span>,             <span class="dt">optional</span>, <span class="dt">intent(out)</span> <span class="dt">::</span> length</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1" aria-label="code-block-3-5"></a>    <span class="dt">integer</span>,             <span class="dt">optional</span>, <span class="dt">intent(out)</span> <span class="dt">::</span> status</span></code></pre>
 </div>
 <p>Here, <code>position</code> is zero for the (executable) command
 itself and positive for others. The remaining arguments are:
@@ -642,12 +642,12 @@ string is too short, or +ve if the information is not available.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="kw">subroutine</span> get_environment_variable(name, value, length, status, trim_name)</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="dt">character (len = *)</span>,           <span class="dt">intent(in)</span>  <span class="dt">::</span> name</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="dt">character (len = *)</span>, <span class="dt">optional</span>, <span class="dt">intent(out)</span> <span class="dt">::</span> value</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="dt">integer</span>,             <span class="dt">optional</span>, <span class="dt">intent(out)</span> <span class="dt">::</span> length</span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="dt">integer</span>,             <span class="dt">optional</span>, <span class="dt">intent(out)</span> <span class="dt">::</span> status</span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  <span class="dt">logical</span>,             <span class="dt">optional</span>, <span class="dt">intent(in)</span>  <span class="dt">::</span> trim_name</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="kw">subroutine</span> get_environment_variable(name, value, length, status, trim_name)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a>  <span class="dt">character (len = *)</span>,           <span class="dt">intent(in)</span>  <span class="dt">::</span> name</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a>  <span class="dt">character (len = *)</span>, <span class="dt">optional</span>, <span class="dt">intent(out)</span> <span class="dt">::</span> value</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a>  <span class="dt">integer</span>,             <span class="dt">optional</span>, <span class="dt">intent(out)</span> <span class="dt">::</span> length</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a>  <span class="dt">integer</span>,             <span class="dt">optional</span>, <span class="dt">intent(out)</span> <span class="dt">::</span> status</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1" aria-label="code-block-4-6"></a>  <span class="dt">logical</span>,             <span class="dt">optional</span>, <span class="dt">intent(in)</span>  <span class="dt">::</span> trim_name</span></code></pre>
 </div>
 <p>This will return the value associated with the given name if it
 exists. Various non-zero <code>status</code> error conditions can occur,
@@ -662,13 +662,13 @@ operating system so that some other command can be used.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="kw">subroutine</span> execute_command_line(command, wait, iexit, icmd, cmdmsg)</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="dt">character (len = *)</span>,           <span class="dt">intent(in)</span>    <span class="dt">::</span> command</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="dt">logical</span>,             <span class="dt">optional</span>, <span class="dt">intent(in)</span>    <span class="dt">::</span> wait</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="dt">integer</span>,             <span class="dt">optional</span>, <span class="dt">intent(inout)</span> <span class="dt">::</span> iexit</span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  <span class="dt">integer</span>,             <span class="dt">optional</span>, <span class="dt">intent(out)</span>   <span class="dt">::</span> icmd</span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>  <span class="dt">character (len = *)</span>, <span class="dt">optional</span>, <span class="dt">intent(inout)</span> <span class="dt">::</span> cmdmsg</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a><span class="kw">subroutine</span> execute_command_line(command, wait, iexit, icmd, cmdmsg)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1" aria-label="code-block-5-3"></a>  <span class="dt">character (len = *)</span>,           <span class="dt">intent(in)</span>    <span class="dt">::</span> command</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1" aria-label="code-block-5-4"></a>  <span class="dt">logical</span>,             <span class="dt">optional</span>, <span class="dt">intent(in)</span>    <span class="dt">::</span> wait</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1" aria-label="code-block-5-5"></a>  <span class="dt">integer</span>,             <span class="dt">optional</span>, <span class="dt">intent(inout)</span> <span class="dt">::</span> iexit</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1" aria-label="code-block-5-6"></a>  <span class="dt">integer</span>,             <span class="dt">optional</span>, <span class="dt">intent(out)</span>   <span class="dt">::</span> icmd</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1" aria-label="code-block-5-7"></a>  <span class="dt">character (len = *)</span>, <span class="dt">optional</span>, <span class="dt">intent(inout)</span> <span class="dt">::</span> cmdmsg</span></code></pre>
 </div>
 <p>The command should be a string. The <code>wait</code> argument tells
 the routine to return only when the command has finishing executing. The
@@ -689,12 +689,12 @@ all.</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>  <span class="dt">character (len = 8)</span>   <span class="dt">::</span> date        <span class="co">! "yyyymmdd"</span></span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="dt">character (len = 10)</span>  <span class="dt">::</span> time        <span class="co">! "hhmmss.sss"</span></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="dt">character (len = 5)</span>   <span class="dt">::</span> zone        <span class="co">! "shhmm"</span></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="dt">integer</span>, <span class="dt">dimension(8)</span> <span class="dt">::</span> ivalues     <span class="co">! see below</span></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  <span class="kw">call</span> <span class="fu">date_and_time</span>(date <span class="kw">=</span> date, time <span class="kw">=</span> time, zone <span class="kw">=</span> zone, values <span class="kw">=</span> ivalues)</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a>  <span class="dt">character (len = 8)</span>   <span class="dt">::</span> date        <span class="co">! "yyyymmdd"</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a>  <span class="dt">character (len = 10)</span>  <span class="dt">::</span> time        <span class="co">! "hhmmss.sss"</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1" aria-label="code-block-6-3"></a>  <span class="dt">character (len = 5)</span>   <span class="dt">::</span> zone        <span class="co">! "shhmm"</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1" aria-label="code-block-6-4"></a>  <span class="dt">integer</span>, <span class="dt">dimension(8)</span> <span class="dt">::</span> ivalues     <span class="co">! see below</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1" aria-label="code-block-6-5"></a></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1" aria-label="code-block-6-6"></a>  <span class="kw">call</span> <span class="fu">date_and_time</span>(date <span class="kw">=</span> date, time <span class="kw">=</span> time, zone <span class="kw">=</span> zone, values <span class="kw">=</span> ivalues)</span></code></pre>
 </div>
 <p>All the arguments are optional. On return the <code>date</code> holds
 the year, month, and day in a string of the form “yyyymmdd”;
@@ -717,13 +717,13 @@ time:</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>   <span class="dt">real</span> <span class="dt">::</span> t0, t1</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>   <span class="kw">call</span> cpu_time(t0)</span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>   <span class="co">! ... code to be timed here ...</span></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>   <span class="kw">call</span> cpu_time(t1)</span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>   <span class="fu">print</span> <span class="kw">*</span>, <span class="st">"That piece of code took "</span>, t1<span class="kw">-</span>t0, <span class="st">" seconds"</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a>   <span class="dt">real</span> <span class="dt">::</span> t0, t1</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1" aria-label="code-block-7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1" aria-label="code-block-7-3"></a>   <span class="kw">call</span> cpu_time(t0)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1" aria-label="code-block-7-4"></a>   <span class="co">! ... code to be timed here ...</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1" aria-label="code-block-7-5"></a>   <span class="kw">call</span> cpu_time(t1)</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1" aria-label="code-block-7-6"></a></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1" aria-label="code-block-7-7"></a>   <span class="fu">print</span> <span class="kw">*</span>, <span class="st">"That piece of code took "</span>, t1<span class="kw">-</span>t0, <span class="st">" seconds"</span></span></code></pre>
 </div>
 <p>In the unlikely event that there is no clock available, a negative
 value may be returned from <code>cpu_time()</code>.</p>
@@ -783,7 +783,7 @@ your code.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -806,7 +806,7 @@ your code.</li>
   "identifier": "https://welucas2.github.io/2026-02-18-MO-Fortran-intro/19-intrinsic-functions.html",
   "dateCreated": "2026-02-21",
   "dateModified": "2026-02-21",
-  "datePublished": "2026-04-14"
+  "datePublished": "2026-04-21"
 }
 
   </script><script>

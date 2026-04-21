@@ -340,7 +340,7 @@
       </button>
     </div><!--/div.accordion-header-->
 
-    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#useful-character-operations">Useful <code>character</code> operations</a></li>
 <li><a href="#deferred-length-strings">Deferred length strings</a></li>
@@ -603,19 +603,19 @@ ASCII sequence. <em>E.g.</em>,</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>   <span class="st">"A"</span> <span class="op">&lt;</span>  <span class="st">"b"</span>      <span class="co">! true</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>   <span class="st">"A"</span> <span class="op">==</span> <span class="st">"a"</span>      <span class="co">! false</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>   <span class="st">"A"</span> <span class="op">/=</span> <span class="st">"]"</span>      <span class="co">! true</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a>   <span class="st">"A"</span> <span class="op">&lt;</span>  <span class="st">"b"</span>      <span class="co">! true</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a>   <span class="st">"A"</span> <span class="op">==</span> <span class="st">"a"</span>      <span class="co">! false</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a>   <span class="st">"A"</span> <span class="op">/=</span> <span class="st">"]"</span>      <span class="co">! true</span></span></code></pre>
 </div>
 <p>Note the ordinal position of a single character in the ASCII sequence
 can be found via an intrinsic function, <em>e.g.</em>:</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>   <span class="dt">integer</span>             <span class="dt">::</span> i</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>   <span class="dt">character (len = 1)</span> <span class="dt">::</span> c</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>   i <span class="kw">=</span> <span class="bu">iachar</span>(<span class="st">"A"</span>)           <span class="co">! i = 65</span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>   c <span class="kw">=</span> <span class="bu">achar</span>(i)              <span class="co">! c = "A"; requires 1 &lt;= i &lt;= 127</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a>   <span class="dt">integer</span>             <span class="dt">::</span> i</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a>   <span class="dt">character (len = 1)</span> <span class="dt">::</span> c</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1" aria-label="code-block-2-3"></a>   i <span class="kw">=</span> <span class="bu">iachar</span>(<span class="st">"A"</span>)           <span class="co">! i = 65</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1" aria-label="code-block-2-4"></a>   c <span class="kw">=</span> <span class="bu">achar</span>(i)              <span class="co">! c = "A"; requires 1 &lt;= i &lt;= 127</span></span></code></pre>
 </div>
 <p>Remember that in ASCII the upper case characters <code>A</code> to
 <code>Z</code> have integer values 65 to 90, while the lower case
@@ -637,23 +637,23 @@ often seen when concatenating fixed-length character strings using the
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>  <span class="fu">print</span> <span class="kw">*</span>, <span class="st">"File name: "</span>, <span class="fu">trim</span>(file_stub)<span class="kw">//</span><span class="st">"."</span><span class="kw">//</span><span class="fu">trim</span>(extension)</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a>  <span class="fu">print</span> <span class="kw">*</span>, <span class="st">"File name: "</span>, <span class="fu">trim</span>(file_stub)<span class="kw">//</span><span class="st">"."</span><span class="kw">//</span><span class="fu">trim</span>(extension)</span></code></pre>
 </div>
 <p>It’s also useful if you want to perform an operation on each
 individual character, <em>e.g.</em>,</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>  <span class="kw">do</span> n <span class="kw">=</span> <span class="dv">1</span>, <span class="bu">len_trim</span>(string)</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>    <span class="kw">if</span> (string(n:n) <span class="op">==</span> <span class="st">'a'</span>) counta <span class="kw">=</span> counta <span class="kw">+</span> <span class="dv">1</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="kw">end do</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a>  <span class="kw">do</span> n <span class="kw">=</span> <span class="dv">1</span>, <span class="bu">len_trim</span>(string)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a>    <span class="kw">if</span> (string(n:n) <span class="op">==</span> <span class="st">'a'</span>) counta <span class="kw">=</span> counta <span class="kw">+</span> <span class="dv">1</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a>  <span class="kw">end do</span></span></code></pre>
 </div>
 <p>Note that the colon is mandatory in a sub-string reference, so a
 single character must be referenced, <em>e.g.</em>,</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>   <span class="fu">print</span> <span class="kw">*</span>, <span class="st">"Character at position i: "</span>, string(i:i)</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a>   <span class="fu">print</span> <span class="kw">*</span>, <span class="st">"Character at position i: "</span>, string(i:i)</span></code></pre>
 </div>
 <p>Various other intrinsic functions exist for lexical comparisons,
 justification, sub-string searches, and so on.</p>
@@ -664,12 +664,12 @@ flexible basis is the deferred length <code>character</code>:</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>  <span class="dt">character (len = :)</span>, <span class="dt">allocatable</span> <span class="dt">::</span> string</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  string <span class="kw">=</span> <span class="st">"ABCD"</span>         <span class="co">! Allocate and assign string</span></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  string <span class="kw">=</span> <span class="st">"ABCDEFG"</span>      <span class="co">! Reallocate and assign again</span></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  string(:) <span class="kw">=</span> <span class="st">''</span>          <span class="co">! Keep same allocation, but set all blanks</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a>  <span class="dt">character (len = :)</span>, <span class="dt">allocatable</span> <span class="dt">::</span> string</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1" aria-label="code-block-6-3"></a>  string <span class="kw">=</span> <span class="st">"ABCD"</span>         <span class="co">! Allocate and assign string</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1" aria-label="code-block-6-4"></a>  string <span class="kw">=</span> <span class="st">"ABCDEFG"</span>      <span class="co">! Reallocate and assign again</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1" aria-label="code-block-6-5"></a></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1" aria-label="code-block-6-6"></a>  string(:) <span class="kw">=</span> <span class="st">''</span>          <span class="co">! Keep same allocation, but set all blanks</span></span></code></pre>
 </div>
 <p>This may be initialised and updated in a general way, and the run
 time will keep track of book-keeping. This also (usually) reduces
@@ -680,19 +680,19 @@ allocation is required:</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>  <span class="dt">integer</span> <span class="dt">::</span> mylen</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="dt">character (len = :)</span>, <span class="dt">allocatable</span> <span class="dt">::</span> string</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="co">! ... establish value of mylen ...</span></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="kw">allocate</span>(<span class="dt">character(len = mylen)</span> <span class="dt">::</span> string)</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a>  <span class="dt">integer</span> <span class="dt">::</span> mylen</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1" aria-label="code-block-7-2"></a>  <span class="dt">character (len = :)</span>, <span class="dt">allocatable</span> <span class="dt">::</span> string</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1" aria-label="code-block-7-3"></a></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1" aria-label="code-block-7-4"></a>  <span class="co">! ... establish value of mylen ...</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1" aria-label="code-block-7-5"></a></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1" aria-label="code-block-7-6"></a>  <span class="kw">allocate</span>(<span class="dt">character(len = mylen)</span> <span class="dt">::</span> string)</span></code></pre>
 </div>
 <p>Allocatable strings will automatically be deallocated when they go
 out of scope and are no longer required. One can also be explicit:</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>  <span class="kw">deallocate</span>(string)</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a>  <span class="kw">deallocate</span>(string)</span></code></pre>
 </div>
 <p>if wanted.</p>
 </section><section><h2 class="section-heading" id="arrays-of-strings">Arrays of strings<a class="anchor" aria-label="anchor" href="#arrays-of-strings"></a></h2>
@@ -701,7 +701,7 @@ out of scope and are no longer required. One can also be explicit:</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>  <span class="dt">character (len = *)</span>, <span class="dt">parameter</span> <span class="dt">::</span> day <span class="kw">=</span> <span class="st">"Sunday"</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb9-1"><a href="#cb9-1" tabindex="-1" aria-label="code-block-9-1"></a>  <span class="dt">character (len = *)</span>, <span class="dt">parameter</span> <span class="dt">::</span> day <span class="kw">=</span> <span class="st">"Sunday"</span></span></code></pre>
 </div>
 <p>Suppose we wanted an array of strings for “Sunday”, “Monday”,
 “Tuesday”, and so on. One might be tempted to try something of the
@@ -709,7 +709,7 @@ form:</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>  <span class="dt">character (len = *)</span>, <span class="dt">dimension(7)</span>, <span class="dt">parameter</span> <span class="dt">::</span> days <span class="kw">=</span> <span class="kw">[</span> ... <span class="kw">]</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb10-1"><a href="#cb10-1" tabindex="-1" aria-label="code-block-10-1"></a>  <span class="dt">character (len = *)</span>, <span class="dt">dimension(7)</span>, <span class="dt">parameter</span> <span class="dt">::</span> days <span class="kw">=</span> <span class="kw">[</span> ... <span class="kw">]</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="exercise-2-minutes">Exercise (2 minutes)<a class="anchor" aria-label="anchor" href="#exercise-2-minutes"></a></h3>
@@ -720,7 +720,7 @@ use a constructor with a type specification:</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="kw">[</span><span class="dt">character (len = 9)</span> <span class="dt">::</span> <span class="st">"Sunday"</span>, <span class="st">"Monday"</span>, <span class="st">"Tuesday"</span>, <span class="st">"Wednesday"</span>, ...<span class="kw">]</span></span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb11-1"><a href="#cb11-1" tabindex="-1" aria-label="code-block-11-1"></a><span class="kw">[</span><span class="dt">character (len = 9)</span> <span class="dt">::</span> <span class="st">"Sunday"</span>, <span class="st">"Monday"</span>, <span class="st">"Tuesday"</span>, <span class="st">"Wednesday"</span>, ...<span class="kw">]</span></span></code></pre>
 </div>
 <p>Here the type specification is used to avoid ambiguity in how the
 list is to be interpreted.</p>
@@ -732,10 +732,10 @@ a procedure, it typically may be declared:</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>  <span class="kw">subroutine</span> some_character_operation(carg1, ...)</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="bu">     c</span>haracter (<span class="fu">len</span> <span class="kw">=</span> <span class="kw">*</span>), <span class="dt">intent(in)</span> <span class="dt">::</span> arg1</span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="bu">     .</span>..</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb12-1"><a href="#cb12-1" tabindex="-1" aria-label="code-block-12-1"></a>  <span class="kw">subroutine</span> some_character_operation(carg1, ...)</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1" aria-label="code-block-12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1" aria-label="code-block-12-3"></a><span class="bu">     c</span>haracter (<span class="fu">len</span> <span class="kw">=</span> <span class="kw">*</span>), <span class="dt">intent(in)</span> <span class="dt">::</span> arg1</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1" aria-label="code-block-12-4"></a><span class="bu">     .</span>..</span></code></pre>
 </div>
 <p>This is also appropriate for character variables of intent
 <code>inout</code> where the length does not change.</p>
@@ -744,12 +744,12 @@ recommended. <em>E.g.</em>,</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">FORTRAN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>  <span class="kw">function</span> build_filename(stub, extension) <span class="kw">result</span>(filename)</span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>    <span class="dt">character (len = *)</span>, <span class="dt">intent(in)</span>  <span class="dt">::</span> stub</span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>    <span class="dt">character (len = *)</span>, <span class="dt">intent(in)</span>  <span class="dt">::</span> extension</span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>    <span class="dt">character (len = :)</span>, <span class="dt">allocatable</span> <span class="dt">::</span> filenane</span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>    ...</span></code></pre>
+<pre class="sourceCode fortran" tabindex="0"><code class="sourceCode fortranfixed"><span id="cb13-1"><a href="#cb13-1" tabindex="-1" aria-label="code-block-13-1"></a>  <span class="kw">function</span> build_filename(stub, extension) <span class="kw">result</span>(filename)</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1" aria-label="code-block-13-2"></a></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1" aria-label="code-block-13-3"></a>    <span class="dt">character (len = *)</span>, <span class="dt">intent(in)</span>  <span class="dt">::</span> stub</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1" aria-label="code-block-13-4"></a>    <span class="dt">character (len = *)</span>, <span class="dt">intent(in)</span>  <span class="dt">::</span> extension</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1" aria-label="code-block-13-5"></a>    <span class="dt">character (len = :)</span>, <span class="dt">allocatable</span> <span class="dt">::</span> filenane</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1" aria-label="code-block-13-6"></a>    ...</span></code></pre>
 </div>
 <p>A matching declaration in the caller is required.</p>
 </section><section><h2 class="section-heading" id="exercise-10-minutes">Exercise (10 minutes)<a class="anchor" aria-label="anchor" href="#exercise-10-minutes"></a></h2>
@@ -776,7 +776,7 @@ and <a href="files/exercises/11-characters-strings/exercise_program1.f90">exerci
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>A solution to the exercise can be found in <a href="files/exercises/11-characters-strings/solutions/solution_program1.f90">solution_program1.f90</a>
 and <a href="files/exercises/11-characters-strings/solutions/solution_module1.f90">solution_module1.f90</a>.</p>
@@ -839,7 +839,7 @@ results.</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/EPCCed/varnish/tree/fdaceaf8e4da03c335feb2827ae028c3c008c005" class="external-link">varnish (1.0.9)</a></p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -862,7 +862,7 @@ results.</li>
   "identifier": "https://welucas2.github.io/2026-02-18-MO-Fortran-intro/11-characters-strings.html",
   "dateCreated": "2026-02-21",
   "dateModified": "2026-02-21",
-  "datePublished": "2026-04-14"
+  "datePublished": "2026-04-21"
 }
 
   </script><script>
